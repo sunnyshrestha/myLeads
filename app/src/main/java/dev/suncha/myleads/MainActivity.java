@@ -4,14 +4,41 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+    ImageView add, open;
+    TextView tv_add, tv_open;
+    ListView list;
+
+    String[] itemname={ "Add a new lead", "View database"};
+    Integer[] imgid={R.drawable.ic_person_add_black_48dp, R.drawable.ic_folder_open_black_48dp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CustomListAdapter adapter = new CustomListAdapter(this, itemname,imgid);
+        list=(ListView) findViewById(R.id.list);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selecteditem = itemname[+position];
+                Toast.makeText(getApplicationContext(), selecteditem,Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
