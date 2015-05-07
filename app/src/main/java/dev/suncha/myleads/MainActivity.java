@@ -1,5 +1,6 @@
 package dev.suncha.myleads;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,6 +37,15 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selecteditem = itemname[+position];
                 Toast.makeText(getApplicationContext(), selecteditem,Toast.LENGTH_SHORT).show();
+
+                switch(position){
+                    case 0:
+                        Intent addDetails = new Intent(getApplicationContext(),AddLeadDetail.class);
+                        startActivity(addDetails);
+                        break;
+                    case 1:
+                        break;
+                }
             }
         });
 

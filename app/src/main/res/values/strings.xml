@@ -5,4 +5,25 @@
     <string name="action_settings">Settings</string>
     <string name="add_new_lead">Add a new lead</string>
     <string name="view_database">View database</string>
+
+    <!--organisation-->
+    <string name="organisation">Organisation details</string>
+    <string name="organisation_name">Organisation name</string>
+    <string name="address">Organisation address</string>
+    <string name="phone">Office no.</string>
+    <string name="website">Website</string>
+
+    <!--person-->
+    <string name="contact_person">Contact person</string>
+    <string name="person_name">Person\'s name</string>
+    <string name="designation">Designation</string>
+    <string name="mobile_no">Mobile no.</string>
+    <string name="email">email id</string>
+
+    <!--discussion-->
+    <string name="discussion_notes">Discussion notes</string>
+    <string name="product">Product discussed</string>
+    <string name="follow_up">Pick date to follow up</string>
+    <string name="remarks">Remarks</string>
+    <string name="title_activity_add_lead_detail">Add Lead Details</string>
 </resources>
