@@ -7,9 +7,9 @@
     <string name="view_database">View database</string>
 
     <!--organisation-->
-    <string name="organisation">Organisation details</string>
-    <string name="organisation_name">Organisation name</string>
-    <string name="address">Organisation address</string>
+    <string name="company">Company details</string>
+    <string name="company_name">Company name</string>
+    <string name="address">Office address</string>
     <string name="phone">Office no.</string>
     <string name="website">Website</string>
 

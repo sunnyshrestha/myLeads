@@ -30,7 +30,7 @@
                     android:paddingBottom="8dp"
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/organisation"
+                    android:text="@string/company"
                     android:textColor="@color/cyan"
                     android:textSize="18sp"
                     android:textStyle="italic" />
@@ -42,7 +42,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:hint="@string/organisation_name"
+                    android:hint="@string/company_name"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -197,12 +197,12 @@
                         android:inputType="date"/>
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:background="@drawable/ic_add_circle_black_48dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/button_image"
+                        android:layout_toRightOf="@id/et_follow_up"
+                        android:layout_gravity="center"
+
                         android:id="@+id/button_date" />
 
                 </RelativeLayout>
