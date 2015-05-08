@@ -26,4 +26,6 @@
     <string name="follow_up">Pick date to follow up</string>
     <string name="remarks">Remarks</string>
     <string name="title_activity_add_lead_detail">Add Lead Details</string>
+
+    <string name="save">Add to database</string>
 </resources>
