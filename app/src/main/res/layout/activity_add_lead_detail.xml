@@ -194,16 +194,15 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:hint="@string/follow_up"
-                        android:inputType="date"/>
+                        android:inputType="date" />
 
                     <Button
+                        android:id="@+id/button_date"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:background="@drawable/button_image"
-                        android:layout_toRightOf="@id/et_follow_up"
                         android:layout_gravity="center"
-
-                        android:id="@+id/button_date" />
+                        android:layout_toRightOf="@id/et_follow_up"
+                        android:background="@drawable/button_image" />
 
                 </RelativeLayout>
 
@@ -216,7 +215,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/remarks"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine" />
 
 
             </LinearLayout>
