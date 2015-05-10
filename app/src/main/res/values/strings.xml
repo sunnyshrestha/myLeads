@@ -21,11 +21,13 @@
     <string name="email">email id</string>
 
     <!--discussion-->
-    <string name="discussion_notes">Discussion notes</string>
+    <string name="discussion_notes">Notes</string>
     <string name="product">Product discussed</string>
     <string name="follow_up">Pick date to follow up</string>
     <string name="remarks">Remarks</string>
+    <string name="meeting_date">Pick meeting date   </string>
     <string name="title_activity_add_lead_detail">Add Lead Details</string>
 
     <string name="save">Add to database</string>
+    <string name="title_activity_display_details">DisplayDetails</string>
 </resources>

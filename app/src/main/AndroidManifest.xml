@@ -20,6 +20,10 @@
             android:name=".AddLeadDetail"
             android:label="@string/title_activity_add_lead_detail" >
         </activity>
+        <activity
+            android:name=".DisplayDetails"
+            android:label="@string/title_activity_display_details" >
+        </activity>
     </application>
 
 </manifest>
