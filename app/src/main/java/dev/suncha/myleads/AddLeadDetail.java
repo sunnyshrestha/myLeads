@@ -4,13 +4,19 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
-
+//http://www.mkyong.com/android/android-date-picker-example/
 public class AddLeadDetail extends ActionBarActivity {
     EditText organisation_name,organisation_address,organisation_phone,website, person_name,designation,person_mobile,person_email,product,meeting_date,follow_up,remarks;
-    Button pick_meetingdate, pick_followup;
+    Button pick_meetingdate, pick_followup, button_save;
+    public DatePicker datePicker;
+    int month, year, day;
+    static final int DATE_DIALOG_ID = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,33 @@ public class AddLeadDetail extends ActionBarActivity {
         product=(EditText)findViewById(R.id.et_product);
         meeting_date= (EditText)findViewById(R.id.et_meetingdate);
         follow_up=(EditText)findViewById(R.id.et_follow_up);
-        remarks= (EditText)findViewById(R.id.remarks);
+        remarks= (EditText)findViewById(R.id.et_remarks);
+
+        pick_meetingdate=(Button)findViewById(R.id.button_meetingdate);
+        pick_followup=(Button)findViewById(R.id.button_followupdate);
+
+        button_save =(Button)findViewById(R.id.button_save);
+
+        datePicker=(DatePicker)findViewById(R.id.datepicker);
+
+        meeting_date.setText(new StringBuilder()
+                .append(month + 1).append("-").append(day).append("-")
+                .append(year).append(" "));
+        datePicker.init(year,month,day,null);
+
+
+        pick_meetingdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meetingDatePicker();
+
+            }
+        });
+    }
+
+    public void meetingDatePicker(){
+        //initiate datepicker and load it to et_meetingdate
+        Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_SHORT).show();
 
     }
 

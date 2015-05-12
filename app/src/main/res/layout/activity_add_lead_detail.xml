@@ -148,23 +148,23 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_meetingdate"
                         style="@style/textviewStyle1"
                         android:hint="@string/meeting_date"
-                        android:inputType="date"
-                        android:id="@+id/et_meetingdate"/>
+                        android:inputType="date" />
 
                     <Button
+                        android:id="@+id/button_meetingdate"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="22dp"
                         android:layout_toRightOf="@id/et_meetingdate"
-                        android:background="@drawable/button_image"
-                        android:layout_marginLeft="23dp"
-                        android:id="@+id/button_meetingdate"
-                        />
+                        android:background="@drawable/button_image" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -183,8 +183,10 @@
                         android:id="@+id/button_followupdate"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
+                        android:layout_alignParentTop="true"
                         android:layout_gravity="center"
-                        android:layout_toRightOf="@id/et_follow_up"
+                        android:layout_toEndOf="@+id/et_follow_up"
+                        android:layout_toRightOf="@+id/et_follow_up"
                         android:background="@drawable/button_image" />
 
                 </RelativeLayout>
@@ -206,6 +208,11 @@
             android:layout_below="@id/remarks"
             android:layout_centerInParent="true"
             android:text="@string/save" />
+
+        <DatePicker
+            android:id="@+id/datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 
