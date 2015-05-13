@@ -10,11 +10,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 //http://www.mkyong.com/android/android-date-picker-example/
 public class AddLeadDetail extends ActionBarActivity {
-    EditText organisation_name,organisation_address,organisation_phone,website, person_name,designation,person_mobile,person_email,product,meeting_date,follow_up,remarks;
+    EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate, pick_followup, button_save;
-    public DatePicker datePicker;
     int month, year, day;
     static final int DATE_DIALOG_ID = 999;
 
@@ -23,47 +24,47 @@ public class AddLeadDetail extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
 
-        organisation_name = (EditText)findViewById(R.id.et_organisation_name);
-        organisation_address=(EditText)findViewById(R.id.et_organisation_address);
-        organisation_phone=(EditText)findViewById(R.id.et_organisation_phone);
-        website=(EditText)findViewById(R.id.et_website);
+        organisation_name = (EditText) findViewById(R.id.et_organisation_name);
+        organisation_address = (EditText) findViewById(R.id.et_organisation_address);
+        organisation_phone = (EditText) findViewById(R.id.et_organisation_phone);
+        website = (EditText) findViewById(R.id.et_website);
 
-        person_name=(EditText)findViewById(R.id.et_person_name);
-        designation=(EditText)findViewById(R.id.et_designation);
-        person_mobile=(EditText)findViewById(R.id.et_mobile_no);
-        person_email=(EditText)findViewById(R.id.et_email);
+        person_name = (EditText) findViewById(R.id.et_person_name);
+        designation = (EditText) findViewById(R.id.et_designation);
+        person_mobile = (EditText) findViewById(R.id.et_mobile_no);
+        person_email = (EditText) findViewById(R.id.et_email);
 
-        product=(EditText)findViewById(R.id.et_product);
-        meeting_date= (EditText)findViewById(R.id.et_meetingdate);
-        follow_up=(EditText)findViewById(R.id.et_follow_up);
-        remarks= (EditText)findViewById(R.id.et_remarks);
+        product = (EditText) findViewById(R.id.et_product);
+        meeting_date = (EditText) findViewById(R.id.et_meetingdate);
+        follow_up = (EditText) findViewById(R.id.et_follow_up);
+        remarks = (EditText) findViewById(R.id.et_remarks);
 
-        pick_meetingdate=(Button)findViewById(R.id.button_meetingdate);
-        pick_followup=(Button)findViewById(R.id.button_followupdate);
+        pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
+        pick_followup = (Button) findViewById(R.id.button_followupdate);
 
-        button_save =(Button)findViewById(R.id.button_save);
+        button_save = (Button) findViewById(R.id.button_save);
 
-        datePicker=(DatePicker)findViewById(R.id.datepicker);
+        final Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
 
         meeting_date.setText(new StringBuilder()
                 .append(month + 1).append("-").append(day).append("-")
                 .append(year).append(" "));
-        datePicker.init(year,month,day,null);
 
 
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 meetingDatePicker();
-
             }
         });
     }
 
-    public void meetingDatePicker(){
+    public void meetingDatePicker() {
         //initiate datepicker and load it to et_meetingdate
-        Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 
 
