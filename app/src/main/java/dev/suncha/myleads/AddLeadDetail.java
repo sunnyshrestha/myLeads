@@ -1,5 +1,6 @@
 package dev.suncha.myleads;
 
+import android.app.DatePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,27 +45,59 @@ public class AddLeadDetail extends ActionBarActivity {
 
         button_save = (Button) findViewById(R.id.button_save);
 
-        final Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
-
-        meeting_date.setText(new StringBuilder()
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" "));
-
 
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                meetingDatePicker();
+                meetingDatePicker(meeting_date);
+            }
+        });
+
+        pick_followup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meetingDatePicker(follow_up);
             }
         });
     }
 
-    public void meetingDatePicker() {
-        //initiate datepicker and load it to et_meetingdate
-        Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+    public void meetingDatePicker(View view) {
+        // Process to get Current Date
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        int check = -1;
+        if (view == meeting_date)
+            check = 0;
+        else if (view == follow_up)
+            check = 1;
+
+        // Launch Date Picker Dialog
+        final int finalCheck = check;
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // Display Selected date in textbox
+                        switch (finalCheck) {
+                            case 0:
+                                meeting_date.setText(dayOfMonth + "-"
+                                        + (monthOfYear + 1) + "-" + year);
+                                break;
+                            case 1:
+                                follow_up.setText(dayOfMonth + "-"
+                                        + (monthOfYear + 1) + "-" + year);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }, mYear, mMonth, mDay);
+        dpd.show();
     }
 
 
