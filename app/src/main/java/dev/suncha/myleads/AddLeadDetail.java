@@ -126,7 +126,7 @@ public class AddLeadDetail extends ActionBarActivity {
             Date date2 = simpleDateFormat.parse(followupDate);
 
             if (date1.after(date2)|| date1.equals(date2)) {
-                new AlertDialog.Builder(this)
+                new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK)
                         .setTitle("Warning")
                         .setMessage("Follow up date needs to be after the meeting date")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
