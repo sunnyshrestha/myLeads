@@ -34,6 +34,10 @@ public class myLeads {
         this._remarks = _remarks;
     }
 
+    public void just() {
+
+    }
+
 //    public myLeads(String _com_name, String _com_add, String _com_num, String _com_web, String _per_name, String _designation, String _mobile, String _email, String _products, String _meeting_date, String _followup_date, String _remarks) {
 //        this._com_name = _com_name;
 //        this._com_add = _com_add;
@@ -48,7 +52,6 @@ public class myLeads {
 //        this._followup_date = _followup_date;
 //        this._remarks = _remarks;
 //    }
-
 
     public String get_followup_date() {
         return _followup_date;

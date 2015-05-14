@@ -144,12 +144,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
         return cursor.getCount();
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LEADS);
         onCreate(db);
+    }
+
+    public void just() {
+
     }
 }
