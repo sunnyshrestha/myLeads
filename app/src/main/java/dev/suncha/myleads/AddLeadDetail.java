@@ -3,15 +3,16 @@ package dev.suncha.myleads;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,12 +21,11 @@ import java.util.Date;
 
 //http://www.mkyong.com/android/android-date-picker-example/
 public class AddLeadDetail extends ActionBarActivity {
+    static final int DATE_DIALOG_ID = 999;
+    final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate, pick_followup, button_save;
     int month, year, day;
-    static final int DATE_DIALOG_ID = 999;
-
-    final Calendar c = Calendar.getInstance();
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -49,6 +49,14 @@ public class AddLeadDetail extends ActionBarActivity {
         meeting_date = (EditText) findViewById(R.id.et_meetingdate);
         follow_up = (EditText) findViewById(R.id.et_follow_up);
         remarks = (EditText) findViewById(R.id.et_remarks);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+
+        meeting_date.getLayoutParams().width = width / 2;
+        follow_up.getLayoutParams().width = width / 2;
 
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
@@ -125,8 +133,8 @@ public class AddLeadDetail extends ActionBarActivity {
             Date date1 = simpleDateFormat.parse(meetingDate);
             Date date2 = simpleDateFormat.parse(followupDate);
 
-            if (date1.after(date2)|| date1.equals(date2)) {
-                new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            if (date1.after(date2) || date1.equals(date2)) {
+                new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
                         .setTitle("Warning")
                         .setMessage("Follow up date needs to be after the meeting date")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

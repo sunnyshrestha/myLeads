@@ -18,7 +18,8 @@ public class myLeads {
     String _followup_date;
     String _remarks;
 
-    public myLeads() {
+
+    public myLeads(int _id, String _com_name, String _com_add, String _com_num, String _com_web, String _per_name, String _designation, String _mobile, String _email, String _products, String _meeting_date, String _followup_date, String _remarks) {
         this._id = _id;
         this._com_name = _com_name;
         this._com_add = _com_add;
@@ -34,24 +35,9 @@ public class myLeads {
         this._remarks = _remarks;
     }
 
-    public void just() {
+    public myLeads() {
 
     }
-
-//    public myLeads(String _com_name, String _com_add, String _com_num, String _com_web, String _per_name, String _designation, String _mobile, String _email, String _products, String _meeting_date, String _followup_date, String _remarks) {
-//        this._com_name = _com_name;
-//        this._com_add = _com_add;
-//        this._com_num = _com_num;
-//        this._com_web = _com_web;
-//        this._per_name = _per_name;
-//        this._designation = _designation;
-//        this._mobile = _mobile;
-//        this._email = _email;
-//        this._products = _products;
-//        this._meeting_date = _meeting_date;
-//        this._followup_date = _followup_date;
-//        this._remarks = _remarks;
-//    }
 
     public String get_followup_date() {
         return _followup_date;

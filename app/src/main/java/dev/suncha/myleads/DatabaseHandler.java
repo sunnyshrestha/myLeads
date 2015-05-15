@@ -72,16 +72,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     myLeads getRecord(int d){
         SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor=db.query(TABLE_LEADS,new String[]{
-                KEY_ID,KEY_OFIC_NAME,KEY_OFIC_ADD,KEY_OFIC_NUM,KEY_WEB,
-                KEY_PER_NAME,KEY_DESN,KEY_MOB,KEY_EMAIL,
-                KEY_PRODUCTS,KEY_MEETING_DATE,KEY_FOLLOWUP_DATE,KEY_REMARKS},KEY_ID+
-        "=?",new String[]{String.valueOf(d)},null,null,null,null);
+        Cursor cursor = db.query(TABLE_LEADS, new String[]{
+                KEY_ID, KEY_OFIC_NAME, KEY_OFIC_ADD, KEY_OFIC_NUM, KEY_WEB,
+                KEY_PER_NAME, KEY_DESN, KEY_MOB, KEY_EMAIL,
+                KEY_PRODUCTS, KEY_MEETING_DATE, KEY_FOLLOWUP_DATE, KEY_REMARKS}, KEY_ID +
+                "=?", new String[]{String.valueOf(d)}, null, null, null, null);
         if(cursor!=null)
             cursor.moveToFirst();
 
-        myLeads leads = new myLeads(
-        );
+        myLeads leads = new myLeads(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+                cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),
+                cursor.getString(10), cursor.getString(11), cursor.getString(12));
     return leads;
     }
 
@@ -127,6 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MEETING_DATE, leads.get_meeting_date());
         values.put(KEY_FOLLOWUP_DATE, leads.get_followup_date());
         values.put(KEY_REMARKS, leads.get_remarks());
+
         return db.update(TABLE_LEADS, values, KEY_ID + "=?",
                 new String[]{String.valueOf(leads.get_id())});
     }
@@ -152,7 +155,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void just() {
-
-    }
 }

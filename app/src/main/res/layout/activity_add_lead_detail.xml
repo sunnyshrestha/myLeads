@@ -162,7 +162,6 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
                         android:layout_toRightOf="@id/et_meetingdate"
                         android:background="@drawable/button_image" />
                 </RelativeLayout>
