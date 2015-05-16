@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,10 +31,14 @@ public class AddLeadDetail extends ActionBarActivity {
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
 
+    DatabaseHandler db = new DatabaseHandler(this);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
+
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
@@ -77,6 +82,34 @@ public class AddLeadDetail extends ActionBarActivity {
                 meetingDatePicker(follow_up);
             }
         });
+
+        button_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToDatabase();
+            }
+        });
+    }
+
+    public void saveToDatabase() {
+        db.addRecord(new myLeads(
+                organisation_name.getText().toString(),
+                organisation_address.getText().toString(),
+                organisation_phone.getText().toString(),
+                website.getText().toString(),
+                person_name.getText().toString(),
+                designation.getText().toString(),
+                person_mobile.getText().toString(),
+                person_email.getText().toString(),
+                product.getText().toString(),
+                meeting_date.getText().toString(),
+                follow_up.getText().toString(),
+                remarks.getText().toString()
+        ));
+        Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
+
+        finish();
+
     }
 
     public void meetingDatePicker(View view) {

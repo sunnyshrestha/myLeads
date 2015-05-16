@@ -30,4 +30,7 @@
 
     <string name="save">Add to database</string>
     <string name="title_activity_display_details">DisplayDetails</string>
+
+    <!--Toast-->
+    <string name="savesuccess">Successfully added to database</string>
 </resources>
