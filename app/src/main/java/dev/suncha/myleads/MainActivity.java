@@ -44,8 +44,8 @@ public class MainActivity extends ActionBarActivity {
                         startActivity(addDetails);
                         break;
                     case 1:
-                        Intent showDetails = new Intent(getApplicationContext(),DisplayDetails.class);
-                        startActivity(showDetails);
+                        Intent showSummary = new Intent(getApplicationContext(), showSummary.class);
+                        startActivity(showSummary);
                         break;
                 }
             }

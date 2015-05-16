@@ -24,6 +24,9 @@
             android:name=".DisplayDetails"
             android:label="@string/title_activity_display_details" >
         </activity>
+        <activity
+            android:name=".showSummary"
+            android:label="@string/title_activity_show_summary"></activity>
     </application>
 
 </manifest>
