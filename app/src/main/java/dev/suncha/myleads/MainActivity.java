@@ -1,8 +1,8 @@
 package dev.suncha.myleads;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,35 +12,33 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 
 public class MainActivity extends ActionBarActivity {
     ImageView add, open;
     TextView tv_add, tv_open;
     ListView list;
 
-    String[] itemname={ "Add a new lead", "View database"};
-    Integer[] imgid={R.drawable.ic_person_add_black_48dp, R.drawable.ic_folder_open_black_48dp};
+    String[] itemname = {"Add a new lead", "View database"};
+    Integer[] imgid = {R.drawable.ic_person_add_black_48dp, R.drawable.ic_folder_open_black_48dp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CustomListAdapter adapter = new CustomListAdapter(this, itemname,imgid);
-        list=(ListView) findViewById(R.id.list);
+        CustomListAdapter adapter = new CustomListAdapter(this, itemname, imgid);
+        list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selecteditem = itemname[+position];
-                Toast.makeText(getApplicationContext(), selecteditem,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), selecteditem, Toast.LENGTH_SHORT).show();
 
-                switch(position){
+                switch (position) {
                     case 0:
-                        Intent addDetails = new Intent(getApplicationContext(),AddLeadDetail.class);
+                        Intent addDetails = new Intent(getApplicationContext(), AddLeadDetail.class);
                         startActivity(addDetails);
                         break;
                     case 1:

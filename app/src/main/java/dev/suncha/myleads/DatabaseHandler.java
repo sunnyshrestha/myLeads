@@ -13,9 +13,10 @@ import java.util.List;
  * Created by Sunny on 5/14/2015.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
-    static final String TABLE_LEADS = "leads";
+    static final String TABLE_LEADS = "leadsTable";
+
     static final String KEY_ID = "id";
-    static final String KEY_OFIC_NAME = "org_name";
+    static final String KEY_OFIC_NAME = "ofic_name";
     static final String KEY_OFIC_ADD = "ofic_add";
     static final String KEY_OFIC_NUM = "ofic_num";
     static final String KEY_WEB = "web";
@@ -30,7 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_FOLLOWUP_DATE = "followup_date";
     static final String KEY_REMARKS = "remarks";
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "myLeads";
+    private static final String DATABASE_NAME = "myLeadsDatabase";
 
 
     public DatabaseHandler(Context context) {
@@ -39,32 +40,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String MY_LEADS_TABLE = "CREATE TABLE "+ TABLE_LEADS +"("
-                +KEY_ID+" INTEGER PRIMARY KEY,"+KEY_OFIC_NAME+" TEXT,"
-                +KEY_OFIC_ADD+" TEXT,"+ KEY_OFIC_NUM+" TEXT,"
-                +KEY_WEB+" TEXT,"+KEY_PER_NAME+" TEXT,"
-                +KEY_DESN+" TEXT,"+KEY_MOB+" TEXT,"
-                +KEY_EMAIL+" TEXT,"+ KEY_PRODUCTS+" TEXT,"
-                +KEY_MEETING_DATE+" TEXT"+KEY_FOLLOWUP_DATE+" TEXT"
-                +KEY_REMARKS+" TEXT"+")";
+        String MY_LEADS_TABLE = "CREATE TABLE " + TABLE_LEADS + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_OFIC_NAME + " TEXT,"
+                + KEY_OFIC_ADD + " TEXT," + KEY_OFIC_NUM + " TEXT,"
+                + KEY_WEB + " TEXT," + KEY_PER_NAME + " TEXT,"
+                + KEY_DESN + " TEXT," + KEY_MOB + " TEXT,"
+                + KEY_EMAIL + " TEXT," + KEY_PRODUCTS + " TEXT,"
+                + KEY_MEETING_DATE + " TEXT," + KEY_FOLLOWUP_DATE + " TEXT,"
+                + KEY_REMARKS + " TEXT" + ")";
         db.execSQL(MY_LEADS_TABLE);
     }
 
-    void addRecord(myLeads leads){
+    void addRecord(myLeads lead) {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_OFIC_NAME, leads.get_com_name());
-        values.put(KEY_OFIC_ADD,leads.get_com_add());
-        values.put(KEY_OFIC_NUM,leads.get_com_num());
-        values.put(KEY_WEB,leads.get_com_web());
-        values.put(KEY_PER_NAME,leads.get_per_name());
-        values.put(KEY_DESN,leads.get_designation());
-        values.put(KEY_MOB,leads.get_mobile());
-        values.put(KEY_EMAIL,leads.get_email());
-        values.put(KEY_PRODUCTS,leads._products);
-        values.put(KEY_MEETING_DATE,leads.get_meeting_date());
-        values.put(KEY_FOLLOWUP_DATE,leads.get_followup_date());
-        values.put(KEY_REMARKS,leads.get_remarks());
+
+        values.put(KEY_OFIC_NAME, lead.getOfic_name());
+        values.put(KEY_OFIC_ADD, lead.getOfic_add());
+        values.put(KEY_OFIC_NUM, lead.getOfic_num());
+        values.put(KEY_WEB, lead.getWeb());
+        values.put(KEY_PER_NAME, lead.getPer_name());
+        values.put(KEY_DESN, lead.getDesignation());
+        values.put(KEY_MOB, lead.getMobile());
+        values.put(KEY_EMAIL, lead.getEmail());
+        values.put(KEY_PRODUCTS, lead.getProducts());
+        values.put(KEY_MEETING_DATE, lead.getMeeting_date());
+        values.put(KEY_FOLLOWUP_DATE, lead.getfollowup_date());
+        values.put(KEY_REMARKS, lead.getRemarks());
 
         db.insert(TABLE_LEADS, null, values);
         db.close();
@@ -84,6 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
                 cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),
                 cursor.getString(10), cursor.getString(11), cursor.getString(12));
+
     return leads;
     }
 
@@ -96,19 +99,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 myLeads leads = new myLeads();
-                leads.set_id(Integer.parseInt(cursor.getString(0)));
-                leads.set_com_name(cursor.getString(1));
-                leads.set_com_add(cursor.getString(2));
-                leads.set_com_num(cursor.getString(3));
-                leads.set_com_web(cursor.getString(4));
-                leads.set_per_name(cursor.getString(5));
-                leads.set_designation(cursor.getString(6));
-                leads.set_mobile(cursor.getString(7));
-                leads.set_email(cursor.getString(8));
-                leads.set_products(cursor.getString(9));
-                leads.set_meeting_date(cursor.getString(10));
-                leads.set_followup_date(cursor.getString(11));
-                leads.set_remarks(cursor.getString(12));
+                leads.setId(Integer.parseInt(cursor.getString(0)));
+                leads.setOfic_name(cursor.getString(1));
+                leads.setOfic_add(cursor.getString(2));
+                leads.setOfic_num(cursor.getString(3));
+                leads.setWeb(cursor.getString(4));
+                leads.setPer_name(cursor.getString(5));
+                leads.setDesignation(cursor.getString(6));
+                leads.setMobile(cursor.getString(7));
+                leads.setEmail(cursor.getString(8));
+                leads.setProducts(cursor.getString(9));
+                leads.setMeeting_date(cursor.getString(10));
+                leads.setfollowup_date(cursor.getString(11));
+                leads.setRemarks(cursor.getString(12));
             } while (cursor.moveToNext());
         }
         return recordList;
@@ -117,27 +120,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int updateRecord(myLeads leads) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_OFIC_NAME, leads.get_com_name());
-        values.put(KEY_OFIC_ADD, leads.get_com_add());
-        values.put(KEY_OFIC_NUM, leads.get_com_num());
-        values.put(KEY_WEB, leads.get_com_web());
-        values.put(KEY_PER_NAME, leads.get_per_name());
-        values.put(KEY_DESN, leads.get_designation());
-        values.put(KEY_MOB, leads.get_mobile());
-        values.put(KEY_EMAIL, leads.get_email());
-        values.put(KEY_PRODUCTS, leads._products);
-        values.put(KEY_MEETING_DATE, leads.get_meeting_date());
-        values.put(KEY_FOLLOWUP_DATE, leads.get_followup_date());
-        values.put(KEY_REMARKS, leads.get_remarks());
+        values.put(KEY_OFIC_NAME, leads.getOfic_name());
+        values.put(KEY_OFIC_ADD, leads.getOfic_add());
+        values.put(KEY_OFIC_NUM, leads.getOfic_num());
+        values.put(KEY_WEB, leads.getWeb());
+        values.put(KEY_PER_NAME, leads.getPer_name());
+        values.put(KEY_DESN, leads.getDesignation());
+        values.put(KEY_MOB, leads.getMobile());
+        values.put(KEY_EMAIL, leads.getEmail());
+        values.put(KEY_PRODUCTS, leads.products);
+        values.put(KEY_MEETING_DATE, leads.getMeeting_date());
+        values.put(KEY_FOLLOWUP_DATE, leads.getfollowup_date());
+        values.put(KEY_REMARKS, leads.getRemarks());
 
         return db.update(TABLE_LEADS, values, KEY_ID + "=?",
-                new String[]{String.valueOf(leads.get_id())});
+                new String[]{String.valueOf(leads.getId())});
     }
 
     public void deleteRecord(myLeads leads) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LEADS, KEY_ID + "=?",
-                new String[]{String.valueOf(leads.get_id())});
+                new String[]{String.valueOf(leads.getId())});
         db.close();
     }
 

@@ -4,158 +4,157 @@ package dev.suncha.myleads;
  * Created by Sunny on 5/14/2015.
  */
 public class myLeads {
-    int _id;
-    String _com_name;
-    String _com_add;
-    String _com_num;
-    String _com_web;
-    String _per_name;
-    String _designation;
-    String _mobile;
-    String _email;
-    String _products;
-    String _meeting_date;
-    String _followup_date;
-    String _remarks;
+    int id;
+    String ofic_name;
+    String ofic_add;
+    String ofic_num;
+    String web;
+    String per_name;
+    String designation;
+    String mobile;
+    String email;
+    String products;
+    String meeting_date;
+    String followup_date;
+    String remarks;
 
-
-    public myLeads(int _id, String _com_name, String _com_add, String _com_num, String _com_web, String _per_name, String _designation, String _mobile, String _email, String _products, String _meeting_date, String _followup_date, String _remarks) {
-        this._id = _id;
-        this._com_name = _com_name;
-        this._com_add = _com_add;
-        this._com_num = _com_num;
-        this._com_web = _com_web;
-        this._per_name = _per_name;
-        this._designation = _designation;
-        this._mobile = _mobile;
-        this._email = _email;
-        this._products = _products;
-        this._meeting_date = _meeting_date;
-        this._followup_date = _followup_date;
-        this._remarks = _remarks;
+    public myLeads(int id, String ofic_name, String ofic_add, String ofic_num, String web, String per_name, String designation, String mobile, String email, String products, String meeting_date, String followup_date, String remarks) {
+        this.id = id;
+        this.ofic_name = ofic_name;
+        this.ofic_add = ofic_add;
+        this.ofic_num = ofic_num;
+        this.web = web;
+        this.per_name = per_name;
+        this.designation = designation;
+        this.mobile = mobile;
+        this.email = email;
+        this.products = products;
+        this.meeting_date = meeting_date;
+        this.followup_date = followup_date;
+        this.remarks = remarks;
     }
 
-    public myLeads(String _com_name, String _com_add, String _com_num, String _com_web, String _per_name, String _designation, String _mobile, String _email, String _products, String _meeting_date, String _followup_date, String _remarks) {
-//        this._id = _id;
-        this._com_name = _com_name;
-        this._com_add = _com_add;
-        this._com_num = _com_num;
-        this._com_web = _com_web;
-        this._per_name = _per_name;
-        this._designation = _designation;
-        this._mobile = _mobile;
-        this._email = _email;
-        this._products = _products;
-        this._meeting_date = _meeting_date;
-        this._followup_date = _followup_date;
-        this._remarks = _remarks;
+    public myLeads(String ofic_name, String ofic_add, String ofic_num, String web, String per_name, String designation, String mobile, String email, String products, String meeting_date, String followup_date, String remarks) {
+        this.ofic_name = ofic_name;
+        this.ofic_add = ofic_add;
+        this.ofic_num = ofic_num;
+        this.web = web;
+        this.per_name = per_name;
+        this.designation = designation;
+        this.mobile = mobile;
+        this.email = email;
+        this.products = products;
+        this.meeting_date = meeting_date;
+        this.followup_date = followup_date;
+        this.remarks = remarks;
     }
+
 
     public myLeads() {
-
     }
 
-    public String get_followup_date() {
-        return _followup_date;
+
+    public String getfollowup_date() {
+        return followup_date;
     }
 
-    public void set_followup_date(String _followup_date) {
-        this._followup_date = _followup_date;
+    public void setfollowup_date(String followup_date) {
+        this.followup_date = followup_date;
     }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String get_com_name() {
-        return _com_name;
+    public String getOfic_name() {
+        return ofic_name;
     }
 
-    public void set_com_name(String _com_name) {
-        this._com_name = _com_name;
+    public void setOfic_name(String ofic_name) {
+        this.ofic_name = ofic_name;
     }
 
-    public String get_com_add() {
-        return _com_add;
+    public String getOfic_add() {
+        return ofic_add;
     }
 
-    public void set_com_add(String _com_add) {
-        this._com_add = _com_add;
+    public void setOfic_add(String ofic_add) {
+        this.ofic_add = ofic_add;
     }
 
-    public String get_com_num() {
-        return _com_num;
+    public String getOfic_num() {
+        return ofic_num;
     }
 
-    public void set_com_num(String _com_num) {
-        this._com_num = _com_num;
+    public void setOfic_num(String ofic_num) {
+        this.ofic_num = ofic_num;
     }
 
-    public String get_com_web() {
-        return _com_web;
+    public String getWeb() {
+        return web;
     }
 
-    public void set_com_web(String _com_web) {
-        this._com_web = _com_web;
+    public void setWeb(String web) {
+        this.web = web;
     }
 
-    public String get_per_name() {
-        return _per_name;
+    public String getPer_name() {
+        return per_name;
     }
 
-    public void set_per_name(String _per_name) {
-        this._per_name = _per_name;
+    public void setPer_name(String per_name) {
+        this.per_name = per_name;
     }
 
-    public String get_designation() {
-        return _designation;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void set_designation(String _designation) {
-        this._designation = _designation;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
-    public String get_mobile() {
-        return _mobile;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void set_mobile(String _mobile) {
-        this._mobile = _mobile;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String get_email() {
-        return _email;
+    public String getEmail() {
+        return email;
     }
 
-    public void set_email(String _email) {
-        this._email = _email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String get_products() {
-        return _products;
+    public String getProducts() {
+        return products;
     }
 
-    public void set_products(String _products) {
-        this._products = _products;
+    public void setProducts(String products) {
+        this.products = products;
     }
 
-    public String get_meeting_date() {
-        return _meeting_date;
+    public String getMeeting_date() {
+        return meeting_date;
     }
 
-    public void set_meeting_date(String _meeting_date) {
-        this._meeting_date = _meeting_date;
+    public void setMeeting_date(String meeting_date) {
+        this.meeting_date = meeting_date;
     }
 
-    public String get_remarks() {
-        return _remarks;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void set_remarks(String _remarks) {
-        this._remarks = _remarks;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }
