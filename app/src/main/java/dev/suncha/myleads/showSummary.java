@@ -6,17 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 public class showSummary extends ActionBarActivity {
-    TextView companyname;
-    TextView personname;
-    TextView personphone;
-    TextView personemail;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
@@ -31,6 +30,14 @@ public class showSummary extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
         summaryList = (ListView) findViewById(R.id.list);
+
+        summaryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Clicked,Toast", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mHelper = new DatabaseHandler(this);
         displayData();
 
@@ -58,6 +65,7 @@ public class showSummary extends ActionBarActivity {
 
         summaryList.setAdapter(displayAdapter);
         mCursor.close();
+
     }
 
     @Override

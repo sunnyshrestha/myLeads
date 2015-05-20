@@ -133,27 +133,73 @@
                     android:textStyle="italic" />
 
                 <TextView
+
+                    style="@style/textviewStyle"
+                    android:text="@string/product"
+                    android:textStyle="italic" />
+
+                <TextView
                     android:id="@+id/out_product"
                     style="@style/textviewStyle"
-                    android:hint="@string/product" />
+                    android:hint="@string/product"
+                    android:inputType="textMultiLine" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/out_meetingdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/met_date" />
+
+                    <TextView
+                        android:id="@+id/output_of_meetingdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_toRightOf="@id/out_meetingdate"
+                        android:hint="@string/met_date" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/out_follow_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/follow_up_on" />
+
+                    <TextView
+                        android:id="@+id/output_of_followupdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_toRightOf="@id/out_follow_up"
+                        android:text="@string/follow_up_on" />
+                </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/out_meetingdate"
+
                     style="@style/textviewStyle"
-                    android:hint="@string/meeting_date" />
-
-
-                <TextView
-                    android:id="@+id/out_follow_up"
-                    style="@style/textviewStyle"
-                    android:hint="@string/follow_up" />
-
+                    android:text="@string/remarks"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/out_remarks"
                     style="@style/textviewStyle"
-                    android:hint="@string/remarks" />
+                    android:hint="@string/remarks"
+                    android:inputType="textMultiLine" />
             </LinearLayout>
 
 

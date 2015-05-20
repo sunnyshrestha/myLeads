@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
-    ImageView add, open;
-    TextView tv_add, tv_open;
     ListView list;
 
     String[] itemname = {"Add a new lead", "View database"};
