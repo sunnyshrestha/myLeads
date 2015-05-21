@@ -1,8 +1,12 @@
 package dev.suncha.myleads;
 
+import android.app.ListActivity;
+import android.content.ContentUris;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -10,13 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class showSummary extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class showSummary extends ActionBarActivity {
+    ListView summary;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
@@ -24,27 +28,14 @@ public class showSummary extends ActionBarActivity implements AdapterView.OnItem
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
-    private ListView summaryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
-        summaryList = (ListView) findViewById(R.id.list);
-
-//        summaryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), "Clicked,Toast", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+        summary = (ListView) findViewById(R.id.list);
         mHelper = new DatabaseHandler(this);
-        displayData();
 
-    }
-
-    private void displayData() {
         dataBase = mHelper.getWritableDatabase();
         Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
         id.clear();
@@ -63,12 +54,17 @@ public class showSummary extends ActionBarActivity implements AdapterView.OnItem
             } while (mCursor.moveToNext());
         }
         DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
-
-        summaryList.setAdapter(displayAdapter);
-        summaryList.setOnItemClickListener(this);
+        summary.setAdapter(displayAdapter);
+        /*summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Clicked,Toast", Toast.LENGTH_SHORT).show();
+                Log.d("OK", "Clicked");
+            }
+        });*/
         mCursor.close();
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,13 +86,8 @@ public class showSummary extends ActionBarActivity implements AdapterView.OnItem
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Clicked,Toast", Toast.LENGTH_SHORT).show();
 
-    }
 }
