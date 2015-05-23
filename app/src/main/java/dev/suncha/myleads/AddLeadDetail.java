@@ -20,9 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-//http://www.mkyong.com/android/android-date-picker-example/
+
 public class AddLeadDetail extends ActionBarActivity {
-    static final int DATE_DIALOG_ID = 999;
     final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate, pick_followup, button_save;

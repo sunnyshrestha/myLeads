@@ -29,6 +29,7 @@ public class showSummary extends ActionBarActivity {
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,11 @@ public class showSummary extends ActionBarActivity {
         summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
-                Log.d("Clicked", "Bitch");
+                Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
+                Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
+                showDetails.putExtra("key", position);
+                startActivity(showDetails);
+                Log.d("ON_CLICK", "Should go to detailed view");
             }
         });
         /*summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
