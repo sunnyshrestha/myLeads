@@ -38,7 +38,6 @@ public class AddLeadDetail extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
 
-
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
         organisation_phone = (EditText) findViewById(R.id.et_organisation_phone);
