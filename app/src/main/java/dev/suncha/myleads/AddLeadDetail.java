@@ -38,6 +38,7 @@ public class AddLeadDetail extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
 
+
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
         organisation_phone = (EditText) findViewById(R.id.et_organisation_phone);
@@ -197,10 +198,40 @@ public class AddLeadDetail extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
+        switch (id) {
+            case R.id.action_settings:
+                break;
+            case R.id.save_button:
+                saveToDatabase();
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+                .setTitle("Discard?")
+                .setMessage("Are you sure you want to discard this lead?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
+                .show();
+
+        //super.onBackPressed();
     }
 }

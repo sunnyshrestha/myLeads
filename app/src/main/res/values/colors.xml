@@ -3,4 +3,8 @@
     <color name="cyan">#00bcd4</color>
     <color name="indigo">#3949ab</color>
     <color name="black">#000000</color>
+
+    <color name="primary">#03a9f4</color>
+    <color name="primarydark">#01579b</color>
+    <color name="floatbutton">#e51c23</color>
 </resources>

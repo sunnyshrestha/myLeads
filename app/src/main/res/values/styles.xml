@@ -1,8 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+
     </style>
 
     <style name="textviewStyle" parent="@android:style/TextAppearance.Medium">
@@ -12,9 +14,7 @@
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:textSize">14sp</item>
-
     </style>
-
 
     <style name="textviewStyle1" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>

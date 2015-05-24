@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:layout_toRightOf="@id/out_follow_up"
-                        android:text="@string/follow_up_on" />
+                        android:hint="@string/follow_up_on" />
                 </RelativeLayout>
 
 

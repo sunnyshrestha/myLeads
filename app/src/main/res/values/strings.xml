@@ -38,4 +38,6 @@
 
     <string name="leadssummary">Leads summary</string>
     <string name="title_activity_show_summary">Your Leads</string>
+
+    <string name="no_lead">Seems like you have not entered any lead details at the moment. Press the + button below to add lead details.</string>
 </resources>
