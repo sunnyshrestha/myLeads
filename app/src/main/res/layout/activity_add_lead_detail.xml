@@ -37,26 +37,46 @@
 
                 <EditText
                     android:id="@+id/et_organisation_name"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/company_name"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_organisation_address"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/address"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_organisation_phone"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/phone"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_website"
-                    style="@style/textviewStyle"
-                    android:hint="@string/website" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/website"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -88,27 +108,47 @@
 
                 <EditText
                     android:id="@+id/et_person_name"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/person_name"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_designation"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/designation"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_mobile_no"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/mobile_no"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_email"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -141,9 +181,14 @@
 
                 <EditText
                     android:id="@+id/et_product"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/product"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -153,9 +198,14 @@
 
                     <EditText
                         android:id="@+id/et_meetingdate"
-                        style="@style/textviewStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:hint="@string/meeting_date"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/button_meetingdate"
@@ -174,9 +224,14 @@
 
                     <EditText
                         android:id="@+id/et_follow_up"
-                        style="@style/textviewStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:hint="@string/follow_up"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/button_followupdate"
@@ -193,20 +248,17 @@
 
                 <EditText
                     android:id="@+id/et_remarks"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/remarks"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/remarks"
-            android:layout_centerInParent="true"
-            android:text="@string/save" />
     </RelativeLayout>
 
 

@@ -1,8 +1,6 @@
 package dev.suncha.myleads;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.widgets.Dialog;
 
 import java.text.ParseException;
@@ -28,7 +25,6 @@ public class AddLeadDetail extends ActionBarActivity {
     final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate, pick_followup;
-    ButtonFlat button_save;
     int month, year, day;
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
@@ -69,8 +65,6 @@ public class AddLeadDetail extends ActionBarActivity {
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
 
-        button_save = (ButtonFlat) findViewById(R.id.button_save);
-
 
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +80,6 @@ public class AddLeadDetail extends ActionBarActivity {
             }
         });
 
-        button_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToDatabase();
-            }
-        });
     }
 
     public void saveToDatabase() {
@@ -166,17 +154,28 @@ public class AddLeadDetail extends ActionBarActivity {
             Date date2 = simpleDateFormat.parse(followupDate);
 
             if (date1.after(date2) || date1.equals(date2)) {
-                new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-                        .setTitle("Warning")
-                        .setMessage("Follow up date needs to be after the meeting date")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                meetingDatePicker(follow_up);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                final Dialog dateDialog = new Dialog(AddLeadDetail.this, null, "Follow up date needs to be after the meeting date.");
+                dateDialog.setCancelable(false);
+                dateDialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dateDialog.dismiss();
+                        meetingDatePicker(follow_up);
+
+                    }
+                });
+                dateDialog.show();
+//                new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+//                        .setTitle("Warning")
+//                        .setMessage("Follow up date needs to be after the meeting date")
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                meetingDatePicker(follow_up);
+//                            }
+//                        })
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .show();
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -213,11 +212,12 @@ public class AddLeadDetail extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Dialog dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
-        dialog.show();
+        final Dialog dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
+
         dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 finish();
             }
         });
@@ -225,10 +225,11 @@ public class AddLeadDetail extends ActionBarActivity {
         dialog.addCancelButton("Cancel", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dialog.dismiss();
             }
         });
         dialog.setCancelable(false);
+        dialog.show();
 
     }
 
