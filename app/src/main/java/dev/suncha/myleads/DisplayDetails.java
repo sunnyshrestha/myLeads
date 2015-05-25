@@ -1,16 +1,11 @@
 package dev.suncha.myleads;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 
 public class DisplayDetails extends ActionBarActivity {
@@ -57,7 +52,6 @@ public class DisplayDetails extends ActionBarActivity {
         meeting_date.setText(mHelper.getRecord(entryId + 1).getMeeting_date());
         followup_date.setText(mHelper.getRecord(entryId + 1).getfollowup_date());
         remarks.setText(mHelper.getRecord(entryId + 1).getRemarks());
-
 
 
     }

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFloat;
 
@@ -24,69 +23,73 @@ public class showSummary extends ActionBarActivity {
     TextView noLead;
     ButtonFloat buttonFloat;
     private DatabaseHandler mHelper;
-    private SQLiteDatabase dataBase, dbase;
+    private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
     private ArrayList<String> com_name = new ArrayList<String>();
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
+    DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
-        buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+
         summary = (ListView) findViewById(R.id.list);
-        mHelper = new DatabaseHandler(this);
 
         noLead = (TextView) findViewById(R.id.noLead);
+        buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+        buttonFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addLead = new Intent(getApplicationContext(), AddLeadDetail.class);
+                startActivity(addLead);
+            }
+        });
 
+        mHelper = new DatabaseHandler(this);
 
         if (mHelper.getRecordsCount() != 0) {
             noLead.setVisibility(View.GONE);
-            dataBase = mHelper.getWritableDatabase();
-            Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
-            id.clear();
-            com_name.clear();
-            per_name.clear();
-            mobile.clear();
-            email.clear();
-
-            if (mCursor.moveToFirst()) {
-                do {
-                    id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
-                    com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_OFIC_NAME)));
-                    per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
-                    mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
-                    email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
-                } while (mCursor.moveToNext());
-            }
-
-            DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
-            summary.setAdapter(displayAdapter);
-            summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
-                    Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
-                    showDetails.putExtra("key", position);
-                    startActivity(showDetails);
-                    Log.d("ON_CLICK", "Should go to detailed view");
-                }
-            });
-        /*summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Clicked,Toast", Toast.LENGTH_SHORT).show();
-                Log.d("OK", "Clicked");
-            }
-        });*/
-            mCursor.close();
+            populateListView();
         } else {
             summary.setVisibility(View.GONE);
         }
+    }
 
+    public void populateListView() {
+        dataBase = mHelper.getWritableDatabase();
+        Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
+        id.clear();
+        com_name.clear();
+        per_name.clear();
+        mobile.clear();
+        email.clear();
 
+        if (mCursor.moveToFirst()) {
+            do {
+                id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
+                com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_OFIC_NAME)));
+                per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
+                mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
+                email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+            } while (mCursor.moveToNext());
+        }
+        summary.setAdapter(displayAdapter);
+
+        summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
+                Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
+                showDetails.putExtra("key", position);
+                startActivity(showDetails);
+                Log.d("ON_CLICK", "Should go to detailed view");
+            }
+        });
+
+        mCursor.close();
     }
 
 
@@ -111,6 +114,12 @@ public class showSummary extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateListView();
     }
 
 

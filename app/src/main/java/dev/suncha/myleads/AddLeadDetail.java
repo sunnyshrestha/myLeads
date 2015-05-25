@@ -15,6 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.widgets.Dialog;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,7 +27,8 @@ import java.util.Date;
 public class AddLeadDetail extends ActionBarActivity {
     final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
-    Button pick_meetingdate, pick_followup, button_save;
+    Button pick_meetingdate, pick_followup;
+    ButtonFlat button_save;
     int month, year, day;
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
@@ -65,7 +69,7 @@ public class AddLeadDetail extends ActionBarActivity {
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
 
-        button_save = (Button) findViewById(R.id.button_save);
+        button_save = (ButtonFlat) findViewById(R.id.button_save);
 
 
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +110,6 @@ public class AddLeadDetail extends ActionBarActivity {
                 remarks.getText().toString()
         ));
         Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
-
         finish();
 
     }
@@ -153,9 +156,6 @@ public class AddLeadDetail extends ActionBarActivity {
                     }
                 }, mYear, mMonth, mDay);
         dpd.show();
-//        if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
-//            checkDateOrder(meeting_date.toString(), follow_up.toString());
-//        }
     }
 
     public void checkDateOrder(String meetingDate, String followupDate) {
@@ -213,25 +213,21 @@ public class AddLeadDetail extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-                .setTitle("Discard?")
-                .setMessage("Are you sure you want to discard this lead?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        Dialog dialog = new Dialog(AddLeadDetail.this, "Alert!!!", "Going back will discard any changes. Still go back?");
+        dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setCancelable(false)
-                .show();
+        dialog.addCancelButton("Cancel", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //super.onBackPressed();
+            }
+        });
+        dialog.show();
     }
+
 }

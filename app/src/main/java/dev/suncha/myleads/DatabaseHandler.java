@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void addRecord(myLeads lead) {
-        SQLiteDatabase db=this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(KEY_OFIC_NAME, lead.getOfic_name());
@@ -72,14 +72,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    myLeads getRecord(int d){
-        SQLiteDatabase db=this.getReadableDatabase();
+    myLeads getRecord(int d) {
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_LEADS, new String[]{
                 KEY_ID, KEY_OFIC_NAME, KEY_OFIC_ADD, KEY_OFIC_NUM, KEY_WEB,
                 KEY_PER_NAME, KEY_DESN, KEY_MOB, KEY_EMAIL,
                 KEY_PRODUCTS, KEY_MEETING_DATE, KEY_FOLLOWUP_DATE, KEY_REMARKS}, KEY_ID +
                 "=?", new String[]{String.valueOf(d)}, null, null, null, null);
-        if(cursor!=null)
+        if (cursor != null)
             cursor.moveToFirst();
 
         myLeads leads = new myLeads(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
@@ -87,7 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),
                 cursor.getString(10), cursor.getString(11), cursor.getString(12));
 
-    return leads;
+        return leads;
     }
 
     //Getting all records
