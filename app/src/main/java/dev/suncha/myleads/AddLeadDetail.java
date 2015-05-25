@@ -213,7 +213,8 @@ public class AddLeadDetail extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Dialog dialog = new Dialog(AddLeadDetail.this, "Alert!!!", "Going back will discard any changes. Still go back?");
+        Dialog dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
+        dialog.show();
         dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,7 +228,8 @@ public class AddLeadDetail extends ActionBarActivity {
 
             }
         });
-        dialog.show();
+        dialog.setCancelable(false);
+
     }
 
 }

@@ -31,7 +31,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginRight="24dp"
         android:background="#ffffff"
-        materialdesign:animate="true"
-        materialdesign:iconDrawable="@drawable/ic_add_circle_black_48dp" />
+        materialdesign:animate="false"
+        materialdesign:iconDrawable="@drawable/ic_add_white_48dp" />
 
 </FrameLayout>

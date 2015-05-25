@@ -50,46 +50,55 @@ public class showSummary extends ActionBarActivity {
 
         mHelper = new DatabaseHandler(this);
 
-        if (mHelper.getRecordsCount() != 0) {
-            noLead.setVisibility(View.GONE);
+        noLead.setVisibility(View.GONE);
+        summary.setVisibility(View.GONE);
+
+//        if (mHelper.getRecordsCount() != 0) {
+//            noLead.setVisibility(View.GONE);
             populateListView();
-        } else {
-            summary.setVisibility(View.GONE);
-        }
+//        } else {
+//            summary.setVisibility(View.GONE);
+//        }
     }
 
     public void populateListView() {
-        dataBase = mHelper.getWritableDatabase();
-        Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
-        id.clear();
-        com_name.clear();
-        per_name.clear();
-        mobile.clear();
-        email.clear();
+        if (mHelper.getRecordsCount() == 0) {
+            noLead.setVisibility(View.VISIBLE);
+        } else {
+            dataBase = mHelper.getWritableDatabase();
+            Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
+            id.clear();
+            com_name.clear();
+            per_name.clear();
+            mobile.clear();
+            email.clear();
 
-        if (mCursor.moveToFirst()) {
-            do {
-                id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
-                com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_OFIC_NAME)));
-                per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
-                mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
-                email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
-            } while (mCursor.moveToNext());
-        }
-        summary.setAdapter(displayAdapter);
-
-        summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
-                Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
-                showDetails.putExtra("key", position);
-                startActivity(showDetails);
-                Log.d("ON_CLICK", "Should go to detailed view");
+            if (mCursor.moveToFirst()) {
+                do {
+                    id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
+                    com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_OFIC_NAME)));
+                    per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
+                    mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
+                    email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+                } while (mCursor.moveToNext());
             }
-        });
+            summary.setAdapter(displayAdapter);
 
-        mCursor.close();
+            summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
+                    Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
+                    showDetails.putExtra("key", position);
+                    startActivity(showDetails);
+                    Log.d("ON_CLICK", "Should go to detailed view");
+                }
+            });
+
+            mCursor.close();
+            noLead.setVisibility(View.GONE);
+            summary.setVisibility(View.VISIBLE);
+        }
     }
 
 
