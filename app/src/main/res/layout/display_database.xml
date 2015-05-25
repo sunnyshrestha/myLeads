@@ -37,23 +37,43 @@
 
                 <TextView
                     android:id="@+id/out_organisation_name"
-                    style="@style/textviewStyle"
-                    android:hint="@string/company_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/company_name"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/out_organisation_address"
-                    style="@style/textviewStyle"
-                    android:hint="@string/address" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/address"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/out_organisation_phone"
-                    style="@style/textviewStyle"
-                    android:hint="@string/phone" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/phone"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/et_website"
-                    style="@style/textviewStyle"
-                    android:hint="@string/website" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/website"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -85,23 +105,43 @@
 
                 <TextView
                     android:id="@+id/out_person_name"
-                    style="@style/textviewStyle"
-                    android:hint="@string/person_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/person_name"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/out_designation"
-                    style="@style/textviewStyle"
-                    android:hint="@string/designation" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/designation"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/out_mobile_no"
-                    style="@style/textviewStyle"
-                    android:hint="@string/mobile_no" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/mobile_no"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/out_email"
-                    style="@style/textviewStyle"
-                    android:hint="@string/email" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/email"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -134,26 +174,46 @@
 
                 <TextView
                     android:id="@+id/out_product"
-                    style="@style/textviewStyle"
-                    android:hint="@string/product" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/product"
+                    android:textSize="14sp" />
 
 
                 <TextView
                     android:id="@+id/out_meetingdate"
-                    style="@style/textviewStyle"
-                    android:hint="@string/meeting_date" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/meeting_date"
+                    android:textSize="14sp" />
 
 
                 <TextView
                     android:id="@+id/out_follow_up"
-                    style="@style/textviewStyle"
-                    android:hint="@string/follow_up" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/follow_up"
+                    android:textSize="14sp" />
 
 
                 <TextView
                     android:id="@+id/out_remarks"
-                    style="@style/textviewStyle"
-                    android:hint="@string/remarks" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/remarks"
+                    android:textSize="14sp" />
             </LinearLayout>
 
 

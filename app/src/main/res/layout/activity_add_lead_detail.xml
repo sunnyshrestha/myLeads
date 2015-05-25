@@ -17,7 +17,8 @@
             android:id="@+id/organisation_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                     android:id="@+id/et_website"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/website"
@@ -88,7 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/organisation_details"
             android:layout_marginTop="8dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +145,7 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/email"
@@ -160,7 +162,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/person_details"
             android:layout_marginTop="8dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,7 +253,7 @@
                     android:id="@+id/et_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/remarks"
