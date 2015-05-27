@@ -8,6 +8,8 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,11 +26,14 @@ import java.util.Date;
 public class AddLeadDetail extends ActionBarActivity {
     final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
-    Button pick_meetingdate, pick_followup;
+    Button pick_meetingdate;
+    Button pick_followup;
+    Button pickNumFromContacts;
     int month, year, day;
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
+
 
     DatabaseHandler db = new DatabaseHandler(this);
 
@@ -61,9 +66,20 @@ public class AddLeadDetail extends ActionBarActivity {
 
         meeting_date.getLayoutParams().width = width / 2;
         follow_up.getLayoutParams().width = width / 2;
+        person_mobile.getLayoutParams().width = width / 2;
 
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
+        pickNumFromContacts = (Button) findViewById(R.id.picknumfromcontact);
+
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.button_animation);
+
+        pickNumFromContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(animAlpha);
+            }
+        });
 
 
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {

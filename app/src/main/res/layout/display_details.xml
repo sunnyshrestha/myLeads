@@ -37,23 +37,43 @@
 
                 <TextView
                     android:id="@+id/out_organisation_name"
-                    style="@style/textviewStyle"
-                    android:hint="@string/company_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/company_name"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/out_organisation_address"
-                    style="@style/textviewStyle"
-                    android:hint="@string/address" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/out_organisation_phone"
-                    style="@style/textviewStyle"
-                    android:hint="@string/phone" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/et_website"
-                    style="@style/textviewStyle"
-                    android:hint="@string/website" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/website"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -85,23 +105,43 @@
 
                 <TextView
                     android:id="@+id/out_person_name"
-                    style="@style/textviewStyle"
-                    android:hint="@string/person_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/person_name"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/out_designation"
-                    style="@style/textviewStyle"
-                    android:hint="@string/designation" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/designation"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/out_mobile_no"
-                    style="@style/textviewStyle"
-                    android:hint="@string/mobile_no" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_no"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/out_email"
-                    style="@style/textviewStyle"
-                    android:hint="@string/email" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -134,15 +174,25 @@
 
                 <TextView
 
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
                     android:text="@string/product"
+                    android:textSize="18sp"
                     android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/out_product"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/product"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
 
 
                 <RelativeLayout
@@ -191,15 +241,25 @@
 
                 <TextView
 
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
                     android:text="@string/remarks"
+                    android:textSize="18sp"
                     android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/out_remarks"
-                    style="@style/textviewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/remarks"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
