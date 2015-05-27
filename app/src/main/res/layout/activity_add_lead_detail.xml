@@ -44,7 +44,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/company_name"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:textSize="14sp" />
 
                 <EditText
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/address"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:textSize="14sp" />
 
                 <EditText
@@ -116,7 +116,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/person_name"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:textSize="14sp" />
 
                 <EditText
@@ -127,7 +127,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/designation"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -270,7 +270,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/remarks"
-                    android:inputType="textMultiLine"
+                    android:inputType="textCapSentences"
                     android:textSize="14sp" />
             </LinearLayout>
 
