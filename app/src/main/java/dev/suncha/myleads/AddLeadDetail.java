@@ -1,6 +1,5 @@
 package dev.suncha.myleads;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -33,6 +32,7 @@ import java.util.List;
 
 
 public class AddLeadDetail extends ActionBarActivity {
+    static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate;
@@ -42,14 +42,16 @@ public class AddLeadDetail extends ActionBarActivity {
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
-
     DatabaseHandler db = new DatabaseHandler(this);
-    static final int PICK_CONTACT_REQUEST = 0;
+    Dialog dialog;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
+
 
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
@@ -131,7 +133,7 @@ public class AddLeadDetail extends ActionBarActivity {
                     try {
                         Uri result = data.getData();
                         String id = result.getLastPathSegment();
-                        cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", new String[] { id }, null);
+                        cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", new String[]{id}, null);
                         phoneIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA);
                         if (cursor.moveToFirst()) {
                             while (cursor.isAfterLast() == false) {
@@ -141,7 +143,7 @@ public class AddLeadDetail extends ActionBarActivity {
                             }
                         } else {
                             //no results actions
-                            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         //error actions
@@ -161,7 +163,7 @@ public class AddLeadDetail extends ActionBarActivity {
                             }
                         });
                         AlertDialog alert = builder.create();
-                        if(allNumbers.size() > 1) {
+                        if (allNumbers.size() > 1) {
                             alert.show();
                         } else {
                             String selectedNumber = phoneNumber.toString();
@@ -171,14 +173,14 @@ public class AddLeadDetail extends ActionBarActivity {
 
                         if (phoneNumber.length() == 0) {
                             //no numbers found actions
-                            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
             }
         } else {
             //activity result error actions
-            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -296,7 +298,6 @@ public class AddLeadDetail extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
 
         switch (id) {
@@ -313,21 +314,22 @@ public class AddLeadDetail extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        final Dialog dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
-
+        dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
         dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddLeadDetail.this.finish();
                 dialog.dismiss();
-                finish();
             }
         });
 
         dialog.addCancelButton("Cancel", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                if (dialog.isShowing())
+                    dialog.dismiss();
             }
+
         });
         dialog.setCancelable(false);
         dialog.show();

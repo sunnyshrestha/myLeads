@@ -77,6 +77,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/website"
+                    android:inputType="textWebEditText"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -203,7 +204,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:hint="@string/product"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:textSize="14sp" />
 
                 <RelativeLayout
