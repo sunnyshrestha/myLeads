@@ -229,7 +229,7 @@
                         android:layout_height="36dp"
                         android:layout_gravity="center"
                         android:layout_toRightOf="@id/et_meetingdate"
-                        android:background="@drawable/button_image" />
+                        android:background="@drawable/ic_event_grey600_48dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -257,7 +257,7 @@
                         android:layout_gravity="center"
                         android:layout_toEndOf="@+id/et_follow_up"
                         android:layout_toRightOf="@+id/et_follow_up"
-                        android:background="@drawable/button_image" />
+                        android:background="@drawable/ic_event_grey600_48dp" />
 
                 </RelativeLayout>
 

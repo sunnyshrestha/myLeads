@@ -94,6 +94,7 @@ public class AddLeadDetail extends ActionBarActivity {
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
                 meetingDatePicker(meeting_date);
             }
         });
@@ -101,6 +102,7 @@ public class AddLeadDetail extends ActionBarActivity {
         pick_followup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animAlpha);
                 meetingDatePicker(follow_up);
             }
         });
@@ -139,7 +141,7 @@ public class AddLeadDetail extends ActionBarActivity {
                             }
                         } else {
                             //no results actions
-                            Toast.makeText(getApplicationContext(),"No result 1",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         //error actions
@@ -169,14 +171,14 @@ public class AddLeadDetail extends ActionBarActivity {
 
                         if (phoneNumber.length() == 0) {
                             //no numbers found actions
-                            Toast.makeText(getApplicationContext(),"No result 2",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
             }
         } else {
             //activity result error actions
-            Toast.makeText(getApplicationContext(),"No result 3",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),R.string.not_found,Toast.LENGTH_SHORT).show();
         }
     }
 

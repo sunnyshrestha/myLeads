@@ -35,6 +35,7 @@
 
     <!--Toast-->
     <string name="savesuccess">Successfully added to database</string>
+    <string name="not_found">Number not found</string>
 
     <string name="leadssummary">Leads summary</string>
     <string name="title_activity_show_summary">Your Leads</string>
