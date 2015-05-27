@@ -1,8 +1,15 @@
 package dev.suncha.myleads;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.Menu;
@@ -19,8 +26,10 @@ import com.gc.materialdesign.widgets.Dialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class AddLeadDetail extends ActionBarActivity {
@@ -34,9 +43,8 @@ public class AddLeadDetail extends ActionBarActivity {
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
     DatabaseHandler db = new DatabaseHandler(this);
-
+    static final int PICK_CONTACT_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,7 @@ public class AddLeadDetail extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
+                readContact();
             }
         });
 
@@ -97,6 +106,80 @@ public class AddLeadDetail extends ActionBarActivity {
         });
 
     }
+
+    public void readContact() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+            startActivityForResult(intent, PICK_CONTACT_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PICK_CONTACT_REQUEST:
+                    Cursor cursor = null;
+                    String phoneNumber = "";
+                    List<String> allNumbers = new ArrayList<String>();
+                    int phoneIdx = 0;
+                    try {
+                        Uri result = data.getData();
+                        String id = result.getLastPathSegment();
+                        cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", new String[] { id }, null);
+                        phoneIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA);
+                        if (cursor.moveToFirst()) {
+                            while (cursor.isAfterLast() == false) {
+                                phoneNumber = cursor.getString(phoneIdx);
+                                allNumbers.add(phoneNumber);
+                                cursor.moveToNext();
+                            }
+                        } else {
+                            //no results actions
+                            Toast.makeText(getApplicationContext(),"No result 1",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        //error actions
+                    } finally {
+                        if (cursor != null) {
+                            cursor.close();
+                        }
+
+                        final CharSequence[] items = allNumbers.toArray(new String[allNumbers.size()]);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddLeadDetail.this);
+                        builder.setTitle("Choose a number");
+                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int item) {
+                                String selectedNumber = items[item].toString();
+                                selectedNumber = selectedNumber.replace("-", "");
+                                person_mobile.setText(selectedNumber);
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        if(allNumbers.size() > 1) {
+                            alert.show();
+                        } else {
+                            String selectedNumber = phoneNumber.toString();
+                            selectedNumber = selectedNumber.replace("-", "");
+                            person_mobile.setText(selectedNumber);
+                        }
+
+                        if (phoneNumber.length() == 0) {
+                            //no numbers found actions
+                            Toast.makeText(getApplicationContext(),"No result 2",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    break;
+            }
+        } else {
+            //activity result error actions
+            Toast.makeText(getApplicationContext(),"No result 3",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public void saveToDatabase() {
         db.addRecord(new myLeads(
