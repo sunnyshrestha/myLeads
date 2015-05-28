@@ -44,6 +44,8 @@ public class AddLeadDetail extends ActionBarActivity {
     int mDay = c.get(Calendar.DAY_OF_MONTH);
     DatabaseHandler db = new DatabaseHandler(this);
     Dialog dialog;
+    AlertDialog alert;
+    DatePickerDialog dpd;
 
 
 
@@ -111,6 +113,65 @@ public class AddLeadDetail extends ActionBarActivity {
 
     }
 
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        CharSequence officename = organisation_name.getText();
+        CharSequence officeaddress = organisation_address.getText();
+        CharSequence officephone = organisation_phone.getText();
+        CharSequence officewebsite = website.getText();
+        CharSequence personname = person_name.getText();
+        CharSequence persondesignation = designation.getText();
+        CharSequence personmobile = person_mobile.getText();
+        CharSequence personemail = person_email.getText();
+        CharSequence productdiscussed = product.getText();
+        CharSequence metdate = meeting_date.getText();
+        CharSequence followup = follow_up.getText();
+        CharSequence remark = remarks.getText();
+
+        outState.putCharSequence("org_name", officename);
+        outState.putCharSequence("org_address", officeaddress);
+        outState.putCharSequence("org_phone", officephone);
+        outState.putCharSequence("url", officewebsite);
+        outState.putCharSequence("contact_name", personname);
+        outState.putCharSequence("designation", persondesignation);
+        outState.putCharSequence("mobile", personmobile);
+        outState.putCharSequence("email", personemail);
+        outState.putCharSequence("product", productdiscussed);
+        outState.putCharSequence("meeting_date", metdate);
+        outState.putCharSequence("follow_up", followup);
+        outState.putCharSequence("remarks", remark);
+    }
+
+    protected void onRestoreInstanceState(Bundle savedState) {
+        CharSequence officename = savedState.getCharSequence("org_name");
+        CharSequence officeaddress = savedState.getCharSequence("org_address");
+        CharSequence officephone = savedState.getCharSequence("org_phone");
+        CharSequence officewebsite = savedState.getCharSequence("url");
+        CharSequence personname = savedState.getCharSequence("contact_name");
+        CharSequence persondesignation = savedState.getCharSequence("designation");
+        CharSequence personmobile = savedState.getCharSequence("mobile");
+        CharSequence personemail = savedState.getCharSequence("email");
+        CharSequence productdiscussed = savedState.getCharSequence("product");
+        CharSequence metdate = savedState.getCharSequence("meeting_date");
+        CharSequence followup = savedState.getCharSequence("follow_up");
+        CharSequence remark = savedState.getCharSequence("remarks");
+
+        organisation_name.setText(officename);
+        organisation_address.setText(officeaddress);
+        organisation_phone.setText(officephone);
+        website.setText(officewebsite);
+        person_name.setText(personname);
+        designation.setText(persondesignation);
+        person_mobile.setText(personmobile);
+        person_email.setText(personemail);
+        product.setText(productdiscussed);
+        meeting_date.setText(metdate);
+        follow_up.setText(followup);
+        remarks.setText(remark);
+
+
+    }
+
     public void readContact() {
         try {
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -162,7 +223,7 @@ public class AddLeadDetail extends ActionBarActivity {
                                 person_mobile.setText(selectedNumber);
                             }
                         });
-                        AlertDialog alert = builder.create();
+                        alert = builder.create();
                         if (allNumbers.size() > 1) {
                             alert.show();
                         } else {
@@ -219,7 +280,7 @@ public class AddLeadDetail extends ActionBarActivity {
 
     public void showDatePicker(final int finalCheck, int mYear, int mMonth, int mDay) {
         //shows the actual datepicker dialog
-        DatePickerDialog dpd = new DatePickerDialog(this,
+        dpd = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
