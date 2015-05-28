@@ -38,7 +38,7 @@ public class AddLeadDetail extends ActionBarActivity {
     Button pick_meetingdate;
     Button pick_followup;
     Button pickNumFromContacts;
-    int month, year, day;
+
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -108,7 +108,6 @@ public class AddLeadDetail extends ActionBarActivity {
                 meetingDatePicker(follow_up);
             }
         });
-
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -138,6 +137,11 @@ public class AddLeadDetail extends ActionBarActivity {
         outState.putCharSequence("meeting_date", metdate);
         outState.putCharSequence("follow_up", followup);
         outState.putCharSequence("remarks", remark);
+
+        outState.putBundle("DIALOG_UNSAVED", dialog.onSaveInstanceState());
+        outState.putBundle("DIALOG_DATEPICKER", dpd.onSaveInstanceState());
+        outState.putBundle("DIALOG_CONTACTS", alert.onSaveInstanceState());
+
     }
 
     protected void onRestoreInstanceState(Bundle savedState) {
@@ -166,6 +170,10 @@ public class AddLeadDetail extends ActionBarActivity {
         meeting_date.setText(metdate);
         follow_up.setText(followup);
         remarks.setText(remark);
+
+        dialog.onRestoreInstanceState(savedState.getBundle("DIALOG_UNSAVED"));
+        dpd.onRestoreInstanceState(savedState.getBundle("DIALOG_DATEPICKER"));
+        alert.onRestoreInstanceState(savedState.getBundle("DIALOG_CONTACTS"));
     }
 
     public void readContact() {
