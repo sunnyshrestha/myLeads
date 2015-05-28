@@ -48,12 +48,10 @@ public class AddLeadDetail extends ActionBarActivity {
     DatePickerDialog dpd;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
-
 
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
@@ -168,8 +166,6 @@ public class AddLeadDetail extends ActionBarActivity {
         meeting_date.setText(metdate);
         follow_up.setText(followup);
         remarks.setText(remark);
-
-
     }
 
     public void readContact() {
@@ -293,6 +289,7 @@ public class AddLeadDetail extends ActionBarActivity {
                                         + (monthOfYear + 1) + "-" + year);
                                 if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
                                     checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
+                                    dpd.dismiss();
                                 }
                                 break;
                             case 1:
@@ -300,9 +297,11 @@ public class AddLeadDetail extends ActionBarActivity {
                                         + (monthOfYear + 1) + "-" + year);
                                 if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
                                     checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
+                                    dpd.dismiss();
                                 }
                                 break;
                             default:
+                                dpd.dismiss();
                                 break;
                         }
                     }
@@ -328,18 +327,6 @@ public class AddLeadDetail extends ActionBarActivity {
 
                     }
                 });
-                dateDialog.show();
-//                new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-//                        .setTitle("Warning")
-//                        .setMessage("Follow up date needs to be after the meeting date")
-//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                meetingDatePicker(follow_up);
-//                            }
-//                        })
-//                        .setIcon(android.R.drawable.ic_dialog_alert)
-//                        .show();
             }
         } catch (ParseException e) {
             e.printStackTrace();
