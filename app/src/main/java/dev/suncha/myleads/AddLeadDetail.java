@@ -31,9 +31,11 @@ import java.util.Date;
 import java.util.List;
 
 
-public class AddLeadDetail extends ActionBarActivity {
+public class AddLeadDetail extends ActionBarActivity implements
+        DatePickerDialog.OnDateSetListener {
     static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
+    int check = -1;
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate;
     Button pick_followup;
@@ -46,6 +48,8 @@ public class AddLeadDetail extends ActionBarActivity {
     Dialog dialog;
     AlertDialog alert;
     DatePickerDialog dpd;
+
+    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
 
     @Override
@@ -98,8 +102,10 @@ public class AddLeadDetail extends ActionBarActivity {
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
                 meetingDatePicker(meeting_date);
+
             }
         });
+
 
         pick_followup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +144,6 @@ public class AddLeadDetail extends ActionBarActivity {
         outState.putCharSequence("follow_up", followup);
         outState.putCharSequence("remarks", remark);
 
-        outState.putBundle("DIALOG_UNSAVED", dialog.onSaveInstanceState());
-        outState.putBundle("DIALOG_DATEPICKER", dpd.onSaveInstanceState());
-        outState.putBundle("DIALOG_CONTACTS", alert.onSaveInstanceState());
-
     }
 
     protected void onRestoreInstanceState(Bundle savedState) {
@@ -171,9 +173,6 @@ public class AddLeadDetail extends ActionBarActivity {
         follow_up.setText(followup);
         remarks.setText(remark);
 
-        dialog.onRestoreInstanceState(savedState.getBundle("DIALOG_UNSAVED"));
-        dpd.onRestoreInstanceState(savedState.getBundle("DIALOG_DATEPICKER"));
-        alert.onRestoreInstanceState(savedState.getBundle("DIALOG_CONTACTS"));
     }
 
     public void readContact() {
@@ -235,7 +234,6 @@ public class AddLeadDetail extends ActionBarActivity {
                             selectedNumber = selectedNumber.replace("-", "");
                             person_mobile.setText(selectedNumber);
                         }
-
                         if (phoneNumber.length() == 0) {
                             //no numbers found actions
                             Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
@@ -267,54 +265,44 @@ public class AddLeadDetail extends ActionBarActivity {
         ));
         Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
         finish();
-
     }
 
     public void meetingDatePicker(View view) {
         // Checks whether to add date to meeting date or follow-up date
-        int check = -1;
         if (view == meeting_date)
             check = 0;
         else if (view == follow_up)
             check = 1;
-
-        showDatePicker(check, mYear, mMonth, mDay);
+        showDatePicker();
 
     }
 
-    public void showDatePicker(final int finalCheck, int mYear, int mMonth, int mDay) {
-        //shows the actual datepicker dialog
-        dpd = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
+    public void showDatePicker() {
+        SelectDateFragment selectDateFragment = new SelectDateFragment();
+        selectDateFragment.show(fragmentManager, "DATEPICKER");
+    }
 
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        // Display Selected date in textbox
-                        switch (finalCheck) {
-                            case 0:
-                                meeting_date.setText(dayOfMonth + "-"
-                                        + (monthOfYear + 1) + "-" + year);
-                                if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
-                                    checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
-                                    dpd.dismiss();
-                                }
-                                break;
-                            case 1:
-                                follow_up.setText(dayOfMonth + "-"
-                                        + (monthOfYear + 1) + "-" + year);
-                                if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
-                                    checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
-                                    dpd.dismiss();
-                                }
-                                break;
-                            default:
-                                dpd.dismiss();
-                                break;
-                        }
-                    }
-                }, mYear, mMonth, mDay);
-        dpd.show();
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        // Display Selected date in textbox
+        switch (check) {
+            case 0:
+                meeting_date.setText(dayOfMonth + "-"
+                        + (monthOfYear + 1) + "-" + year);
+                if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
+                    checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
+                }
+                break;
+            case 1:
+                follow_up.setText(dayOfMonth + "-"
+                        + (monthOfYear + 1) + "-" + year);
+                if (meeting_date.getText().toString().trim().length() > 0 && follow_up.getText().toString().trim().length() > 0) {
+                    checkDateOrder(meeting_date.getText().toString(), follow_up.getText().toString());
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public void checkDateOrder(String meetingDate, String followupDate) {
@@ -325,16 +313,9 @@ public class AddLeadDetail extends ActionBarActivity {
             Date date2 = simpleDateFormat.parse(followupDate);
 
             if (date1.after(date2) || date1.equals(date2)) {
-                final Dialog dateDialog = new Dialog(AddLeadDetail.this, null, "Follow up date needs to be after the meeting date.");
-                dateDialog.setCancelable(false);
-                dateDialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dateDialog.dismiss();
-                        meetingDatePicker(follow_up);
-
-                    }
-                });
+                follow_up.setText(null);
+                RecheckDateDialog recheckdatedialog = new RecheckDateDialog();
+                recheckdatedialog.show(fragmentManager, "Recheck date");
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -370,26 +351,8 @@ public class AddLeadDetail extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        dialog = new Dialog(AddLeadDetail.this, null, "Going back will discard any changes. Still go back?");
-        dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddLeadDetail.this.finish();
-                dialog.dismiss();
-            }
-        });
-
-        dialog.addCancelButton("Cancel", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing())
-                    dialog.dismiss();
-            }
-
-        });
-        dialog.setCancelable(false);
-        dialog.show();
-
+        saveDialogFragment savedialogfragment = new saveDialogFragment();
+        savedialogfragment.show(fragmentManager, "SAVE DIALOG");
     }
 
 }

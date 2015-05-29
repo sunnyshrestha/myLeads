@@ -41,4 +41,7 @@
     <string name="title_activity_show_summary">Your Leads</string>
 
     <string name="no_lead">Seems like you have not entered any lead details at the moment. Press the + button below to add lead details.</string>
+
+    <string name="discard">Discard changes?</string>
+    <string name="discard_message">Going back will discard any changes. Still go back?"</string>
 </resources>
