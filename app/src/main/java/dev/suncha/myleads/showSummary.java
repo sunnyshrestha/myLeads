@@ -36,6 +36,7 @@ public class showSummary extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
 
+
         summary = (ListView) findViewById(R.id.list);
 
         noLead = (TextView) findViewById(R.id.noLead);
@@ -48,17 +49,15 @@ public class showSummary extends ActionBarActivity {
             }
         });
 
+
         mHelper = new DatabaseHandler(this);
 
         noLead.setVisibility(View.GONE);
         summary.setVisibility(View.GONE);
 
-//        if (mHelper.getRecordsCount() != 0) {
-//            noLead.setVisibility(View.GONE);
-            populateListView();
-//        } else {
-//            summary.setVisibility(View.GONE);
-//        }
+        populateListView();
+
+
     }
 
     public void populateListView() {

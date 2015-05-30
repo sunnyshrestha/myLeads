@@ -16,7 +16,7 @@ public class saveDialogFragment extends DialogFragment {
                 .setIcon(android.R.drawable.ic_menu_save)
                 .setTitle(R.string.discard)
                 .setMessage(R.string.discard_message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("DISCARD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getActivity().finish();

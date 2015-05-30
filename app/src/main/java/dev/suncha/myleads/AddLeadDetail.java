@@ -2,7 +2,6 @@ package dev.suncha.myleads;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Point;
@@ -32,7 +31,7 @@ import java.util.List;
 
 
 public class AddLeadDetail extends ActionBarActivity implements
-        DatePickerDialog.OnDateSetListener {
+        DatePickerDialog.OnDateSetListener, PickaContact.OnListDialogItemSelect {
     static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
     int check = -1;
@@ -216,19 +215,20 @@ public class AddLeadDetail extends ActionBarActivity implements
                             cursor.close();
                         }
 
-                        final CharSequence[] items = allNumbers.toArray(new String[allNumbers.size()]);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddLeadDetail.this);
-                        builder.setTitle("Choose a number");
-                        builder.setItems(items, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int item) {
-                                String selectedNumber = items[item].toString();
-                                selectedNumber = selectedNumber.replace("-", "");
-                                person_mobile.setText(selectedNumber);
-                            }
-                        });
-                        alert = builder.create();
+                        final String[] items = allNumbers.toArray(new String[allNumbers.size()]);
+                        //AlertDialog.Builder builder = new AlertDialog.Builder(AddLeadDetail.this);
+                        //builder.setTitle("Choose a number");
+//                        builder.setItems(items, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int item) {
+//                                String selectedNumber = items[item].toString();
+//                                selectedNumber = selectedNumber.replace("-", "");
+//                                person_mobile.setText(selectedNumber);
+//                            }
+//                        });
+//                        alert = builder.create();
                         if (allNumbers.size() > 1) {
-                            alert.show();
+                            PickaContact pickaContact = new PickaContact(AddLeadDetail.this, "Choose a Number", items);
+                            pickaContact.show(fragmentManager, "Pick Numbers");
                         } else {
                             String selectedNumber = phoneNumber.toString();
                             selectedNumber = selectedNumber.replace("-", "");
@@ -247,6 +247,10 @@ public class AddLeadDetail extends ActionBarActivity implements
         }
     }
 
+    @Override
+    public void onListItemSelected(String selection) {
+        person_mobile.setText(selection.replace("-", ""));
+    }
 
     public void saveToDatabase() {
         db.addRecord(new myLeads(
