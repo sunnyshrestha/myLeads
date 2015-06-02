@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/lib/dev.suncha.myleads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,25 +13,27 @@
         android:layout_marginRight="48dp"
         android:gravity="center"
         android:text="@string/no_lead"
-        android:textColor="#bdbdbd"
+        android:textColor="@color/secondary_text"
         android:textSize="18sp"
         android:textStyle="italic" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/listview_left_margin"
+        android:scrollbarSize="@dimen/scrollbarheight">
     </ListView>
 
-
-    <com.gc.materialdesign.views.ButtonFloat
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonFloat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="end|bottom"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="24dp"
-        materialdesign:animate="true"
-        materialdesign:iconDrawable="@drawable/ic_add_white_48dp" />
+        android:src="@drawable/ic_add_white_48dp"
+        app:borderWidth="0dp" />
 
 </FrameLayout>

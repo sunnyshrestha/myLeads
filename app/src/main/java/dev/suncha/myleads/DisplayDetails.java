@@ -5,7 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import org.apache.http.protocol.HTTP;
 import java.util.List;
 
 
-public class DisplayDetails extends ActionBarActivity {
+public class DisplayDetails extends AppCompatActivity {
     //private SQLiteDatabase dataBase;
     TextView organisation_name, office_address, office_phone, website, person_name, designation, mobile, email, product_discussed, meeting_date, followup_date, remarks;
     Button contact, sendEmail;

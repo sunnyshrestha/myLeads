@@ -1,6 +1,5 @@
 package dev.suncha.myleads;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -12,7 +11,7 @@ public class saveDialogFragment extends DialogFragment {
 
     @Override
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity())
+        return new android.support.v7.app.AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_menu_save)
                 .setTitle(R.string.discard)
                 .setMessage(R.string.discard_message)

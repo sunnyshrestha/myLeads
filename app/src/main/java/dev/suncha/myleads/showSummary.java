@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,15 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.gc.materialdesign.views.ButtonFloat;
-
 import java.util.ArrayList;
 
 
-public class showSummary extends ActionBarActivity {
+public class showSummary extends AppCompatActivity {
     ListView summary;
     TextView noLead;
-    ButtonFloat buttonFloat;
+    FloatingActionButton buttonFloat;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
@@ -36,11 +35,10 @@ public class showSummary extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
 
-
         summary = (ListView) findViewById(R.id.list);
 
         noLead = (TextView) findViewById(R.id.noLead);
-        buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+        buttonFloat = (FloatingActionButton) findViewById(R.id.buttonFloat);
         buttonFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
