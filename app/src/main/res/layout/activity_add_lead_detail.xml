@@ -7,9 +7,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
@@ -23,13 +23,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
-                    android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:text="@string/company"
                     android:textColor="@color/cyan"
@@ -44,9 +47,6 @@
                         android:id="@+id/et_organisation_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/company_name"
                         android:inputType="textCapWords"
                         android:textSize="14sp" />
@@ -60,9 +60,6 @@
                         android:id="@+id/et_organisation_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/address"
                         android:inputType="textCapWords"
                         android:textSize="14sp" />
@@ -76,9 +73,6 @@
                         android:id="@+id/et_organisation_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/phone"
                         android:inputType="phone"
                         android:textSize="14sp" />
@@ -92,9 +86,6 @@
                         android:id="@+id/et_website"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/website"
                         android:inputType="textWebEditText"
                         android:textSize="14sp" />
@@ -115,14 +106,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
-                    android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:text="@string/contact_person"
                     android:textColor="@color/cyan"
@@ -137,9 +131,6 @@
                         android:id="@+id/et_person_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/person_name"
                         android:inputType="textCapWords"
                         android:textSize="14sp" />
@@ -153,9 +144,6 @@
                         android:id="@+id/et_designation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/designation"
                         android:inputType="textCapWords"
                         android:textSize="14sp" />
@@ -174,9 +162,6 @@
                             android:id="@+id/et_mobile_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
                             android:hint="@string/mobile_no"
                             android:inputType="phone"
                             android:textSize="14sp" />
@@ -184,10 +169,11 @@
 
                     <Button
                         android:id="@+id/picknumfromcontact"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/iconSize"
+                        android:layout_height="@dimen/iconSize"
                         android:background="@drawable/ic_contacts_grey600_48dp"
-                        android:focusable="false" />
+                        android:focusable="false"
+                        android:padding="@dimen/iconPadding" />
                 </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -198,9 +184,6 @@
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:textSize="14sp" />
@@ -222,6 +205,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -229,7 +216,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
-                    android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:text="@string/discussion_notes"
                     android:textColor="@color/cyan"
@@ -244,9 +230,6 @@
                         android:id="@+id/et_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/product"
                         android:inputType="textCapWords"
                         android:textSize="14sp" />
@@ -266,9 +249,6 @@
                         android:id="@+id/et_meetingdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/meeting_date"
                         android:inputType="date"
                         android:textSize="14sp" />
@@ -277,11 +257,12 @@
 
                     <Button
                         android:id="@+id/button_meetingdate"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/iconSize"
+                        android:layout_height="@dimen/iconSize"
                         android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/ic_event_grey600_48dp" />
+                        android:background="@drawable/ic_event_grey600_48dp"
+                        android:padding="@dimen/iconPadding" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -297,9 +278,6 @@
                             android:id="@+id/et_follow_up"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
                             android:hint="@string/follow_up"
                             android:inputType="date"
                             android:textSize="14sp" />
@@ -307,12 +285,13 @@
 
                     <Button
                         android:id="@+id/button_followupdate"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/iconSize"
+                        android:layout_height="@dimen/iconSize"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/ic_event_grey600_48dp" />
+                        android:background="@drawable/ic_event_grey600_48dp"
+                        android:padding="@dimen/iconPadding" />
 
                 </LinearLayout>
 
@@ -324,9 +303,6 @@
                         android:id="@+id/et_remarks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:hint="@string/remarks"
                         android:inputType="textCapSentences"
                         android:textSize="14sp" />

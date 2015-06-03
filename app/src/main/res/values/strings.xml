@@ -51,4 +51,7 @@
     <string name="no_package">No apps installed to handle this action</string>
     <string name="noemail">Action not available for empty email id field</string>
 
+    <string name="pickFromContact">Tap to choose number from contacts</string>
+    <string name="pickFromCalendar">Tap to pick a date</string>
+
 </resources>

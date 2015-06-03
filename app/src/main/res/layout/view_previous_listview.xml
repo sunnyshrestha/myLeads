@@ -21,9 +21,7 @@
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/listview_left_margin"
-        android:scrollbarSize="@dimen/scrollbarheight">
+        android:layout_marginLeft="@dimen/listview_left_margin">
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
@@ -31,8 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/listview_right_margin"
+        android:layout_marginRight="@dimen/listview_right_margin"
         android:src="@drawable/ic_add_white_48dp"
         app:borderWidth="0dp" />
 

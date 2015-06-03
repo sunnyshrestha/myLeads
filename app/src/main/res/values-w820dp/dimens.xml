@@ -9,4 +9,8 @@
     <dimen name="listview_right_margin">24dp</dimen>
     <dimen name="listview_height">72dp</dimen>
     <dimen name="scrollbarheight">48dp</dimen>
+
+    <dimen name="iconSize">48dp</dimen>
+    <dimen name="iconPadding">6dp</dimen>
+
 </resources>

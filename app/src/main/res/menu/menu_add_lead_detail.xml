@@ -11,6 +11,7 @@
     <item
         android:id="@+id/save_button"
         android:icon="@drawable/action_button_selector"
+        android:textColorHint="@color/secondary_text"
         android:title="@string/save"
         app:showAsAction="always">
 

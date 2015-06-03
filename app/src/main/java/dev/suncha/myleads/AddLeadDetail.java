@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public class AddLeadDetail extends AppCompatActivity implements
-        DatePickerDialog.OnDateSetListener, PickaContact.OnListDialogItemSelect {
+        DatePickerDialog.OnDateSetListener {
     static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
     int check = -1;
@@ -245,10 +245,6 @@ public class AddLeadDetail extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onListItemSelected(String selection) {
-        person_mobile.setText(selection.replace("-", ""));
-    }
 
     public void saveToDatabase() {
         db.addRecord(new myLeads(
