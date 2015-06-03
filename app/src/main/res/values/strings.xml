@@ -57,4 +57,6 @@
     <string name="datemismatch">Date mismatch</string>
     <string name="datemismatchmessage">Follow up date needs to be after the meeting date.</string>
 
+    <string name="datenoset">Date not set</string>
+
 </resources>
