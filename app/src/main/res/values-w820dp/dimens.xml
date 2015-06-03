@@ -5,6 +5,11 @@
     <dimen name="activity_horizontal_margin">64dp</dimen>
     <dimen name="activity_vertical_margin">64dp</dimen>
 
+    <!-- Margin for editTexts inside cardview-->
+    <dimen name="leftSpace">72dp</dimen>
+    <dimen name="rightSpace">72dp</dimen>
+    <dimen name="spaceBelowLastEditText">8dp</dimen>
+
     <dimen name="listview_left_margin">80dp</dimen>
     <dimen name="listview_right_margin">24dp</dimen>
     <dimen name="listview_height">72dp</dimen>

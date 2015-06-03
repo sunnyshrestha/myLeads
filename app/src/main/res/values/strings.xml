@@ -43,7 +43,7 @@
     <string name="no_lead">Seems like you have not entered any lead details at the moment. Press the + button below to add lead details.</string>
 
     <string name="discard">Discard changes?</string>
-    <string name="discard_message">Going back will discard any changes. Still go back?"</string>
+    <string name="discard_message">Do you want to discard any changes?</string>
 
     <string name="no_number">Action not available for empty number field</string>
 
@@ -53,5 +53,8 @@
 
     <string name="pickFromContact">Tap to choose number from contacts</string>
     <string name="pickFromCalendar">Tap to pick a date</string>
+
+    <string name="datemismatch">Date mismatch</string>
+    <string name="datemismatchmessage">Follow up date needs to be after the meeting date.</string>
 
 </resources>
