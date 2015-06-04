@@ -11,18 +11,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 
 
 public class showSummary extends AppCompatActivity {
+
+
     ListView summary;
     TextView noLead;
     FloatingActionButton buttonFloat;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
+
     private ArrayList<String> id = new ArrayList<String>();
     private ArrayList<String> com_name = new ArrayList<String>();
     private ArrayList<String> per_name = new ArrayList<String>();
@@ -77,6 +84,7 @@ public class showSummary extends AppCompatActivity {
                     per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
                     mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
                     email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+
                 } while (mCursor.moveToNext());
             }
             summary.setAdapter(displayAdapter);

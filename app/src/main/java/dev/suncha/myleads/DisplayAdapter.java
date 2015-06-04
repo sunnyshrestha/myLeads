@@ -29,7 +29,6 @@ public class DisplayAdapter extends BaseAdapter {
         this.email = _email;
     }
 
-
     @Override
     public int getCount() {
         return id.size();
@@ -54,34 +53,18 @@ public class DisplayAdapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.display_summary_listview, null);
             mHolder = new ListViewHolder();
-
-
             mHolder.companyname = (TextView) convertView.findViewById(R.id.companyname);
-            mHolder.companyname.setFocusable(false);
-            mHolder.companyname.setFocusableInTouchMode(false);
-
             mHolder.personname = (TextView) convertView.findViewById(R.id.personname);
-            mHolder.personname.setFocusable(false);
-            mHolder.personname.setFocusableInTouchMode(false);
-
             mHolder.personphone = (TextView) convertView.findViewById(R.id.personphone);
-            mHolder.personname.setFocusable(false);
-            mHolder.personname.setFocusableInTouchMode(false);
-
             mHolder.personemail = (TextView) convertView.findViewById(R.id.personemail);
-            mHolder.personemail.setFocusable(false);
-            mHolder.personemail.setFocusableInTouchMode(false);
-
             convertView.setTag(mHolder);
         } else {
             mHolder = (ListViewHolder) convertView.getTag();
         }
-
         mHolder.companyname.setText(com_name.get(position));
         mHolder.personname.setText(per_name.get(position));
         mHolder.personphone.setText(mobile.get(position));
         mHolder.personemail.setText(email.get(position));
-
         return convertView;
     }
 

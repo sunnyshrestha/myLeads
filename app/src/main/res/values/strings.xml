@@ -23,9 +23,9 @@
     <!--discussion-->
     <string name="discussion_notes">Notes</string>
     <string name="product">Product discussed</string>
-    <string name="follow_up">Pick date to follow up</string>
+    <string name="follow_up">Follow up date</string>
     <string name="remarks">Remarks</string>
-    <string name="meeting_date">Pick meeting date   </string>
+    <string name="meeting_date">Meeting date   </string>
     <string name="title_activity_add_lead_detail">Add Lead Details</string>
     <string name="met_date">Meeting date</string>
     <string name="follow_up_on">Follow up on</string>
@@ -43,7 +43,7 @@
     <string name="no_lead">Seems like you have not entered any lead details at the moment. Press the + button below to add lead details.</string>
 
     <string name="discard">Discard changes?</string>
-    <string name="discard_message">Do you want to discard any changes?</string>
+    <string name="discard_message">Do you want to discard changes?</string>
 
     <string name="no_number">Action not available for empty number field</string>
 
@@ -51,8 +51,6 @@
     <string name="no_package">No apps installed to handle this action</string>
     <string name="noemail">Action not available for empty email id field</string>
 
-    <string name="pickFromContact">Tap to choose number from contacts</string>
-    <string name="pickFromCalendar">Tap to pick a date</string>
 
     <string name="datemismatch">Date mismatch</string>
     <string name="datemismatchmessage">Follow up date needs to be after the meeting date.</string>

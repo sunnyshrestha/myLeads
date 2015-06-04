@@ -16,15 +16,9 @@ public class RecheckDateDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        return new android.support.v7.app.AlertDialog.Builder(getActivity())
-//                .setCancelable(false)
-//                .setTitle("Date mismatch")
-//                .setMessage("Follow up date needs to be after the meeting date.")
-//                .setPositiveButton("OK", null)
-//                .create();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        builder.setView(layoutInflater.inflate(R.layout.layout_discard_draft, null))
+        builder.setView(layoutInflater.inflate(R.layout.layout_date_mismatch, null))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
