@@ -7,29 +7,26 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 public class showSummary extends AppCompatActivity {
-
-
     ListView summary;
     TextView noLead;
     FloatingActionButton buttonFloat;
+    ActionMode mActionMode;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
-
     private ArrayList<String> id = new ArrayList<String>();
     private ArrayList<String> com_name = new ArrayList<String>();
     private ArrayList<String> per_name = new ArrayList<String>();
@@ -37,14 +34,49 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> email = new ArrayList<String>();
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
 
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.edit:
+                    Toast.makeText(getApplicationContext(), "Edit action", Toast.LENGTH_SHORT).show();
+                    mode.finish();
+                    return true;
+
+                case R.id.delete:
+                    Toast.makeText(getApplicationContext(), "Delete action", Toast.LENGTH_SHORT).show();
+                    mode.finish();
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
 
         summary = (ListView) findViewById(R.id.list);
-
         noLead = (TextView) findViewById(R.id.noLead);
+
         buttonFloat = (FloatingActionButton) findViewById(R.id.buttonFloat);
         buttonFloat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,15 +86,23 @@ public class showSummary extends AppCompatActivity {
             }
         });
 
-
         mHelper = new DatabaseHandler(this);
-
         noLead.setVisibility(View.GONE);
         summary.setVisibility(View.GONE);
-
         populateListView();
 
-
+        summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mActionMode != null) {
+                    return false;
+                } else {
+                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
+                    view.setSelected(true);
+                    return true;
+                }
+            }
+        });
     }
 
     public void populateListView() {
@@ -92,7 +132,6 @@ public class showSummary extends AppCompatActivity {
             summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //Toast.makeText(getApplicationContext(), "Number " + position, Toast.LENGTH_SHORT).show();
                     Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
                     showDetails.putExtra("key", position);
                     startActivity(showDetails);
@@ -101,11 +140,11 @@ public class showSummary extends AppCompatActivity {
             });
 
             mCursor.close();
+
             noLead.setVisibility(View.GONE);
             summary.setVisibility(View.VISIBLE);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
