@@ -92,7 +92,6 @@ public class AddLeadDetail extends AppCompatActivity implements
             }
         });
 
-
         pick_meetingdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +100,6 @@ public class AddLeadDetail extends AppCompatActivity implements
 
             }
         });
-
 
         pick_followup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +137,6 @@ public class AddLeadDetail extends AppCompatActivity implements
         outState.putCharSequence("meeting_date", metdate);
         outState.putCharSequence("follow_up", followup);
         outState.putCharSequence("remarks", remark);
-
     }
 
     protected void onRestoreInstanceState(Bundle savedState) {
@@ -226,12 +223,10 @@ public class AddLeadDetail extends AppCompatActivity implements
 
                         if (allNumbers.size() > 1) {
                             alert.show();
-
                         } else {
                             String selectedNumber = phoneNumber.toString();
                             selectedNumber = selectedNumber.replace("-", "");
-                            person_mobile.setText(selectedNumber);
-                        }
+                            person_mobile.setText(selectedNumber);                        }
                         if (phoneNumber.length() == 0) {
                             //no numbers found actions
                             Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();

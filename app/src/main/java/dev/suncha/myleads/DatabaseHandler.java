@@ -141,6 +141,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LEADS, KEY_ID + "=?",
                 new String[]{String.valueOf(leads.getId())});
+        String selectQuery = "SELECT * FROM " + TABLE_LEADS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
         db.close();
     }
 

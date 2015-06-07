@@ -1,5 +1,6 @@
 package dev.suncha.myleads;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 
 public class showSummary extends AppCompatActivity {
+    ProgressDialog progress;
     ListView summary;
     TextView noLead;
     FloatingActionButton buttonFloat;
@@ -94,15 +96,35 @@ public class showSummary extends AppCompatActivity {
         summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mActionMode != null) {
-                    return false;
-                } else {
-                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
-                    view.setSelected(true);
-                    return true;
-                }
+//                if (mActionMode != null) {
+//                    return false;
+//                } else {
+//                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
+//                    view.setSelected(true);
+//                    return true;
+//                }
+                deleteLead(position+1);
+                return true;
+
             }
         });
+    }
+
+    public void deleteLead(int position){
+        progress = ProgressDialog.show(this,null,"Deleting item",true);
+        mHelper.deleteRecord(mHelper.getRecord(position));
+
+        displayAdapter.notifyDataSetChanged();
+        new Thread(){
+            public void run(){
+                try{
+                    Thread.sleep(1000);
+                    progress.dismiss();
+                }catch (Exception e){
+                }
+            }
+
+        }.start();
     }
 
     public void populateListView() {
