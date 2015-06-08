@@ -142,8 +142,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_LEADS, KEY_ID + "=?",
                 new String[]{String.valueOf(leads.getId())});
         String selectQuery = "SELECT * FROM " + TABLE_LEADS;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.moveToFirst();
         db.close();
     }
 
@@ -151,11 +149,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + TABLE_LEADS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-//        cursor.close();
-//        return cursor.getCount();
         int count = cursor.getCount();
         cursor.close();
         return count;
+    }
+
+    //Delete a row from the database, by rowId (primary key)
+    public boolean deleteRow(long rowId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = KEY_ID + "=" + rowId;
+        return db.delete(TABLE_LEADS,where,null)!=0;
     }
 
     @Override

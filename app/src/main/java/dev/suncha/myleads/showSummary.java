@@ -28,6 +28,7 @@ public class showSummary extends AppCompatActivity {
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
     int positionToAct;
+
     Intent starterIntent;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
@@ -125,9 +126,9 @@ public class showSummary extends AppCompatActivity {
                 }
             }
         }.start();
-        displayAdapter.remove(addedposition - 1);
-        summary.setAdapter(null);
-        //displayAdapter.notifyDataSetChanged();
+        displayAdapter.remove(positionToAct);
+        //summary.setAdapter(null);
+        displayAdapter.notifyDataSetChanged();
         //summary.setAdapter(displayAdapter);
         populateListView();
 
