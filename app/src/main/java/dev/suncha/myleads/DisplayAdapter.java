@@ -61,11 +61,19 @@ public class DisplayAdapter extends BaseAdapter {
         } else {
             mHolder = (ListViewHolder) convertView.getTag();
         }
+
         mHolder.companyname.setText(com_name.get(position));
         mHolder.personname.setText(per_name.get(position));
         mHolder.personphone.setText(mobile.get(position));
         mHolder.personemail.setText(email.get(position));
         return convertView;
+    }
+
+    public void remove(int index) {
+        com_name.remove(index);
+        per_name.remove(index);
+        mobile.remove(index);
+        email.remove(index);
     }
 
     @Override

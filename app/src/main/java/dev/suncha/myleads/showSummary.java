@@ -27,6 +27,8 @@ public class showSummary extends AppCompatActivity {
     TextView noLead;
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
+    int positionToAct;
+    Intent starterIntent;
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
@@ -35,7 +37,6 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
-
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -59,6 +60,7 @@ public class showSummary extends AppCompatActivity {
 
                 case R.id.delete:
                     Toast.makeText(getApplicationContext(), "Delete action", Toast.LENGTH_SHORT).show();
+                    deleteLead(positionToAct + 1);
                     mode.finish();
                 default:
                     return false;
@@ -75,6 +77,8 @@ public class showSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
+
+        starterIntent = getIntent();
 
         summary = (ListView) findViewById(R.id.list);
         noLead = (TextView) findViewById(R.id.noLead);
@@ -96,40 +100,45 @@ public class showSummary extends AppCompatActivity {
         summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (mActionMode != null) {
-//                    return false;
-//                } else {
-//                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
-//                    view.setSelected(true);
-//                    return true;
-//                }
-                deleteLead(position+1);
-                return true;
-
+                positionToAct = position;
+                if (mActionMode != null) {
+                    return false;
+                } else {
+                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
+                    view.setSelected(true);
+                    return true;
+                }
             }
         });
     }
 
-    public void deleteLead(int position){
-        progress = ProgressDialog.show(this,null,"Deleting item",true);
-        mHelper.deleteRecord(mHelper.getRecord(position));
-
-        displayAdapter.notifyDataSetChanged();
-        new Thread(){
-            public void run(){
-                try{
-                    Thread.sleep(1000);
+    public void deleteLead(int addedposition) {
+        Log.v("This " + String.valueOf(addedposition), "Added position ko value");
+        progress = ProgressDialog.show(this, null, "Deleting item", true);
+        mHelper.deleteRecord(mHelper.getRecord(addedposition));
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(500);
                     progress.dismiss();
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
-
         }.start();
+        displayAdapter.remove(addedposition - 1);
+        summary.setAdapter(null);
+        //displayAdapter.notifyDataSetChanged();
+        //summary.setAdapter(displayAdapter);
+        populateListView();
+
+        startActivity(starterIntent);
+        //finish();
     }
 
     public void populateListView() {
         if (mHelper.getRecordsCount() == 0) {
             noLead.setVisibility(View.VISIBLE);
+            summary.setVisibility(View.GONE);
         } else {
             dataBase = mHelper.getWritableDatabase();
             Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
@@ -157,10 +166,8 @@ public class showSummary extends AppCompatActivity {
                     Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
                     showDetails.putExtra("key", position);
                     startActivity(showDetails);
-                    Log.d("ON_CLICK", "Should go to detailed view");
                 }
             });
-
             mCursor.close();
 
             noLead.setVisibility(View.GONE);
