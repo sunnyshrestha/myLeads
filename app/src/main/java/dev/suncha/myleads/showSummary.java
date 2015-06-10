@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class showSummary extends AppCompatActivity {
     TextView noLead;
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
+
+   FragmentManager fragmentManager = getSupportFragmentManager();
 
     int positionFromListview = -1;
 
@@ -56,6 +59,7 @@ public class showSummary extends AppCompatActivity {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
             switch (item.getItemId()) {
                 case R.id.edit:
                     Toast.makeText(getApplicationContext(), "Edit action", Toast.LENGTH_SHORT).show();
@@ -63,16 +67,8 @@ public class showSummary extends AppCompatActivity {
                     return true;
 
                 case R.id.delete:
-                    Log.v("Reached delete function", "Message");
-                    displayDialog();
-                    //displayAdapter.remove(positionFromListview);
-                    Log.v("Remove function done", "Message 2");
-                    displayAdapter.remove(positionFromListview);
+                    confirmDeleteFragment.show(fragmentManager, "Delete lead");
 
-                    summary.setAdapter(displayAdapter);
-                    //Log.v("Adapter set", "Message 3");
-                    mHelper.removeLead(positionFromListview);
-                    populateListView();
                     mode.finish();
                     //return true;
 
@@ -81,11 +77,25 @@ public class showSummary extends AppCompatActivity {
             }
         }
 
+
+
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
         }
     };
+
+    public void deleteLead(){
+        displayDialog();
+        //displayAdapter.remove(positionFromListview);
+        Log.v("Remove function done", "Message 2");
+        displayAdapter.remove(positionFromListview);
+
+        summary.setAdapter(displayAdapter);
+        //Log.v("Adapter set", "Message 3");
+        mHelper.removeLead(positionFromListview);
+        populateListView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -59,5 +59,6 @@
 
     <string name="edit">Edit lead</string>
     <string name="delete">Delete lead details</string>
+    <string name="deleteConfirmation">Are you sure you want to delete the lead information?</string>
 
 </resources>

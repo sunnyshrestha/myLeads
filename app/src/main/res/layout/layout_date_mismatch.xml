@@ -10,7 +10,7 @@
         android:gravity="center|left"
         android:paddingLeft="24dp"
         android:text="@string/datemismatch"
-        android:textColor="@color/primary_color"
+        android:textColor="@color/primary"
         android:textSize="20sp"
         android:textStyle="bold" />
 

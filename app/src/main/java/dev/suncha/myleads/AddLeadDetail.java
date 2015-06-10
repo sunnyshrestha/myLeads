@@ -39,9 +39,6 @@ public class AddLeadDetail extends AppCompatActivity implements
     Button pick_followup;
     Button pickNumFromContacts;
 
-    int mYear = c.get(Calendar.YEAR);
-    int mMonth = c.get(Calendar.MONTH);
-    int mDay = c.get(Calendar.DAY_OF_MONTH);
     DatabaseHandler db = new DatabaseHandler(this);
     AlertDialog alert;
 
@@ -52,7 +49,6 @@ public class AddLeadDetail extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
-
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
