@@ -74,6 +74,7 @@ public class DisplayAdapter extends BaseAdapter {
         per_name.remove(index);
         mobile.remove(index);
         email.remove(index);
+        notifyDataSetChanged();
     }
 
     @Override

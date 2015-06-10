@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LEADS, KEY_ID + "=?",
                 new String[]{String.valueOf(leads.getId())});
-        String selectQuery = "SELECT * FROM " + TABLE_LEADS;
         db.close();
     }
 
@@ -154,17 +154,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return count;
     }
 
-    //Delete a row from the database, by rowId (primary key)
-    public boolean deleteRow(long rowId){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = KEY_ID + "=" + rowId;
-        return db.delete(TABLE_LEADS,where,null)!=0;
+    public int colIndex(int whoseColIndex) {
+        String countQuery = "SELECT * FROM " + TABLE_LEADS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.moveToPosition(whoseColIndex);
+        int index = cursor.getInt(cursor.getColumnIndex("id"));
+        return index;
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LEADS);
         onCreate(db);
     }
+
+    public void removeLead(int positionOfLeadToRemove) {
+        String countQuery = "SELECT * FROM " + TABLE_LEADS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.moveToPosition(positionOfLeadToRemove);
+        int finalId = cursor.getInt(cursor.getColumnIndex("id"));
+        Log.v(String.valueOf(finalId), "Finalid");
+        db.delete(TABLE_LEADS, "id=?", new String[]{Integer.toString(finalId)});
+        cursor.close();
+        db.close();
+    }
+
+
+
 
 }

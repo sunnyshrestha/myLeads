@@ -54,20 +54,21 @@ public class DisplayDetails extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int entryId = intent.getIntExtra("key", 0);
+        int entryId = intent.getIntExtra("key", -1);
 
-        organisation_name.setText(mHelper.getRecord(entryId + 1).getOfic_name());
-        office_address.setText(mHelper.getRecord(entryId + 1).getOfic_add());
-        office_phone.setText(mHelper.getRecord(entryId + 1).getOfic_num());
-        website.setText(mHelper.getRecord(entryId + 1).getWeb());
-        person_name.setText(mHelper.getRecord(entryId + 1).getPer_name());
-        designation.setText(mHelper.getRecord(entryId + 1).getDesignation());
-        mobile.setText(mHelper.getRecord(entryId + 1).getMobile());
-        email.setText(mHelper.getRecord(entryId + 1).getEmail());
-        product_discussed.setText(mHelper.getRecord(entryId + 1).getProducts());
-        meeting_date.setText(mHelper.getRecord(entryId + 1).getMeeting_date());
-        followup_date.setText(mHelper.getRecord(entryId + 1).getfollowup_date());
-        remarks.setText(mHelper.getRecord(entryId + 1).getRemarks());
+        organisation_name.setText(mHelper.getRecord(entryId).getOfic_name());
+        office_address.setText(mHelper.getRecord(entryId).getOfic_add());
+        office_phone.setText(mHelper.getRecord(entryId).getOfic_num());
+        website.setText(mHelper.getRecord(entryId).getWeb());
+        person_name.setText(mHelper.getRecord(entryId).getPer_name());
+        designation.setText(mHelper.getRecord(entryId).getDesignation());
+        mobile.setText(mHelper.getRecord(entryId).getMobile());
+        email.setText(mHelper.getRecord(entryId).getEmail());
+        product_discussed.setText(mHelper.getRecord(entryId).getProducts());
+        meeting_date.setText(mHelper.getRecord(entryId).getMeeting_date());
+        followup_date.setText(mHelper.getRecord(entryId).getfollowup_date());
+        remarks.setText(mHelper.getRecord(entryId).getRemarks());
+
 
         contact.setOnClickListener(new View.OnClickListener() {
             @Override

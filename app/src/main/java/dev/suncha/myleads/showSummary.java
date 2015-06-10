@@ -27,9 +27,9 @@ public class showSummary extends AppCompatActivity {
     TextView noLead;
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
-    int positionToAct;
 
-    Intent starterIntent;
+    int positionFromListview = -1;
+
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<String> id = new ArrayList<String>();
@@ -37,7 +37,9 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
+
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
+
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -60,9 +62,19 @@ public class showSummary extends AppCompatActivity {
                     return true;
 
                 case R.id.delete:
-                    Toast.makeText(getApplicationContext(), "Delete action", Toast.LENGTH_SHORT).show();
-                    deleteLead(positionToAct + 1);
+                    Log.v("Reached delete function", "Message");
+                    displayDialog();
+                    //displayAdapter.remove(positionFromListview);
+                    Log.v("Remove function done", "Message 2");
+                    displayAdapter.remove(positionFromListview);
+
+                    summary.setAdapter(displayAdapter);
+                    //Log.v("Adapter set", "Message 3");
+                    mHelper.removeLead(positionFromListview);
+                    populateListView();
                     mode.finish();
+                    //return true;
+
                 default:
                     return false;
             }
@@ -78,8 +90,6 @@ public class showSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
-
-        starterIntent = getIntent();
 
         summary = (ListView) findViewById(R.id.list);
         noLead = (TextView) findViewById(R.id.noLead);
@@ -101,7 +111,8 @@ public class showSummary extends AppCompatActivity {
         summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                positionToAct = position;
+                positionFromListview = position;
+                Log.v(String.valueOf(positionFromListview), "Position from List view value");
                 if (mActionMode != null) {
                     return false;
                 } else {
@@ -113,10 +124,8 @@ public class showSummary extends AppCompatActivity {
         });
     }
 
-    public void deleteLead(int addedposition) {
-        Log.v("This " + String.valueOf(addedposition), "Added position ko value");
+    public void displayDialog() {
         progress = ProgressDialog.show(this, null, "Deleting item", true);
-        mHelper.deleteRecord(mHelper.getRecord(addedposition));
         new Thread() {
             public void run() {
                 try {
@@ -126,23 +135,16 @@ public class showSummary extends AppCompatActivity {
                 }
             }
         }.start();
-        displayAdapter.remove(positionToAct);
-        //summary.setAdapter(null);
-        displayAdapter.notifyDataSetChanged();
-        //summary.setAdapter(displayAdapter);
-        populateListView();
-
-        startActivity(starterIntent);
-        //finish();
     }
 
     public void populateListView() {
         if (mHelper.getRecordsCount() == 0) {
             noLead.setVisibility(View.VISIBLE);
             summary.setVisibility(View.GONE);
+
         } else {
             dataBase = mHelper.getWritableDatabase();
-            Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
+            final Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
             id.clear();
             com_name.clear();
             per_name.clear();
@@ -156,7 +158,6 @@ public class showSummary extends AppCompatActivity {
                     per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
                     mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
                     email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
-
                 } while (mCursor.moveToNext());
             }
             summary.setAdapter(displayAdapter);
@@ -165,12 +166,11 @@ public class showSummary extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
-                    showDetails.putExtra("key", position);
+                    showDetails.putExtra("key", mHelper.colIndex(position));
                     startActivity(showDetails);
                 }
             });
             mCursor.close();
-
             noLead.setVisibility(View.GONE);
             summary.setVisibility(View.VISIBLE);
         }
