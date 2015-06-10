@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/lib/dev.suncha.myleads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,6 +25,7 @@
 
     <ListView
         android:id="@+id/list"
+        android:layout_below="@id/toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/listview_left_margin">
@@ -35,10 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="@dimen/listview_right_margin"
-        android:layout_marginEnd="@dimen/listview_right_margin"
-        android:layout_marginRight="@dimen/listview_right_margin"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:src="@drawable/ic_add_white_48dp"
         app:borderWidth="0dp" />
 
-</FrameLayout>
+</RelativeLayout>
