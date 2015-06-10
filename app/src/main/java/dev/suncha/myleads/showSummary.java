@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -91,6 +92,8 @@ public class showSummary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
 
+        setupToolbar();
+
         summary = (ListView) findViewById(R.id.list);
         noLead = (TextView) findViewById(R.id.noLead);
 
@@ -122,6 +125,16 @@ public class showSummary extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Show menu icon
+        //final ActionBar actionBar=getSupportActionBar();
+
+
     }
 
     public void displayDialog() {
