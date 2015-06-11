@@ -19,7 +19,6 @@ public class ConfirmDeleteFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         builder.setView(layoutInflater.inflate(R.layout.confirm_delete_fragment, null))
-                .setMessage(R.string.deleteConfirmation)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

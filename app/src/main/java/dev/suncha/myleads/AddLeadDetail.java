@@ -8,8 +8,11 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +53,8 @@ public class AddLeadDetail extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_detail);
 
+        setupToolbar();
+
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
         organisation_phone = (EditText) findViewById(R.id.et_organisation_phone);
@@ -73,6 +78,7 @@ public class AddLeadDetail extends AppCompatActivity implements
         meeting_date.getLayoutParams().width = width / 2;
         follow_up.getLayoutParams().width = width / 2;
         person_mobile.getLayoutParams().width = width / 2;
+
 
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
@@ -104,6 +110,11 @@ public class AddLeadDetail extends AppCompatActivity implements
                 meetingDatePicker(follow_up);
             }
         });
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -253,6 +264,7 @@ public class AddLeadDetail extends AppCompatActivity implements
                 remarks.getText().toString()
         ));
         Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
+
         finish();
     }
 

@@ -68,7 +68,6 @@ public class showSummary extends AppCompatActivity {
 
                 case R.id.delete:
                     confirmDeleteFragment.show(fragmentManager, "Delete lead");
-
                     mode.finish();
                     //return true;
 
@@ -77,24 +76,23 @@ public class showSummary extends AppCompatActivity {
             }
         }
 
-
-
         @Override
         public void onDestroyActionMode(ActionMode mode) {
+            buttonFloat.setVisibility(View.VISIBLE);
             mActionMode = null;
         }
     };
 
     public void deleteLead(){
         displayDialog();
-        //displayAdapter.remove(positionFromListview);
-        Log.v("Remove function done", "Message 2");
         displayAdapter.remove(positionFromListview);
-
         summary.setAdapter(displayAdapter);
-        //Log.v("Adapter set", "Message 3");
         mHelper.removeLead(positionFromListview);
         populateListView();
+        //SnackBar
+
+
+
     }
 
     @Override
@@ -129,6 +127,7 @@ public class showSummary extends AppCompatActivity {
                 if (mActionMode != null) {
                     return false;
                 } else {
+                    buttonFloat.setVisibility(View.GONE);
                     mActionMode = showSummary.this.startActionMode(mActionModeCallback);
                     view.setSelected(true);
                     return true;
