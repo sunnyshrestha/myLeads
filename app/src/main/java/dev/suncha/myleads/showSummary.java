@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,44 +45,44 @@ public class showSummary extends AppCompatActivity {
 
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.context_menu, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
-            switch (item.getItemId()) {
-                case R.id.edit:
-                    Toast.makeText(getApplicationContext(), "Edit action", Toast.LENGTH_SHORT).show();
-                    mode.finish();
-                    return true;
-
-                case R.id.delete:
-                    confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                    mode.finish();
-                    //return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            buttonFloat.setVisibility(View.VISIBLE);
-            mActionMode = null;
-        }
-    };
+//    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+//        @Override
+//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//            MenuInflater inflater = mode.getMenuInflater();
+//            inflater.inflate(R.menu.context_menu, menu);
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//            ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
+//            switch (item.getItemId()) {
+//                case R.id.edit:
+//                    Toast.makeText(getApplicationContext(), "Edit action", Toast.LENGTH_SHORT).show();
+//                    mode.finish();
+//                    return true;
+//
+//                case R.id.delete:
+//                    confirmDeleteFragment.show(fragmentManager, "Delete lead");
+//                    mode.finish();
+//                    //return true;
+//
+//                default:
+//                    return false;
+//            }
+//        }
+//
+//        @Override
+//        public void onDestroyActionMode(ActionMode mode) {
+//            buttonFloat.setVisibility(View.VISIBLE);
+//            mActionMode = null;
+//        }
+//    };
 
     public void deleteLead(){
         displayDialog();
@@ -90,9 +91,6 @@ public class showSummary extends AppCompatActivity {
         mHelper.removeLead(positionFromListview);
         populateListView();
         //SnackBar
-
-
-
     }
 
     @Override
@@ -119,19 +117,66 @@ public class showSummary extends AppCompatActivity {
         summary.setVisibility(View.GONE);
         populateListView();
 
-        summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//        summary.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                positionFromListview = position;
+//                Log.v(String.valueOf(positionFromListview), "Position from List view value");
+//                if (mActionMode != null) {
+//                    return false;
+//                } else {
+//                    buttonFloat.setVisibility(View.GONE);
+//                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
+//                    view.setSelected(true);
+//                    return true;
+//                }
+//            }
+//        });
+
+        //batch selection
+
+        summary.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        summary.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                positionFromListview = position;
-                Log.v(String.valueOf(positionFromListview), "Position from List view value");
-                if (mActionMode != null) {
-                    return false;
-                } else {
-                    buttonFloat.setVisibility(View.GONE);
-                    mActionMode = showSummary.this.startActionMode(mActionModeCallback);
-                    view.setSelected(true);
-                    return true;
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                //Here you can do something when items are selected/de-selected,
+                //such as update the title in the CAB
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                buttonFloat.setVisibility(View.GONE);
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.context_menu,menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
+                //Respond to clicks on the actions in the CAB
+                switch (item.getItemId()){
+                    case R.id.delete:
+                        confirmDeleteFragment.show(fragmentManager, "Delete lead");
+                        mode.finish();
+                        return true;
+                    case R.id.edit:
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
                 }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                buttonFloat.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -139,11 +184,8 @@ public class showSummary extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //Show menu icon
         //final ActionBar actionBar=getSupportActionBar();
-
-
     }
 
     public void displayDialog() {
