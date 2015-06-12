@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +18,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class showSummary extends AppCompatActivity {
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
 
-   FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     int positionFromListview = -1;
 
@@ -84,7 +82,7 @@ public class showSummary extends AppCompatActivity {
 //        }
 //    };
 
-    public void deleteLead(){
+    public void deleteLead() {
         displayDialog();
         displayAdapter.remove(positionFromListview);
         summary.setAdapter(displayAdapter);
@@ -141,13 +139,20 @@ public class showSummary extends AppCompatActivity {
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 //Here you can do something when items are selected/de-selected,
                 //such as update the title in the CAB
+                final int checkedCount = summary.getCheckedItemCount();
+                if (checkedCount > 1) {
+                    mode.setTitle(checkedCount + " items selected");
+                } else
+                    mode.setTitle(checkedCount + " item selected");
+                //displayAdapter.toggleSelection(position);
+
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 buttonFloat.setVisibility(View.GONE);
                 MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.context_menu,menu);
+                inflater.inflate(R.menu.context_menu, menu);
                 return true;
             }
 
@@ -160,7 +165,7 @@ public class showSummary extends AppCompatActivity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
                 //Respond to clicks on the actions in the CAB
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.delete:
                         confirmDeleteFragment.show(fragmentManager, "Delete lead");
                         mode.finish();
