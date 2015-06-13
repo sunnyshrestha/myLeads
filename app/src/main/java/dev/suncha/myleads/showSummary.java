@@ -185,9 +185,9 @@ public class showSummary extends AppCompatActivity {
                             displayAdapter.remove(positionFromListview);
                             mHelper.removeLead(positionFromListview);
                         }
+                        displayAdapter.notifyDataSetChanged();
                         summary.setAdapter(displayAdapter);
                         populateListView();
-
                         mode.finish();
                         return true;
                     case R.id.edit:

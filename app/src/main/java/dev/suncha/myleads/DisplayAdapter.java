@@ -77,7 +77,6 @@ public class DisplayAdapter extends BaseAdapter {
         per_name.remove(index);
         mobile.remove(index);
         email.remove(index);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -85,9 +84,6 @@ public class DisplayAdapter extends BaseAdapter {
         return true;
     }
 
-    public SparseBooleanArray getSelectedIds() {
-        return mSelectedItemsIds;
-    }
 
     public class ListViewHolder {
         TextView companyname;
