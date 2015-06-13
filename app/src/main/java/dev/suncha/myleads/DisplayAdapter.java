@@ -1,6 +1,7 @@
 package dev.suncha.myleads;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ public class DisplayAdapter extends BaseAdapter {
     private ArrayList<String> per_name;
     private ArrayList<String> mobile;
     private ArrayList<String> email;
+
+    private SparseBooleanArray mSelectedItemsIds;
 
     public DisplayAdapter(Context mContext, ArrayList<String> _id, ArrayList<String> _com_name, ArrayList<String> _per_name, ArrayList<String> _mobile, ArrayList<String> _email) {
         this.mContext = mContext;
@@ -82,11 +85,16 @@ public class DisplayAdapter extends BaseAdapter {
         return true;
     }
 
+    public SparseBooleanArray getSelectedIds() {
+        return mSelectedItemsIds;
+    }
+
     public class ListViewHolder {
         TextView companyname;
         TextView personname;
         TextView personphone;
         TextView personemail;
     }
+
 
 }

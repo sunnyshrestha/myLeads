@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,8 +31,9 @@ public class showSummary extends AppCompatActivity {
     ActionMode mActionMode;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
+    SparseBooleanArray selected;
 
-    int positionFromListview = -1;
+    int positionFromListview;
 
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
@@ -40,8 +42,9 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
-
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
+
+    private ArrayList<Integer> selectedItemsPosition = new ArrayList<>();
 
 //    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 //        @Override
@@ -88,7 +91,6 @@ public class showSummary extends AppCompatActivity {
         summary.setAdapter(displayAdapter);
         mHelper.removeLead(positionFromListview);
         populateListView();
-        //SnackBar
     }
 
     @Override
@@ -144,8 +146,16 @@ public class showSummary extends AppCompatActivity {
                     mode.setTitle(checkedCount + " items selected");
                 } else
                     mode.setTitle(checkedCount + " item selected");
-                //displayAdapter.toggleSelection(position);
 
+                //handling pressing the same item 2 times
+                if (selectedItemsPosition.contains(position)) {
+                    for (int i = 0; i <= selectedItemsPosition.size(); i++) {
+                        if (selectedItemsPosition.get(i) == position)
+                            selectedItemsPosition.remove(i);
+                    }
+                } else {
+                    selectedItemsPosition.add(position);
+                }
             }
 
             @Override
@@ -167,7 +177,17 @@ public class showSummary extends AppCompatActivity {
                 //Respond to clicks on the actions in the CAB
                 switch (item.getItemId()) {
                     case R.id.delete:
-                        confirmDeleteFragment.show(fragmentManager, "Delete lead");
+                        //confirmDeleteFragment.show(fragmentManager, "Delete lead");
+                        for (int i = 0; i < selectedItemsPosition.size(); i++) {
+                            positionFromListview = selectedItemsPosition.get(i);
+//                            Log.v(String.valueOf(positionFromListview),"Value of position from ListView");
+                            displayDialog();
+                            displayAdapter.remove(positionFromListview);
+                            mHelper.removeLead(positionFromListview);
+                        }
+                        summary.setAdapter(displayAdapter);
+                        populateListView();
+
                         mode.finish();
                         return true;
                     case R.id.edit:
@@ -198,7 +218,7 @@ public class showSummary extends AppCompatActivity {
         new Thread() {
             public void run() {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(800);
                     progress.dismiss();
                 } catch (Exception e) {
                 }
