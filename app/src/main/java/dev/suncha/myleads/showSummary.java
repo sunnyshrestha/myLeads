@@ -9,7 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseBooleanArray;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +31,6 @@ public class showSummary extends AppCompatActivity {
     ActionMode mActionMode;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
-    SparseBooleanArray selected;
 
     int positionFromListview;
 
@@ -149,7 +148,7 @@ public class showSummary extends AppCompatActivity {
 
                 //handling pressing the same item 2 times
                 if (selectedItemsPosition.contains(position)) {
-                    for (int i = 0; i <= selectedItemsPosition.size(); i++) {
+                    for (int i = 0; i < selectedItemsPosition.size(); i++) {
                         if (selectedItemsPosition.get(i) == position)
                             selectedItemsPosition.remove(i);
                     }
@@ -173,21 +172,43 @@ public class showSummary extends AppCompatActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
+                //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
                 //Respond to clicks on the actions in the CAB
                 switch (item.getItemId()) {
                     case R.id.delete:
                         //confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                        for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                            positionFromListview = selectedItemsPosition.get(i);
+                        //for (int i = 0; i < selectedItemsPosition.size(); i++) {
+                        //seletedItemsPosition contains the position of all the items that have been selected
+                        //now assign the value of items of selectedItemsPosition to positionFromListview
+                        // positionFromListview = selectedItemsPosition.get(i);
 //                            Log.v(String.valueOf(positionFromListview),"Value of position from ListView");
-                            displayDialog();
-                            displayAdapter.remove(positionFromListview);
-                            mHelper.removeLead(positionFromListview);
+
+                        //Before deleting try to check the total elements present in the whole of listview
+                        //check the values of items in selectedItemsPosition
+                        //check the values being passed to positionFromListview
+                        int totalSize = displayAdapter.getCount();
+                        Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
+
+                        for (int a = 0; a < selectedItemsPosition.size(); a++) {
+                            int b = selectedItemsPosition.get(a);
+                            Log.v(String.valueOf(b), "Value of position of item selected in listview at index " + a + " of selectedItemsPosition");
                         }
-                        displayAdapter.notifyDataSetChanged();
-                        summary.setAdapter(displayAdapter);
-                        populateListView();
+
+                        for (int b = 0; b < selectedItemsPosition.size(); b++) {
+                            positionFromListview = selectedItemsPosition.get(b);
+                            Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
+                        }
+
+                        Log.v(String.valueOf(selectedItemsPosition.size()), "This is the total no. of items in selectedItemsPosition arraylist");
+
+
+//                            displayDialog();
+//                            displayAdapter.remove(positionFromListview);
+//                            mHelper.removeLead(positionFromListview);
+                        //}
+                        //displayAdapter.notifyDataSetChanged();
+                        //summary.setAdapter(displayAdapter);
+                        //populateListView();
                         mode.finish();
                         return true;
                     case R.id.edit:
