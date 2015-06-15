@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class showSummary extends AppCompatActivity {
-    ProgressDialog progress;
+    //ProgressDialog progress;
     ListView summary;
     TextView noLead;
     FloatingActionButton buttonFloat;
@@ -85,7 +86,7 @@ public class showSummary extends AppCompatActivity {
 //    };
 
     public void deleteLead() {
-        displayDialog();
+        //displayDialog();
         displayAdapter.remove(positionFromListview);
         summary.setAdapter(displayAdapter);
         mHelper.removeLead(positionFromListview);
@@ -186,29 +187,28 @@ public class showSummary extends AppCompatActivity {
                         //Before deleting try to check the total elements present in the whole of listview
                         //check the values of items in selectedItemsPosition
                         //check the values being passed to positionFromListview
-                        int totalSize = displayAdapter.getCount();
-                        Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
+                        new deleteAsync().execute();
+                        //int totalSize = displayAdapter.getCount();
+                        //Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
 
-                        for (int a = 0; a < selectedItemsPosition.size(); a++) {
-                            int b = selectedItemsPosition.get(a);
-                            Log.v(String.valueOf(b), "Value of position of item selected in listview at index " + a + " of selectedItemsPosition");
-                        }
+//                        for (int a = 0; a < selectedItemsPosition.size(); a++) {
+//                            int b = selectedItemsPosition.get(a);
+//                            Log.v(String.valueOf(b), "Value of position of item selected in listview at index " + a + " of selectedItemsPosition");
+//                        }
 
-                        for (int b = 0; b < selectedItemsPosition.size(); b++) {
-                            positionFromListview = selectedItemsPosition.get(b);
-                            Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
-                        }
-
-                        Log.v(String.valueOf(selectedItemsPosition.size()), "This is the total no. of items in selectedItemsPosition arraylist");
-
-
-//                            displayDialog();
+//                        for (int b = 0; b < selectedItemsPosition.size(); b++) {
+//                            positionFromListview = selectedItemsPosition.get(b);
+//                            Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
+//                            //displayDialog();
 //                            displayAdapter.remove(positionFromListview);
 //                            mHelper.removeLead(positionFromListview);
-                        //}
-                        //displayAdapter.notifyDataSetChanged();
-                        //summary.setAdapter(displayAdapter);
-                        //populateListView();
+//                        }
+
+                        //Log.v(String.valueOf(selectedItemsPosition.size()), "This is the total no. of items in selectedItemsPosition arraylist");
+
+//                        displayAdapter.notifyDataSetChanged();
+//                        summary.setAdapter(displayAdapter);
+//                        populateListView();
                         mode.finish();
                         return true;
                     case R.id.edit:
@@ -219,9 +219,11 @@ public class showSummary extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 buttonFloat.setVisibility(View.VISIBLE);
+                selectedItemsPosition.clear();
 
             }
         });
@@ -232,19 +234,6 @@ public class showSummary extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Show menu icon
         //final ActionBar actionBar=getSupportActionBar();
-    }
-
-    public void displayDialog() {
-        progress = ProgressDialog.show(this, null, "Deleting item", true);
-        new Thread() {
-            public void run() {
-                try {
-                    Thread.sleep(800);
-                    progress.dismiss();
-                } catch (Exception e) {
-                }
-            }
-        }.start();
     }
 
     public void populateListView() {
@@ -286,6 +275,19 @@ public class showSummary extends AppCompatActivity {
         }
     }
 
+//    public void displayDialog() {
+//        progress = ProgressDialog.show(this, null, "Deleting item", true);
+//        new Thread() {
+//            public void run() {
+//                try {
+//                    Thread.sleep(800);
+//                    progress.dismiss();
+//                } catch (Exception e) {
+//                }
+//            }
+//        }.start();
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -313,6 +315,48 @@ public class showSummary extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         populateListView();
+    }
+
+    private class deleteAsync extends AsyncTask<String, String, String> {
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            int totalSize = displayAdapter.getCount();
+            Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
+
+            progressDialog = new ProgressDialog(showSummary.this);
+            progressDialog.setMessage("Deleting...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            for (int b = 0; b < selectedItemsPosition.size(); b++) {
+                positionFromListview = selectedItemsPosition.get(b);
+                Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
+                //displayDialog();
+                displayAdapter.remove(positionFromListview);
+                mHelper.removeLead(positionFromListview);
+            }
+
+            return String.valueOf(RESULT_OK);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            displayAdapter.notifyDataSetChanged();
+
+            summary.setAdapter(displayAdapter);
+            populateListView();
+            progressDialog.dismiss();
+
+        }
     }
 
 
