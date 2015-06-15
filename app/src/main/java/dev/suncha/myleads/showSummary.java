@@ -317,13 +317,22 @@ public class showSummary extends AppCompatActivity {
         populateListView();
     }
 
-    private class deleteAsync extends AsyncTask<String, String, String> {
+    private class deleteAsync extends AsyncTask<Void, Void, Void> {
         private ProgressDialog progressDialog;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for (int a = 0; a < selectedItemsPosition.size(); a++) {
+                //positionFromListview=selectedItemsPosition.get(a);
+                displayAdapter.remove(selectedItemsPosition.get(a));
+                mHelper.removeLead(selectedItemsPosition.get(a));
+            }
+            return null;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             int totalSize = displayAdapter.getCount();
             Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
 
@@ -335,29 +344,13 @@ public class showSummary extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            for (int b = 0; b < selectedItemsPosition.size(); b++) {
-                positionFromListview = selectedItemsPosition.get(b);
-                Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
-                //displayDialog();
-                displayAdapter.remove(positionFromListview);
-                mHelper.removeLead(positionFromListview);
-            }
-
-            return String.valueOf(RESULT_OK);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressDialog.dismiss();
+            displayAdapter.equals(null);//added this
             displayAdapter.notifyDataSetChanged();
-
             summary.setAdapter(displayAdapter);
             populateListView();
-            progressDialog.dismiss();
-
         }
     }
-
-
 }

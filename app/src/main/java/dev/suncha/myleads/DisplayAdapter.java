@@ -21,8 +21,6 @@ public class DisplayAdapter extends BaseAdapter {
     private ArrayList<String> mobile;
     private ArrayList<String> email;
 
-    private SparseBooleanArray mSelectedItemsIds;
-
     public DisplayAdapter(Context mContext, ArrayList<String> _id, ArrayList<String> _com_name, ArrayList<String> _per_name, ArrayList<String> _mobile, ArrayList<String> _email) {
         this.mContext = mContext;
         this.id = _id;
