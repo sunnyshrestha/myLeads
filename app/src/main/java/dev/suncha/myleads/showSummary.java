@@ -20,8 +20,10 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class showSummary extends AppCompatActivity {
@@ -156,9 +158,19 @@ public class showSummary extends AppCompatActivity {
                 } else {
                     selectedItemsPosition.add(position);
                 }*/
-                if (checked)
+                if (checked){
                     selectedItemsPosition.add(position);
+                    Log.v("added to container: ",String.valueOf(position));
+                    Log.v("Total in container: ", String.valueOf(selectedItemsPosition.size()));
+                }
+                if(!checked){
+                    Object temp=selectedItemsPosition.get(position);
+                    Toast.makeText(getApplicationContext(),"Removed item: "+ temp,Toast.LENGTH_SHORT).show();
+                    selectedItemsPosition.remove(temp);
+                    Log.v("remove from container: ",String.valueOf(position));
+                    Log.v("Total in container: ",String .valueOf(selectedItemsPosition.size()));
 
+                }
             }
 
             @Override
@@ -190,9 +202,9 @@ public class showSummary extends AppCompatActivity {
                         //Before deleting try to check the total elements present in the whole of listview
                         //check the values of items in selectedItemsPosition
                         //check the values being passed to positionFromListview
-                        new deleteAsync().execute();
+//                        new deleteAsync().execute();
                         //displayAdapter.notifyDataSetChanged();
-                        populateListView();
+//                        populateListView();
                         //int totalSize = displayAdapter.getCount();
                         //Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
 
@@ -214,6 +226,10 @@ public class showSummary extends AppCompatActivity {
 //                        displayAdapter.notifyDataSetChanged();
 //                        summary.setAdapter(displayAdapter);
 //                        populateListView();
+                        for(int test = 0;test<selectedItemsPosition.size();test++){
+                            Log.v("No. of selected items  ",String.valueOf(selectedItemsPosition.size()));
+                        }
+
                         mode.finish();
                         return true;
                     case R.id.edit:
