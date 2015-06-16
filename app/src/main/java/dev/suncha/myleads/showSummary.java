@@ -147,7 +147,7 @@ public class showSummary extends AppCompatActivity {
                 } else
                     mode.setTitle(checkedCount + " item selected");
 
-                //handling pressing the same item 2 times
+/*                //handling pressing the same item 2 times
                 if (selectedItemsPosition.contains(position)) {
                     for (int i = 0; i < selectedItemsPosition.size(); i++) {
                         if (selectedItemsPosition.get(i) == position)
@@ -155,7 +155,10 @@ public class showSummary extends AppCompatActivity {
                     }
                 } else {
                     selectedItemsPosition.add(position);
-                }
+                }*/
+                if (checked)
+                    selectedItemsPosition.add(position);
+
             }
 
             @Override
@@ -188,6 +191,8 @@ public class showSummary extends AppCompatActivity {
                         //check the values of items in selectedItemsPosition
                         //check the values being passed to positionFromListview
                         new deleteAsync().execute();
+                        //displayAdapter.notifyDataSetChanged();
+                        populateListView();
                         //int totalSize = displayAdapter.getCount();
                         //Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
 
@@ -219,12 +224,10 @@ public class showSummary extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 buttonFloat.setVisibility(View.VISIBLE);
                 selectedItemsPosition.clear();
-
             }
         });
     }
@@ -238,6 +241,7 @@ public class showSummary extends AppCompatActivity {
 
     public void populateListView() {
         if (mHelper.getRecordsCount() == 0) {
+            Log.v("No item to populate", "Records count = 0");
             noLead.setVisibility(View.VISIBLE);
             summary.setVisibility(View.GONE);
 
@@ -322,6 +326,7 @@ public class showSummary extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+
             for (int a = 0; a < selectedItemsPosition.size(); a++) {
                 //positionFromListview=selectedItemsPosition.get(a);
                 displayAdapter.remove(selectedItemsPosition.get(a));
@@ -333,9 +338,6 @@ public class showSummary extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            int totalSize = displayAdapter.getCount();
-            Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
-
             progressDialog = new ProgressDialog(showSummary.this);
             progressDialog.setMessage("Deleting...");
             progressDialog.setIndeterminate(false);
@@ -347,10 +349,11 @@ public class showSummary extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
-            displayAdapter.equals(null);//added this
-            displayAdapter.notifyDataSetChanged();
-            summary.setAdapter(displayAdapter);
-            populateListView();
+
+            //displayAdapter.equals(null);//added this
+            //displayAdapter.notifyDataSetChanged();
+            //summary.setAdapter(displayAdapter);
+
         }
     }
 }
