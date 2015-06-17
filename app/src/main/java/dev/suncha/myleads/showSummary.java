@@ -20,10 +20,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class showSummary extends AppCompatActivity {
@@ -46,7 +44,7 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> email = new ArrayList<String>();
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
 
-    private ArrayList<Integer> selectedItemsPosition = new ArrayList<>();
+    private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
 
 //    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 //        @Override
@@ -88,7 +86,6 @@ public class showSummary extends AppCompatActivity {
 //    };
 
     public void deleteLead() {
-        //displayDialog();
         displayAdapter.remove(positionFromListview);
         summary.setAdapter(displayAdapter);
         mHelper.removeLead(positionFromListview);
@@ -146,30 +143,18 @@ public class showSummary extends AppCompatActivity {
                 final int checkedCount = summary.getCheckedItemCount();
                 if (checkedCount > 1) {
                     mode.setTitle(checkedCount + " items selected");
+                } else if (checkedCount == 0) {
+
                 } else
                     mode.setTitle(checkedCount + " item selected");
 
-/*                //handling pressing the same item 2 times
-                if (selectedItemsPosition.contains(position)) {
+                if (checked) {
+                    selectedItemsPosition.add(position);
+                } else {
                     for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                        if (selectedItemsPosition.get(i) == position)
+                        if (position == selectedItemsPosition.get(i))
                             selectedItemsPosition.remove(i);
                     }
-                } else {
-                    selectedItemsPosition.add(position);
-                }*/
-                if (checked){
-                    selectedItemsPosition.add(position);
-                    Log.v("added to container: ",String.valueOf(position));
-                    Log.v("Total in container: ", String.valueOf(selectedItemsPosition.size()));
-                }
-                if(!checked){
-                    Object temp=selectedItemsPosition.get(position);
-                    Toast.makeText(getApplicationContext(),"Removed item: "+ temp,Toast.LENGTH_SHORT).show();
-                    selectedItemsPosition.remove(temp);
-                    Log.v("remove from container: ",String.valueOf(position));
-                    Log.v("Total in container: ",String .valueOf(selectedItemsPosition.size()));
-
                 }
             }
 
@@ -202,8 +187,8 @@ public class showSummary extends AppCompatActivity {
                         //Before deleting try to check the total elements present in the whole of listview
                         //check the values of items in selectedItemsPosition
                         //check the values being passed to positionFromListview
-//                        new deleteAsync().execute();
-                        //displayAdapter.notifyDataSetChanged();
+                        new deleteAsync().execute();
+//                        displayAdapter.notifyDataSetChanged();
 //                        populateListView();
                         //int totalSize = displayAdapter.getCount();
                         //Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
@@ -226,9 +211,6 @@ public class showSummary extends AppCompatActivity {
 //                        displayAdapter.notifyDataSetChanged();
 //                        summary.setAdapter(displayAdapter);
 //                        populateListView();
-                        for(int test = 0;test<selectedItemsPosition.size();test++){
-                            Log.v("No. of selected items  ",String.valueOf(selectedItemsPosition.size()));
-                        }
 
                         mode.finish();
                         return true;
@@ -260,7 +242,6 @@ public class showSummary extends AppCompatActivity {
             Log.v("No item to populate", "Records count = 0");
             noLead.setVisibility(View.VISIBLE);
             summary.setVisibility(View.GONE);
-
         } else {
             dataBase = mHelper.getWritableDatabase();
             final Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
@@ -342,11 +323,11 @@ public class showSummary extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
             for (int a = 0; a < selectedItemsPosition.size(); a++) {
-                //positionFromListview=selectedItemsPosition.get(a);
-                displayAdapter.remove(selectedItemsPosition.get(a));
-                mHelper.removeLead(selectedItemsPosition.get(a));
+                positionFromListview = selectedItemsPosition.get(a);
+                displayAdapter.remove(positionFromListview);
+                mHelper.removeLead(positionFromListview);
+                //Log.v("To delete at index: " + a,String.valueOf(selectedItemsPosition.get(a)));
             }
             return null;
         }
@@ -363,8 +344,13 @@ public class showSummary extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+            //super.onPostExecute(aVoid);
             progressDialog.dismiss();
+//            summary.setAdapter(displayAdapter);
+//            Log.v("Display adapter called","Success");
+            displayAdapter.notifyDataSetInvalidated();
+            populateListView();
+            Log.v("Populate called", "Success");
 
             //displayAdapter.equals(null);//added this
             //displayAdapter.notifyDataSetChanged();
