@@ -1,4 +1,5 @@
 package dev.suncha.myleads;
+//https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
 
 import android.content.Context;
 import android.util.SparseBooleanArray;
@@ -17,12 +18,7 @@ import java.util.List;
 public class myAdapter extends ArrayAdapter<myLeads> {
     LayoutInflater inflater;
     List<myLeads> myLeadsList;
-    private Context mContext;
-    private ArrayList<String> id;
-    private ArrayList<String> com_name;
-    private ArrayList<String> per_name;
-    private ArrayList<String> mobile;
-    private ArrayList<String> email;
+    private Context context;
     private SparseBooleanArray mSelectedItemsIds;
 
     /**
@@ -31,30 +27,39 @@ public class myAdapter extends ArrayAdapter<myLeads> {
      * @param context  The current context.
      * @param resource The resource ID for a layout file containing a TextView to use when
      */
-    public myAdapter(Context context, int resource,
-                     List<myLeads> myLeadsList) {
-        super(context, resource);
+    public myAdapter(Context context,
+                     ArrayList<myLeads> myLeadsList) {
+        super(context, R.layout.display_summary_listview,myLeadsList);
         mSelectedItemsIds = new SparseBooleanArray();
-        this.mContext = context;
+        this.context = context;
         this.myLeadsList = myLeadsList;
         inflater = LayoutInflater.from(context);
     }
 
     public View getView(int position, View view, ViewGroup parent) {
+        //Get the data item for this position
+        myLeads mylead = getItem(position);
         final ListViewHolder holder;
         if (view == null) {
             holder = new ListViewHolder();
-            view = inflater.inflate(R.layout.display_summary_listview, null);
+            LayoutInflater inflater=LayoutInflater.from(getContext());
+            view = inflater.inflate(R.layout.display_summary_listview, parent,false);
+
             //Locate the TextViews in layout;
             holder.companyname = (TextView) view.findViewById(R.id.companyname);
             holder.personname = (TextView) view.findViewById(R.id.personname);
             holder.personphone = (TextView) view.findViewById(R.id.personphone);
             holder.personemail = (TextView) view.findViewById(R.id.personemail);
-
             view.setTag(holder);
+
         } else {
             holder = (ListViewHolder) view.getTag();
         }
+
+        holder.companyname.setText(mylead.ofic_name);
+        holder.personname.setText(mylead.per_name);
+        holder.personphone.setText(mylead.mobile);
+        holder.personemail.setText(mylead.email);
         return view;
     }
 
@@ -98,7 +103,7 @@ public class myAdapter extends ArrayAdapter<myLeads> {
         return mSelectedItemsIds;
     }
 
-    private class ListViewHolder {
+    private static class ListViewHolder {
         TextView companyname;
         TextView personname;
         TextView personphone;

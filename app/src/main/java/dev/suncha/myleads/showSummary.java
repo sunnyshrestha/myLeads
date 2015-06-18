@@ -22,14 +22,30 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class showSummary extends AppCompatActivity {
     //ProgressDialog progress;
     ListView summary;
+
+    List<myLeads> myLeadsList = new ArrayList<myLeads>();
+    private ArrayList<String> id = new ArrayList<String>();
+    private ArrayList<String> com_name = new ArrayList<String>();
+    private ArrayList<String> per_name = new ArrayList<String>();
+    private ArrayList<String> mobile = new ArrayList<String>();
+    private ArrayList<String> email = new ArrayList<String>();
+
+//    String[] id;
+//    String[] com_name;
+//    String[] per_name;
+//    String[] mobile;
+//    String[] email;
+
     TextView noLead;
     FloatingActionButton buttonFloat;
     ActionMode mActionMode;
+    myAdapter mydisplayadapter;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -37,12 +53,10 @@ public class showSummary extends AppCompatActivity {
 
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
-    private ArrayList<String> id = new ArrayList<String>();
-    private ArrayList<String> com_name = new ArrayList<String>();
-    private ArrayList<String> per_name = new ArrayList<String>();
-    private ArrayList<String> mobile = new ArrayList<String>();
-    private ArrayList<String> email = new ArrayList<String>();
-    DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
+
+
+    //DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
+//    myAdapter myDisplayAdapter = new myAdapter(showSummary.this,R.layout.display_summary_listview ,myLeadsList);
 
     private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
 
@@ -85,17 +99,20 @@ public class showSummary extends AppCompatActivity {
 //        }
 //    };
 
-    public void deleteLead() {
+/*    public void deleteLead() {
         displayAdapter.remove(positionFromListview);
         summary.setAdapter(displayAdapter);
         mHelper.removeLead(positionFromListview);
         populateListView();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
+        ArrayList<myLeads> myLeadsList = new ArrayList<myLeads>();
+
+        mydisplayadapter = new myAdapter(this,myLeadsList);
 
         setupToolbar();
 
@@ -260,7 +277,7 @@ public class showSummary extends AppCompatActivity {
                     email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
                 } while (mCursor.moveToNext());
             }
-            summary.setAdapter(displayAdapter);
+            summary.setAdapter(mydisplayadapter);
 
             summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -325,7 +342,7 @@ public class showSummary extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             for (int a = 0; a < selectedItemsPosition.size(); a++) {
                 positionFromListview = selectedItemsPosition.get(a);
-                displayAdapter.remove(positionFromListview);
+                //myDisplayAdapter.remove(positionFromListview);
                 mHelper.removeLead(positionFromListview);
                 //Log.v("To delete at index: " + a,String.valueOf(selectedItemsPosition.get(a)));
             }
@@ -348,14 +365,13 @@ public class showSummary extends AppCompatActivity {
             progressDialog.dismiss();
 //            summary.setAdapter(displayAdapter);
 //            Log.v("Display adapter called","Success");
-            displayAdapter.notifyDataSetInvalidated();
+            mydisplayadapter.notifyDataSetInvalidated();
             populateListView();
             Log.v("Populate called", "Success");
 
             //displayAdapter.equals(null);//added this
             //displayAdapter.notifyDataSetChanged();
             //summary.setAdapter(displayAdapter);
-
         }
     }
 }

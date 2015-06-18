@@ -22,7 +22,7 @@ public class ConfirmDeleteFragment extends DialogFragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((showSummary)getActivity()).deleteLead();
+//                        ((showSummary)getActivity()).deleteLead();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
