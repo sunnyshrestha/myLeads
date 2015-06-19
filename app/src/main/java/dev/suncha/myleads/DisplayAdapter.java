@@ -1,7 +1,6 @@
 package dev.suncha.myleads;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ public class DisplayAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
@@ -48,6 +47,7 @@ public class DisplayAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ListViewHolder mHolder;
+
         LayoutInflater layoutInflater;
 
         if (convertView == null) {

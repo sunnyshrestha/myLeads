@@ -182,7 +182,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
-
 }
