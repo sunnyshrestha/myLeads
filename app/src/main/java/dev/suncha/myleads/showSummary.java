@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
 public class showSummary extends AppCompatActivity {
     //ProgressDialog progress;
     ListView summary;
@@ -33,12 +32,7 @@ public class showSummary extends AppCompatActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
     int positionFromListview;
 
-//    String[] id;
-//    String[] com_name;
-//    String[] per_name;
-//    String[] mobile;
-//    String[] email;
-private ArrayList<String> id = new ArrayList<String>();
+    private ArrayList<String> id = new ArrayList<String>();
     private ArrayList<String> com_name = new ArrayList<String>();
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
@@ -47,6 +41,7 @@ private ArrayList<String> id = new ArrayList<String>();
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
+
 
 //    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 //        @Override
@@ -99,7 +94,6 @@ private ArrayList<String> id = new ArrayList<String>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
         ArrayList<myLeads> myLeadsList = new ArrayList<myLeads>();
-
         setupToolbar();
 
         summary = (ListView) findViewById(R.id.list);
@@ -115,6 +109,7 @@ private ArrayList<String> id = new ArrayList<String>();
         });
 
         mHelper = new DatabaseHandler(this);
+
         noLead.setVisibility(View.GONE);
         summary.setVisibility(View.GONE);
         populateListView();
@@ -139,6 +134,7 @@ private ArrayList<String> id = new ArrayList<String>();
 
         summary.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         summary.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 //Here you can do something when items are selected/de-selected,
@@ -181,40 +177,7 @@ private ArrayList<String> id = new ArrayList<String>();
                 switch (item.getItemId()) {
                     case R.id.delete:
                         //confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                        //for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                        //seletedItemsPosition contains the position of all the items that have been selected
-                        //now assign the value of items of selectedItemsPosition to positionFromListview
-                        // positionFromListview = selectedItemsPosition.get(i);
-//                            Log.v(String.valueOf(positionFromListview),"Value of position from ListView");
-
-                        //Before deleting try to check the total elements present in the whole of listview
-                        //check the values of items in selectedItemsPosition
-                        //check the values being passed to positionFromListview
                         new deleteAsync().execute();
-//                        displayAdapter.notifyDataSetChanged();
-//                        populateListView();
-                        //int totalSize = displayAdapter.getCount();
-                        //Log.v(String.valueOf(totalSize), "Total no. of items in displayadapter");
-
-//                        for (int a = 0; a < selectedItemsPosition.size(); a++) {
-//                            int b = selectedItemsPosition.get(a);
-//                            Log.v(String.valueOf(b), "Value of position of item selected in listview at index " + a + " of selectedItemsPosition");
-//                        }
-
-//                        for (int b = 0; b < selectedItemsPosition.size(); b++) {
-//                            positionFromListview = selectedItemsPosition.get(b);
-//                            Log.v(String.valueOf(positionFromListview), "This is the value assigned to positionFromListview at index " + b);
-//                            //displayDialog();
-//                            displayAdapter.remove(positionFromListview);
-//                            mHelper.removeLead(positionFromListview);
-//                        }
-
-                        //Log.v(String.valueOf(selectedItemsPosition.size()), "This is the total no. of items in selectedItemsPosition arraylist");
-
-//                        displayAdapter.notifyDataSetChanged();
-//                        summary.setAdapter(displayAdapter);
-//                        populateListView();
-
                         mode.finish();
                         return true;
                     case R.id.edit:
@@ -241,8 +204,7 @@ private ArrayList<String> id = new ArrayList<String>();
     }
 
     public void populateListView() {
-        if (mHelper.getRecordsCount() == 0) {
-            Log.v("No item to populate", "Records count = 0");
+        if (mHelper.getRecordsCount() <= 0) {
             noLead.setVisibility(View.VISIBLE);
             summary.setVisibility(View.GONE);
         } else {
@@ -330,7 +292,6 @@ private ArrayList<String> id = new ArrayList<String>();
                 positionFromListview = selectedItemsPosition.get(a);
                 displayAdapter.remove((Integer) displayAdapter.getItem(positionFromListview));
                 mHelper.removeLead((Integer) displayAdapter.getItem(positionFromListview));
-                //Log.v("To delete at index: " + a,String.valueOf(selectedItemsPosition.get(a)));
             }
             return null;
         }
@@ -347,18 +308,11 @@ private ArrayList<String> id = new ArrayList<String>();
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            //super.onPostExecute(aVoid);
             progressDialog.dismiss();
-//            summary.setAdapter(displayAdapter);
-//            Log.v("Display adapter called","Success");
             summary.invalidateViews();
             displayAdapter.notifyDataSetChanged();
             populateListView();
             Log.v("Populate called", "Success");
-
-            //displayAdapter.equals(null);//added this
-            //displayAdapter.notifyDataSetChanged();
-            //summary.setAdapter(displayAdapter);
         }
     }
 }
