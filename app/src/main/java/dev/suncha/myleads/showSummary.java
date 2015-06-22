@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -177,23 +176,32 @@ public class showSummary extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.delete:
                         //confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                        new deleteAsync().execute();
+                        //new deleteAsync().execute();
+
+                        //displayAdapter.remove(selectedItemsPosition.get(i));
+                        //mHelper.removeLead(selectedItemsPosition.get(i));
+
+                        populateListView();
                         mode.finish();
                         return true;
+
                     case R.id.edit:
                         mode.finish();
                         return true;
+
                     default:
                         return false;
-                }
+            }
             }
 
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                buttonFloat.setVisibility(View.VISIBLE);
-                selectedItemsPosition.clear();
-            }
-        });
+                                               @Override
+                                               public void onDestroyActionMode(ActionMode mode) {
+                                                   buttonFloat.setVisibility(View.VISIBLE);
+                                                   selectedItemsPosition.clear();
+                                               }
+    }
+
+        );
     }
 
     private void setupToolbar() {
@@ -290,9 +298,9 @@ public class showSummary extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             for (int a = selectedItemsPosition.size() - 1; a >= 0; a--) {
                 positionFromListview = selectedItemsPosition.get(a);
-                displayAdapter.remove((Integer) displayAdapter.getItem(positionFromListview));
-                mHelper.removeLead((Integer) displayAdapter.getItem(positionFromListview));
-            }
+                displayAdapter.remove(positionFromListview);
+                mHelper.removeLead(positionFromListview);
+        }
             return null;
         }
 
@@ -309,10 +317,7 @@ public class showSummary extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             progressDialog.dismiss();
-            summary.invalidateViews();
-            displayAdapter.notifyDataSetChanged();
             populateListView();
-            Log.v("Populate called", "Success");
-        }
+    }
     }
 }

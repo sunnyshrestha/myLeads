@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="@dimen/listview_left_margin">
+        android:layout_marginLeft="@dimen/listview_right_margin">
     </ListView>
 
     <android.support.design.widget.FloatingActionButton

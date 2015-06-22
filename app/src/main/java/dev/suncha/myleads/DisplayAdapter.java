@@ -5,7 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 
@@ -19,6 +23,8 @@ public class DisplayAdapter extends BaseAdapter {
     private ArrayList<String> per_name;
     private ArrayList<String> mobile;
     private ArrayList<String> email;
+
+    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
 
     public DisplayAdapter(Context mContext, ArrayList<String> _id, ArrayList<String> _com_name, ArrayList<String> _per_name, ArrayList<String> _mobile, ArrayList<String> _email) {
         this.mContext = mContext;
@@ -54,6 +60,8 @@ public class DisplayAdapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.display_summary_listview, null);
             mHolder = new ListViewHolder();
+
+            mHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             mHolder.companyname = (TextView) convertView.findViewById(R.id.companyname);
             mHolder.personname = (TextView) convertView.findViewById(R.id.personname);
             mHolder.personphone = (TextView) convertView.findViewById(R.id.personphone);
@@ -63,18 +71,26 @@ public class DisplayAdapter extends BaseAdapter {
             mHolder = (ListViewHolder) convertView.getTag();
         }
 
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(String.valueOf(com_name.get(position).charAt(0)), mColorGenerator.getRandomColor());
+        mHolder.imageView.setImageDrawable(drawable);
         mHolder.companyname.setText(com_name.get(position));
         mHolder.personname.setText(per_name.get(position));
         mHolder.personphone.setText(mobile.get(position));
         mHolder.personemail.setText(email.get(position));
+
         return convertView;
     }
 
     public void remove(int index) {
-        com_name.remove(index);
-        per_name.remove(index);
-        mobile.remove(index);
-        email.remove(index);
+//        com_name.remove(index);
+//        per_name.remove(index);
+//        mobile.remove(index);
+//        email.remove(index);
+        com_name.remove(com_name.get(index));
+        per_name.remove(per_name.get(index));
+        mobile.remove(mobile.get(index));
+        email.remove(email.get(index));
     }
 
     @Override
@@ -84,6 +100,8 @@ public class DisplayAdapter extends BaseAdapter {
 
 
     public class ListViewHolder {
+        TextDrawable drawable;
+        ImageView imageView;
         TextView companyname;
         TextView personname;
         TextView personphone;

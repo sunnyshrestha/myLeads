@@ -11,8 +11,11 @@
     android:paddingTop="4dp">
 
     <FrameLayout
+        android:id="@+id/drawable"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/listview_right_margin"
         android:layout_marginRight="@dimen/listview_right_margin">
 
         <ImageView
@@ -30,7 +33,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/drawable">
 
         <LinearLayout
             android:id="@+id/textviews"
@@ -85,8 +89,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/listview_right_margin">
+            android:layout_marginRight="@dimen/listview_right_margin"
+            android:gravity="center">
 
             <CheckBox
                 android:id="@+id/checkbox"
