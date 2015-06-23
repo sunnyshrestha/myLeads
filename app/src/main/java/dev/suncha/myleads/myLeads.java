@@ -17,6 +17,7 @@ public class myLeads {
     String meeting_date;
     String followup_date;
     String remarks;
+    boolean isChecked;
 
     public myLeads(int id, String ofic_name, String ofic_add, String ofic_num, String web, String per_name, String designation, String mobile, String email, String products, String meeting_date, String followup_date, String remarks) {
         this.id = id;
@@ -49,8 +50,12 @@ public class myLeads {
         this.remarks = remarks;
     }
 
-
+    ;
     public myLeads() {
+    }
+
+    public void setChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"/>
+        android:elevation="4dp" />
 
     <TextView
         android:id="@+id/noLead"
@@ -28,9 +28,7 @@
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginLeft="@dimen/listview_right_margin">
-    </ListView>
+        android:layout_below="@id/toolbar"></ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonFloat"
@@ -44,8 +42,6 @@
         android:layout_marginRight="20dp"
         android:elevation="6dp"
         android:src="@drawable/ic_add_white_48dp"
-        android:translationZ="12dp"
-        app:borderWidth="0dp"
-        app:rippleColor="@color/primary_dark" />
+        app:borderWidth="0dp" />
 
 </RelativeLayout>

@@ -5,18 +5,16 @@
     android:layout_height="@dimen/listview_height"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
-    android:paddingTop="4dp">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/drawable"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/listview_right_margin"
-        android:layout_marginRight="@dimen/listview_right_margin">
+        android:layout_marginRight="8dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -24,7 +22,7 @@
             android:layout_height="match_parent" />
 
         <ImageView
-            android:id="@+id/checkButton"
+            android:id="@+id/checkIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
@@ -34,7 +32,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/drawable">
+        android:layout_toRightOf="@id/drawable"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp">
 
         <LinearLayout
             android:id="@+id/textviews"
