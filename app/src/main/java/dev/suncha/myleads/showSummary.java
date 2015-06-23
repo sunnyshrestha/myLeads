@@ -92,7 +92,7 @@ public class showSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_previous_listview);
-        ArrayList<myLeads> myLeadsList = new ArrayList<myLeads>();
+
         setupToolbar();
 
         summary = (ListView) findViewById(R.id.list);
@@ -154,6 +154,7 @@ public class showSummary extends AppCompatActivity {
                             selectedItemsPosition.remove(i);
                     }
                 }
+
             }
 
             @Override
@@ -199,6 +200,8 @@ public class showSummary extends AppCompatActivity {
                                                    buttonFloat.setVisibility(View.VISIBLE);
                                                    selectedItemsPosition.clear();
                                                }
+
+
     }
 
         );

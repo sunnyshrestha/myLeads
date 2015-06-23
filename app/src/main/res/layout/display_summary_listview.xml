@@ -3,104 +3,93 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/listview_height"
+    android:background="?android:attr/activatedBackgroundIndicator"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/drawable"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/drawable_width"
+        android:layout_height="@dimen/drawable_width"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="@dimen/listview_right_margin"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="@dimen/listview_right_margin"
+        android:paddingBottom="@dimen/padding"
+        android:paddingTop="@dimen/padding">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/drawable" />
 
         <ImageView
             android:id="@+id/checkIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/check"
+            android:src="@drawable/ic_done_white_48dp"
             android:visibility="gone" />
-
     </FrameLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/textviews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@id/drawable"
-        android:paddingBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/listview_left_margin"
+        android:layout_marginStart="@dimen/listview_left_margin"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding"
+        android:paddingEnd="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="4dp">
+        android:paddingRight="8dp"
+        android:paddingStart="8dp"
+        android:paddingTop="@dimen/padding">
 
-        <LinearLayout
-            android:id="@+id/textviews"
+        <TextView
+            android:id="@+id/companyname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/primary_text"
+            android:textIsSelectable="false"
+            android:textSize="16sp" />
 
-
-            <TextView
-                android:id="@+id/companyname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/primary_dark"
-                android:textIsSelectable="false"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/personname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/companyname"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/primary"
-                android:textIsSelectable="false"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/personphone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/personname"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/primary"
-                android:textIsSelectable="false" />
-
-            <TextView
-                android:id="@+id/personemail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/personphone"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/primary"
-                android:textIsSelectable="false" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/personname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/listview_right_margin"
-            android:gravity="center">
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/primary_text"
+            android:textIsSelectable="false"
+            android:textSize="12sp" />
 
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/personphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/secondary_text"
+            android:textIsSelectable="false" />
 
-        </LinearLayout>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/personemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/secondary_text"
+            android:textIsSelectable="false" />
+    </LinearLayout>
 
 
 </RelativeLayout>

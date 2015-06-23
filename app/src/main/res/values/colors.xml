@@ -26,9 +26,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
 
-    <color name="activated">#f48fb1</color>
-    <color name="checked">#ff80ab</color>
-    <color name="pressed">#ff80ab</color>
+    <color name="highlight">#29b6f6</color>
 
 
 

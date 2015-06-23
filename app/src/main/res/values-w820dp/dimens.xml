@@ -13,7 +13,11 @@
     <dimen name="listview_left_margin">80dp</dimen>
     <dimen name="listview_right_margin">24dp</dimen>
     <dimen name="listview_height">72dp</dimen>
-    <dimen name="scrollbarheight">48dp</dimen>
+
+    <dimen name="field_height">64dp</dimen>
+    <dimen name="padding">4dp</dimen>
+
+    <dimen name="drawable_width">56dp</dimen>
 
     <dimen name="iconSize">48dp</dimen>
     <dimen name="iconPadding">6dp</dimen>
