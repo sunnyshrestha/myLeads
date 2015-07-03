@@ -41,7 +41,8 @@ public class AddLeadDetail extends AppCompatActivity implements
     Button pick_followup;
     Button pickNumFromContacts;
 
-    DatabaseHandler db = new DatabaseHandler(this);
+    //DatabaseHandler db = new DatabaseHandler(this);
+    DatabaseHelper dbHelper = new DatabaseHelper(this);
     AlertDialog alert;
 
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -248,7 +249,23 @@ public class AddLeadDetail extends AppCompatActivity implements
     }
 
     public void saveToDatabase() {
-        db.addRecord(new myLeads(
+//        db.addRecord(new myLeads(
+//                organisation_name.getText().toString(),
+//                organisation_address.getText().toString(),
+//                organisation_phone.getText().toString(),
+//                website.getText().toString(),
+//                person_name.getText().toString(),
+//                designation.getText().toString(),
+//                person_mobile.getText().toString(),
+//                person_email.getText().toString(),
+//                product.getText().toString(),
+//                meeting_date.getText().toString(),
+//                follow_up.getText().toString(),
+//                remarks.getText().toString()
+//        ));
+//        Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
+//        finish();
+        dbHelper.addLead(new Lead(
                 organisation_name.getText().toString(),
                 organisation_address.getText().toString(),
                 organisation_phone.getText().toString(),
@@ -262,7 +279,6 @@ public class AddLeadDetail extends AppCompatActivity implements
                 follow_up.getText().toString(),
                 remarks.getText().toString()
         ));
-        Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
         finish();
     }
 

@@ -25,7 +25,6 @@ public class Lead {
     }
 
     //Constructor
-
     public Lead(int id, String company_name, String company_address, String company_phone, String company_web, String person_name, String person_designation, String person_mobile, String person_email, String product_discussed, String meeting_date, String followup_date, String remarks) {
         this.id = id;
         this.company_name = company_name;
@@ -41,6 +40,7 @@ public class Lead {
         this.followup_date = followup_date;
         this.remarks = remarks;
     }
+
 
     public int getId() {
         return id;
@@ -145,8 +145,6 @@ public class Lead {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-
-
 
 
 }

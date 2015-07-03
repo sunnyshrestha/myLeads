@@ -44,20 +44,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_LEADS_TABLE = "CREATE TABLE" + TABLE_LEADS + "("
-                + KEY_ID + "INTEGER PRIMARY KEY,"
-                + KEY_COMPANY_NAME + "TEXT,"
-                + KEY_COMPANY_ADDRESS + "TEXT,"
-                + KEY_COMPANY_PHONE + "TEXT,"
-                + KEY_COMPANY_WEBSITE + "TEXT,"
-                + KEY_PERSON_NAME + "TEXT,"
-                + KEY_DESIGNATION + "TEXT,"
-                + KEY_PERSON_PHONE + "TEXT,"
-                + KEY_PERSON_EMAIL + "TEXT,"
-                + KEY_PRODUCTS_DISCUSSED + "TEXT,"
-                + KEY_MEETING_DATE + "TEXT,"
-                + KEY_FOLLOWUP_DATE + "TEXT,"
-                + KEY_REMARKS + "TEXT" + ")";
+        String CREATE_LEADS_TABLE = "CREATE TABLE " + TABLE_LEADS + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_COMPANY_NAME + " TEXT,"
+                + KEY_COMPANY_ADDRESS + " TEXT,"
+                + KEY_COMPANY_PHONE + " TEXT,"
+                + KEY_COMPANY_WEBSITE + " TEXT,"
+                + KEY_PERSON_NAME + " TEXT,"
+                + KEY_DESIGNATION + " TEXT,"
+                + KEY_PERSON_PHONE + " TEXT,"
+                + KEY_PERSON_EMAIL + " TEXT,"
+                + KEY_PRODUCTS_DISCUSSED + " TEXT,"
+                + KEY_MEETING_DATE + " TEXT,"
+                + KEY_FOLLOWUP_DATE + " TEXT,"
+                + KEY_REMARKS + " TEXT" + ")";
         db.execSQL(CREATE_LEADS_TABLE);
     }
 
@@ -186,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //deleteLead will delete single lead from database
+
     public  void deleteLead(Lead lead){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LEADS,KEY_ID +"=?",new String[]{String.valueOf(lead.getId())});
