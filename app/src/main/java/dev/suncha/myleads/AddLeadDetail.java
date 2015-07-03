@@ -8,8 +8,6 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +36,7 @@ public class AddLeadDetail extends AppCompatActivity implements
     final Calendar c = Calendar.getInstance();
     int check = -1;
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
+
     Button pick_meetingdate;
     Button pick_followup;
     Button pickNumFromContacts;
@@ -46,7 +45,6 @@ public class AddLeadDetail extends AppCompatActivity implements
     AlertDialog alert;
 
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +112,7 @@ public class AddLeadDetail extends AppCompatActivity implements
 
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
         setSupportActionBar(toolbar);
     }
 
@@ -132,6 +131,7 @@ public class AddLeadDetail extends AppCompatActivity implements
         CharSequence followup = follow_up.getText();
         CharSequence remark = remarks.getText();
 
+
         outState.putCharSequence("org_name", officename);
         outState.putCharSequence("org_address", officeaddress);
         outState.putCharSequence("org_phone", officephone);
@@ -144,6 +144,7 @@ public class AddLeadDetail extends AppCompatActivity implements
         outState.putCharSequence("meeting_date", metdate);
         outState.putCharSequence("follow_up", followup);
         outState.putCharSequence("remarks", remark);
+
     }
 
     protected void onRestoreInstanceState(Bundle savedState) {
@@ -172,7 +173,6 @@ public class AddLeadDetail extends AppCompatActivity implements
         meeting_date.setText(metdate);
         follow_up.setText(followup);
         remarks.setText(remark);
-
     }
 
     public void readContact() {
@@ -247,7 +247,6 @@ public class AddLeadDetail extends AppCompatActivity implements
         }
     }
 
-
     public void saveToDatabase() {
         db.addRecord(new myLeads(
                 organisation_name.getText().toString(),
@@ -264,7 +263,6 @@ public class AddLeadDetail extends AppCompatActivity implements
                 remarks.getText().toString()
         ));
         Toast.makeText(getApplication(), R.string.savesuccess, Toast.LENGTH_SHORT).show();
-
         finish();
     }
 

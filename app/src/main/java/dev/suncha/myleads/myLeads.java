@@ -19,6 +19,12 @@ public class myLeads {
     String remarks;
     boolean isChecked;
 
+    public myLeads() {
+
+    }
+
+
+
     public myLeads(int id, String ofic_name, String ofic_add, String ofic_num, String web, String per_name, String designation, String mobile, String email, String products, String meeting_date, String followup_date, String remarks) {
         this.id = id;
         this.ofic_name = ofic_name;
@@ -33,6 +39,7 @@ public class myLeads {
         this.meeting_date = meeting_date;
         this.followup_date = followup_date;
         this.remarks = remarks;
+
     }
 
     public myLeads(String ofic_name, String ofic_add, String ofic_num, String web, String per_name, String designation, String mobile, String email, String products, String meeting_date, String followup_date, String remarks) {
@@ -48,11 +55,9 @@ public class myLeads {
         this.meeting_date = meeting_date;
         this.followup_date = followup_date;
         this.remarks = remarks;
+
     }
 
-    ;
-    public myLeads() {
-    }
 
     public void setChecked(boolean isChecked) {
         this.isChecked = isChecked;
@@ -162,4 +167,5 @@ public class myLeads {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
 }

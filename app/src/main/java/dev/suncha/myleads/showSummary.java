@@ -36,7 +36,9 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> per_name = new ArrayList<String>();
     private ArrayList<String> mobile = new ArrayList<String>();
     private ArrayList<String> email = new ArrayList<String>();
-    DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email);
+    private ArrayList<String> rating = new ArrayList<>();
+
+    DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email, rating);
     private DatabaseHandler mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
@@ -134,66 +136,66 @@ public class showSummary extends AppCompatActivity {
         summary.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         summary.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                //Here you can do something when items are selected/de-selected,
-                //such as update the title in the CAB
-                final int checkedCount = summary.getCheckedItemCount();
-                if (checkedCount > 1) {
-                    mode.setTitle(checkedCount + " items selected");
-                } else if (checkedCount == 0) {
+                                               @Override
+                                               public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                                                   //Here you can do something when items are selected/de-selected,
+                                                   //such as update the title in the CAB
+                                                   final int checkedCount = summary.getCheckedItemCount();
+                                                   if (checkedCount > 1) {
+                                                       mode.setTitle(checkedCount + " items selected");
+                                                   } else if (checkedCount == 0) {
 
-                } else
-                    mode.setTitle(checkedCount + " item selected");
+                                                   } else
+                                                       mode.setTitle(checkedCount + " item selected");
 
-                if (checked) {
-                    selectedItemsPosition.add(position);
-                } else {
-                    for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                        if (position == selectedItemsPosition.get(i))
-                            selectedItemsPosition.remove(i);
-                    }
-                }
+                                                   if (checked) {
+                                                       selectedItemsPosition.add(position);
+                                                   } else {
+                                                       for (int i = 0; i < selectedItemsPosition.size(); i++) {
+                                                           if (position == selectedItemsPosition.get(i))
+                                                               selectedItemsPosition.remove(i);
+                                                       }
+                                                   }
 
-            }
+                                               }
 
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                buttonFloat.setVisibility(View.GONE);
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.context_menu, menu);
-                return true;
-            }
+                                               @Override
+                                               public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                                                   buttonFloat.setVisibility(View.GONE);
+                                                   MenuInflater inflater = mode.getMenuInflater();
+                                                   inflater.inflate(R.menu.context_menu, menu);
+                                                   return true;
+                                               }
 
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
-            }
+                                               @Override
+                                               public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                                                   return false;
+                                               }
 
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
-                //Respond to clicks on the actions in the CAB
-                switch (item.getItemId()) {
-                    case R.id.delete:
-                        //confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                        //new deleteAsync().execute();
+                                               @Override
+                                               public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                                                   //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
+                                                   //Respond to clicks on the actions in the CAB
+                                                   switch (item.getItemId()) {
+                                                       case R.id.delete:
+                                                           //confirmDeleteFragment.show(fragmentManager, "Delete lead");
+                                                           //new deleteAsync().execute();
 
-                        //displayAdapter.remove(selectedItemsPosition.get(i));
-                        //mHelper.removeLead(selectedItemsPosition.get(i));
+                                                           //displayAdapter.remove(selectedItemsPosition.get(i));
+                                                           //mHelper.removeLead(selectedItemsPosition.get(i));
 
-                        populateListView();
-                        mode.finish();
-                        return true;
+                                                           populateListView();
+                                                           mode.finish();
+                                                           return true;
 
-                    case R.id.edit:
-                        mode.finish();
-                        return true;
+                                                       case R.id.edit:
+                                                           mode.finish();
+                                                           return true;
 
-                    default:
-                        return false;
-            }
-            }
+                                                       default:
+                                                           return false;
+                                                   }
+                                               }
 
                                                @Override
                                                public void onDestroyActionMode(ActionMode mode) {
@@ -202,13 +204,14 @@ public class showSummary extends AppCompatActivity {
                                                }
 
 
-    }
+                                           }
 
         );
     }
 
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
         setSupportActionBar(toolbar);
         //Show menu icon
         //final ActionBar actionBar=getSupportActionBar();
@@ -226,6 +229,7 @@ public class showSummary extends AppCompatActivity {
             per_name.clear();
             mobile.clear();
             email.clear();
+            rating.clear();
 
             if (mCursor.moveToFirst()) {
                 do {
@@ -234,6 +238,7 @@ public class showSummary extends AppCompatActivity {
                     per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
                     mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
                     email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+
                 } while (mCursor.moveToNext());
             }
             summary.setAdapter(displayAdapter);
@@ -303,7 +308,7 @@ public class showSummary extends AppCompatActivity {
                 positionFromListview = selectedItemsPosition.get(a);
                 displayAdapter.remove(positionFromListview);
                 mHelper.removeLead(positionFromListview);
-        }
+            }
             return null;
         }
 
@@ -321,6 +326,6 @@ public class showSummary extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             progressDialog.dismiss();
             populateListView();
-    }
+        }
     }
 }

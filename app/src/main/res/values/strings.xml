@@ -63,4 +63,7 @@
     <string name="check">Check Icon</string>
     <string name="drawable">Circular drawab;le</string>
 
+    <string name="ratethelead">How do you rate this lead?</string>
+    <string name="ratingtext">Your Rating:</string>
+
 </resources>

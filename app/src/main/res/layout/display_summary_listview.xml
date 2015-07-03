@@ -18,9 +18,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="@dimen/listview_right_margin"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="@dimen/listview_right_margin"
-        android:paddingBottom="@dimen/padding"
-        android:paddingTop="@dimen/padding">
+        android:layout_marginStart="@dimen/listview_right_margin">
 
         <ImageView
             android:id="@+id/imageView"

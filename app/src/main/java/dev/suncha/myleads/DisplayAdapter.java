@@ -24,13 +24,15 @@ public class DisplayAdapter extends BaseAdapter {
     private ArrayList<String> email;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
 
-    public DisplayAdapter(Context mContext, ArrayList<String> _id, ArrayList<String> _com_name, ArrayList<String> _per_name, ArrayList<String> _mobile, ArrayList<String> _email) {
+
+    public DisplayAdapter(Context mContext, ArrayList<String> _id, ArrayList<String> _com_name, ArrayList<String> _per_name, ArrayList<String> _mobile, ArrayList<String> _email, ArrayList<String> _rating) {
         this.mContext = mContext;
         this.id = _id;
         this.com_name = _com_name;
         this.per_name = _per_name;
         this.mobile = _mobile;
         this.email = _email;
+
     }
 
     @Override
@@ -76,10 +78,8 @@ public class DisplayAdapter extends BaseAdapter {
         mHolder.personname.setText(per_name.get(position));
         mHolder.personphone.setText(mobile.get(position));
         mHolder.personemail.setText(email.get(position));
-
         return convertView;
     }
-
 
     public void remove(int index) {
         com_name.remove(com_name.get(index));
@@ -90,7 +90,6 @@ public class DisplayAdapter extends BaseAdapter {
 
     public class ListViewHolder {
         View view;
-
         ImageView imageView;
         ImageView checkedIcon;
         TextView companyname;

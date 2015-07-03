@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +56,8 @@ public class DisplayDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         int entryId = intent.getIntExtra("key", -1);
+
+        setupToolbar();
 
         organisation_name.setText(mHelper.getRecord(entryId).getOfic_name());
         office_address.setText(mHelper.getRecord(entryId).getOfic_add());
@@ -134,11 +137,19 @@ public class DisplayDetails extends AppCompatActivity {
         }
     }
 
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
+        setSupportActionBar(toolbar);
+        //Show menu icon
+        //final ActionBar actionBar=getSupportActionBar();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_display_details, menu);
+        getMenuInflater().inflate(R.menu.context_menu, menu);
         return true;
     }
 

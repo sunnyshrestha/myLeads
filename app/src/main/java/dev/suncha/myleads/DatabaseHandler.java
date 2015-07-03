@@ -48,7 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DESN + " TEXT," + KEY_MOB + " TEXT,"
                 + KEY_EMAIL + " TEXT," + KEY_PRODUCTS + " TEXT,"
                 + KEY_MEETING_DATE + " TEXT," + KEY_FOLLOWUP_DATE + " TEXT,"
-                + KEY_REMARKS + " TEXT" + ")";
+                + KEY_REMARKS + " TEXT" + "TEXT" + ")";
         db.execSQL(MY_LEADS_TABLE);
     }
 
@@ -100,6 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 myLeads leads = new myLeads();
+                leads.setId(Integer.parseInt(cursor.getString(0)));
                 leads.setId(Integer.parseInt(cursor.getString(0)));
                 leads.setOfic_name(cursor.getString(1));
                 leads.setOfic_add(cursor.getString(2));
@@ -181,5 +182,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
-
 }
