@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,7 @@ public class EditLeadActivity extends AppCompatActivity implements
 
     static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
+    CoordinatorLayout coordinatorLayout;
     int check = -1;
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
     Button pick_meetingdate;
@@ -43,6 +45,7 @@ public class EditLeadActivity extends AppCompatActivity implements
     //DatabaseHelper dbHelper = new DatabaseHelper(EditLeadActivity.this);
     AlertDialog alert;
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+    Lead editedLead = new Lead();
     private DatabaseHelper mHelper = new DatabaseHelper(this);
 
     @Override
@@ -56,6 +59,8 @@ public class EditLeadActivity extends AppCompatActivity implements
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
@@ -114,6 +119,7 @@ public class EditLeadActivity extends AppCompatActivity implements
     }
 
     public void loadText(int entryId) {
+
         organisation_name.setText(mHelper.getLead(entryId).getCompany_name());
         organisation_address.setText(mHelper.getLead(entryId).getCompany_address());
         organisation_phone.setText(mHelper.getLead(entryId).getCompany_phone());
@@ -267,21 +273,25 @@ public class EditLeadActivity extends AppCompatActivity implements
     }
 
     public void updateLead() {
-        mHelper.updateLead(new Lead(
-                organisation_name.getText().toString(),
-                organisation_address.getText().toString(),
-                organisation_phone.getText().toString(),
-                website.getText().toString(),
-                person_name.getText().toString(),
-                designation.getText().toString(),
-                person_mobile.getText().toString(),
-                person_email.getText().toString(),
-                product.getText().toString(),
-                meeting_date.getText().toString(),
-                follow_up.getText().toString(),
-                remarks.getText().toString()
-        ));
-        finish();
+        editedLead.setId(getIntent().getIntExtra("key", -1));
+        editedLead.setCompany_name(organisation_name.getText().toString());
+        editedLead.setCompany_address(organisation_address.getText().toString());
+        editedLead.setCompany_phone(organisation_phone.getText().toString());
+        editedLead.setCompany_web(website.getText().toString());
+        editedLead.setPerson_name(person_name.getText().toString());
+        editedLead.setPerson_designation(designation.getText().toString());
+        editedLead.setPerson_mobile(person_mobile.getText().toString());
+        editedLead.setPerson_email(person_email.getText().toString());
+        editedLead.setProduct_discussed(product.getText().toString());
+        editedLead.setMeeting_date(meeting_date.getText().toString());
+        editedLead.setFollowup_date(follow_up.getText().toString());
+        editedLead.setRemarks(remarks.getText().toString());
+        mHelper.updateLead(editedLead);
+
+        Intent i = new Intent(this, showSummary.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("snackbar", 2);//1 or saved, 2 for saved changes
+        startActivity(i);
     }
 
     public void meetingDatePicker(View view) {

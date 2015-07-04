@@ -159,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //updateLead() will update single lead in database
-    //This method accepts Lead class objeact as parameter
+    //This method accepts Lead class object as parameter
 
     public  int updateLead(Lead lead){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -176,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_MEETING_DATE, lead.getMeeting_date());
         values.put(KEY_FOLLOWUP_DATE, lead.getFollowup_date());
         values.put(KEY_REMARKS, lead.getRemarks());
+
 
         //updating row
         return db.update(TABLE_LEADS,values,

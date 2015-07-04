@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +32,7 @@ public class showSummary extends AppCompatActivity {
     ActionMode mActionMode;
     FragmentManager fragmentManager = getSupportFragmentManager();
     int positionFromListview;
+    CoordinatorLayout coordinatorLayout;
 
     private ArrayList<String> id = new ArrayList<String>();
     private ArrayList<String> com_name = new ArrayList<String>();
@@ -97,6 +100,10 @@ public class showSummary extends AppCompatActivity {
         setContentView(R.layout.view_previous_listview);
 
         setupToolbar();
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+
+        snackbarDecider();
 
         summary = (ListView) findViewById(R.id.list);
         noLead = (TextView) findViewById(R.id.noLead);
@@ -213,6 +220,23 @@ public class showSummary extends AppCompatActivity {
                 }
 
         );
+    }
+
+    private void snackbarDecider() {
+        switch (getIntent().getIntExtra("snackbar", -1)) {
+            case 1:
+                Snackbar
+                        .make(coordinatorLayout, R.string.saved, Snackbar.LENGTH_LONG)
+                        .show();
+                break;
+            case 2:
+                Snackbar
+                        .make(coordinatorLayout, R.string.changessaved, Snackbar.LENGTH_LONG)
+                        .show();
+                break;
+            default:
+                break;
+        }
     }
 
     private void setupToolbar() {

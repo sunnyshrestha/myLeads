@@ -159,9 +159,16 @@ public class DisplayDetails extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.edit:
+                Intent editIntent = new Intent(getApplicationContext(), EditLeadActivity.class);
+                editIntent.putExtra("key", getIntent().getIntExtra("key", -1));
+                startActivity(editIntent);
+                return true;
+            default:
+
         }
 
         return super.onOptionsItemSelected(item);

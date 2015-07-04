@@ -67,4 +67,6 @@
     <string name="ratingtext">Your Rating:</string>
     <string name="title_activity_edit_lead">Edit Lead Details</string>
 
+    <string name="changessaved">Changes Saved</string>
+    <string name="saved">Added to database</string>
 </resources>

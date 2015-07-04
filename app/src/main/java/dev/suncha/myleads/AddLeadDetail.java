@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,7 @@ public class AddLeadDetail extends AppCompatActivity implements
     Button pick_meetingdate;
     Button pick_followup;
     Button pickNumFromContacts;
+    RelativeLayout parentLayout;
 
     DatabaseHelper dbHelper = new DatabaseHelper(AddLeadDetail.this);
     AlertDialog alert;
@@ -52,6 +54,8 @@ public class AddLeadDetail extends AppCompatActivity implements
         setContentView(R.layout.activity_add_lead_detail);
 
         setupToolbar();
+
+        parentLayout = (RelativeLayout) findViewById(R.id.parentlayout);
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
@@ -207,7 +211,10 @@ public class AddLeadDetail extends AppCompatActivity implements
                             }
                         } else {
                             //no results actions
-                            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
+                            Snackbar
+                                    .make(parentLayout, R.string.not_found, Snackbar.LENGTH_LONG)
+                                    .show();
+                            //Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         //error actions
@@ -237,14 +244,20 @@ public class AddLeadDetail extends AppCompatActivity implements
                         }
                         if (phoneNumber.length() == 0) {
                             //no numbers found actions
-                            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
+                            Snackbar
+                                    .make(parentLayout, R.string.not_found, Snackbar.LENGTH_LONG)
+                                    .show();
+                            //Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
             }
         } else {
             //activity result error actions
-            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
+            Snackbar
+                    .make(parentLayout, R.string.not_found, Snackbar.LENGTH_LONG)
+                    .show();
+            //Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -263,7 +276,10 @@ public class AddLeadDetail extends AppCompatActivity implements
                 follow_up.getText().toString(),
                 remarks.getText().toString()
         ));
-        finish();
+        Intent i = new Intent(this, showSummary.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("snackbar", 1); //1 is for SAVED snackbar, 2 for saved changes snackbar
+        startActivity(i);
     }
 
     public void meetingDatePicker(View view) {
