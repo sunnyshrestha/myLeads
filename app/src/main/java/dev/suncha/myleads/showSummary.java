@@ -39,7 +39,8 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> rating = new ArrayList<>();
 
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email, rating);
-    private DatabaseHandler mHelper;
+    //private DatabaseHandler mHelper;
+    private DatabaseHelper mHelper;
     private SQLiteDatabase dataBase;
     private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
 
@@ -109,7 +110,8 @@ public class showSummary extends AppCompatActivity {
             }
         });
 
-        mHelper = new DatabaseHandler(this);
+        //mHelper = new DatabaseHandler(this);
+        mHelper = new DatabaseHelper(this);
 
         noLead.setVisibility(View.GONE);
         summary.setVisibility(View.GONE);
@@ -134,77 +136,81 @@ public class showSummary extends AppCompatActivity {
         //batch selection
 
         summary.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        summary.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        summary.setMultiChoiceModeListener(
+                new AbsListView.MultiChoiceModeListener() {
 
-                                               @Override
-                                               public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                                                   //Here you can do something when items are selected/de-selected,
-                                                   //such as update the title in the CAB
-                                                   final int checkedCount = summary.getCheckedItemCount();
-                                                   if (checkedCount > 1) {
-                                                       mode.setTitle(checkedCount + " items selected");
-                                                   } else if (checkedCount == 0) {
+                    @Override
+                    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                        //Here you can do something when items are selected/de-selected,
+                        //such as update the title in the CAB
+                        final int checkedCount = summary.getCheckedItemCount();
+                        if (checkedCount > 1) {
+                            mode.setTitle(checkedCount + " items selected");
+                        } else if (checkedCount == 0) {
 
-                                                   } else
-                                                       mode.setTitle(checkedCount + " item selected");
+                        } else
+                            mode.setTitle(checkedCount + " item selected");
 
-                                                   if (checked) {
-                                                       selectedItemsPosition.add(position);
-                                                   } else {
-                                                       for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                                                           if (position == selectedItemsPosition.get(i))
-                                                               selectedItemsPosition.remove(i);
-                                                       }
-                                                   }
+                        if (checked) {
+                            selectedItemsPosition.add(position);
+                        } else {
+                            for (int i = 0; i < selectedItemsPosition.size(); i++) {
+                                if (position == selectedItemsPosition.get(i))
+                                    selectedItemsPosition.remove(i);
+                            }
+                        }
 
-                                               }
+                    }
 
-                                               @Override
-                                               public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                                                   buttonFloat.setVisibility(View.GONE);
-                                                   MenuInflater inflater = mode.getMenuInflater();
-                                                   inflater.inflate(R.menu.context_menu, menu);
-                                                   return true;
-                                               }
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        buttonFloat.setVisibility(View.GONE);
+                        MenuInflater inflater = mode.getMenuInflater();
+                        inflater.inflate(R.menu.context_menu, menu);
+                        return true;
+                    }
 
-                                               @Override
-                                               public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                                                   return false;
-                                               }
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        return false;
+                    }
 
-                                               @Override
-                                               public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                                                   //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
-                                                   //Respond to clicks on the actions in the CAB
-                                                   switch (item.getItemId()) {
-                                                       case R.id.delete:
-                                                           //confirmDeleteFragment.show(fragmentManager, "Delete lead");
-                                                           //new deleteAsync().execute();
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
+                        //Respond to clicks on the actions in the CAB
+                        switch (item.getItemId()) {
+                            case R.id.delete:
+                                //confirmDeleteFragment.show(fragmentManager, "Delete lead");
+                                //new deleteAsync().execute();
 
-                                                           //displayAdapter.remove(selectedItemsPosition.get(i));
-                                                           //mHelper.removeLead(selectedItemsPosition.get(i));
+                                //displayAdapter.remove(selectedItemsPosition.get(i));
+                                //mHelper.removeLead(selectedItemsPosition.get(i));
 
-                                                           populateListView();
-                                                           mode.finish();
-                                                           return true;
+                                populateListView();
+                                mode.finish();
+                                return true;
 
-                                                       case R.id.edit:
-                                                           mode.finish();
-                                                           return true;
+                            case R.id.edit:
+                                Intent editLead = new Intent(getApplicationContext(), EditLeadActivity.class);
+                                editLead.putExtra("key", mHelper.colIndex(selectedItemsPosition.get(0)));
+                                startActivity(editLead);
+                                mode.finish();
+                                return true;
 
-                                                       default:
-                                                           return false;
-                                                   }
-                                               }
+                            default:
+                                return false;
+                        }
+                    }
 
-                                               @Override
-                                               public void onDestroyActionMode(ActionMode mode) {
-                                                   buttonFloat.setVisibility(View.VISIBLE);
-                                                   selectedItemsPosition.clear();
-                                               }
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        buttonFloat.setVisibility(View.VISIBLE);
+                        selectedItemsPosition.clear();
+                    }
 
 
-                                           }
+                }
 
         );
     }
@@ -218,12 +224,12 @@ public class showSummary extends AppCompatActivity {
     }
 
     public void populateListView() {
-        if (mHelper.getRecordsCount() <= 0) {
+        if (mHelper.getLeadsCount() <= 0) {
             noLead.setVisibility(View.VISIBLE);
             summary.setVisibility(View.GONE);
         } else {
             dataBase = mHelper.getWritableDatabase();
-            final Cursor mCursor = dataBase.rawQuery("SELECT*FROM " + DatabaseHandler.TABLE_LEADS, null);
+            final Cursor mCursor = dataBase.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_LEADS, null);
             id.clear();
             com_name.clear();
             per_name.clear();
@@ -233,11 +239,11 @@ public class showSummary extends AppCompatActivity {
 
             if (mCursor.moveToFirst()) {
                 do {
-                    id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
-                    com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_OFIC_NAME)));
-                    per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_PER_NAME)));
-                    mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_MOB)));
-                    email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+                    id.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.KEY_ID)));
+                    com_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.KEY_COMPANY_NAME)));
+                    per_name.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.KEY_PERSON_NAME)));
+                    mobile.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.KEY_PERSON_PHONE)));
+                    email.add(mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.KEY_PERSON_EMAIL)));
 
                 } while (mCursor.moveToNext());
             }
@@ -307,7 +313,7 @@ public class showSummary extends AppCompatActivity {
             for (int a = selectedItemsPosition.size() - 1; a >= 0; a--) {
                 positionFromListview = selectedItemsPosition.get(a);
                 displayAdapter.remove(positionFromListview);
-                mHelper.removeLead(positionFromListview);
+                //mHelper.removeLead(positionFromListview);
             }
             return null;
         }

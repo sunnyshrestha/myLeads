@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,18 +16,22 @@
             android:name=".AddLeadDetail"
             android:label="@string/title_activity_add_lead_detail"
             android:windowSoftInputMode="stateHidden">
-
         </activity>
         <activity
             android:name=".DisplayDetails"
-            android:label="@string/title_activity_display_details"></activity>
+            android:label="@string/title_activity_display_details" />
         <activity
             android:name=".showSummary"
             android:label="@string/title_activity_show_summary">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".EditLeadActivity"
+            android:label="@string/title_activity_edit_lead">
         </activity>
     </application>
 

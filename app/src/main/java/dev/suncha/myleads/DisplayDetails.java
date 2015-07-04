@@ -27,14 +27,13 @@ public class DisplayDetails extends AppCompatActivity {
     TextView organisation_name, office_address, office_phone, website, person_name, designation, mobile, email, product_discussed, meeting_date, followup_date, remarks;
     Button contact, sendEmail;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    private DatabaseHandler mHelper;
+    private DatabaseHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_details);
-        mHelper = new DatabaseHandler(this);
-
+        mHelper = new DatabaseHelper(this);
 
         organisation_name = (TextView) findViewById(R.id.out_organisation_name);
         office_address = (TextView) findViewById(R.id.out_organisation_address);
@@ -59,18 +58,18 @@ public class DisplayDetails extends AppCompatActivity {
 
         setupToolbar();
 
-        organisation_name.setText(mHelper.getRecord(entryId).getOfic_name());
-        office_address.setText(mHelper.getRecord(entryId).getOfic_add());
-        office_phone.setText(mHelper.getRecord(entryId).getOfic_num());
-        website.setText(mHelper.getRecord(entryId).getWeb());
-        person_name.setText(mHelper.getRecord(entryId).getPer_name());
-        designation.setText(mHelper.getRecord(entryId).getDesignation());
-        mobile.setText(mHelper.getRecord(entryId).getMobile());
-        email.setText(mHelper.getRecord(entryId).getEmail());
-        product_discussed.setText(mHelper.getRecord(entryId).getProducts());
-        meeting_date.setText(mHelper.getRecord(entryId).getMeeting_date());
-        followup_date.setText(mHelper.getRecord(entryId).getfollowup_date());
-        remarks.setText(mHelper.getRecord(entryId).getRemarks());
+        organisation_name.setText(mHelper.getLead(entryId).getCompany_name());
+        office_address.setText(mHelper.getLead(entryId).getCompany_address());
+        office_phone.setText(mHelper.getLead(entryId).getCompany_phone());
+        website.setText(mHelper.getLead(entryId).getCompany_web());
+        person_name.setText(mHelper.getLead(entryId).getPerson_name());
+        designation.setText(mHelper.getLead(entryId).getPerson_designation());
+        mobile.setText(mHelper.getLead(entryId).getPerson_mobile());
+        email.setText(mHelper.getLead(entryId).getPerson_email());
+        product_discussed.setText(mHelper.getLead(entryId).getProduct_discussed());
+        meeting_date.setText(mHelper.getLead(entryId).getMeeting_date());
+        followup_date.setText(mHelper.getLead(entryId).getFollowup_date());
+        remarks.setText(mHelper.getLead(entryId).getRemarks());
 
 
         contact.setOnClickListener(new View.OnClickListener() {

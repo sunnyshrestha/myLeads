@@ -14,28 +14,25 @@ import java.util.List;
  * Created as a substitute for DatabaseHandler in an attempt to write cleaner code
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+    //Lead table name
+    static final String TABLE_LEADS = "leads";
+    //Lead Table Columns Names
+    static final String KEY_ID = "id";
+    static final String KEY_COMPANY_NAME = "companyname";
+    static final String KEY_COMPANY_ADDRESS = "companyaddress";
+    static final String KEY_COMPANY_PHONE = "companyphone";
+    static final String KEY_COMPANY_WEBSITE = "companywebsite";
+    static final String KEY_PERSON_NAME = "personname";
+    static final String KEY_DESIGNATION = "designation";
+    static final String KEY_PERSON_PHONE = "personphone";
+    static final String KEY_PERSON_EMAIL = "personemail";
+    static final String KEY_PRODUCTS_DISCUSSED = "productsdiscussed";
+    static final String KEY_MEETING_DATE = "meetingdate";
+    static final String KEY_FOLLOWUP_DATE = "followupdate";
+    static final String KEY_REMARKS = "remarks";
     private static final int DATABASE_VERSION = 1;
-
     //Database Name
     private static final String DATABASE_NAME = "myleads";
-
-    //Lead table name
-    private static final String TABLE_LEADS = "leads";
-
-    //Lead Table Columns Names
-    private static final String KEY_ID = "id";
-    private static final String KEY_COMPANY_NAME = "companyname";
-    private static final String KEY_COMPANY_ADDRESS = "companyaddress";
-    private static final String KEY_COMPANY_PHONE = "companyphone";
-    private static final String KEY_COMPANY_WEBSITE = "companywebsite";
-    private static final String KEY_PERSON_NAME = "personname";
-    private static final String KEY_DESIGNATION = "designation";
-    private static final String KEY_PERSON_PHONE = "personphone";
-    private static final String KEY_PERSON_EMAIL = "personemail";
-    private static final String KEY_PRODUCTS_DISCUSSED = "productsdiscussed";
-    private static final String KEY_MEETING_DATE = "meetingdate";
-    private static final String KEY_FOLLOWUP_DATE = "followupdate";
-    private static final String KEY_REMARKS = "remarks";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop older table if new exists
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_LEADS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LEADS);
         //Create tables again
         onCreate(db);
     }
@@ -121,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Lead>getAllLeads(){
         List<Lead> leadList=new ArrayList<Lead>();
         //Select all query
-        String selectQuery="SELECT*FROM"+ TABLE_LEADS;
+        String selectQuery = "SELECT * FROM " + TABLE_LEADS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
@@ -151,13 +148,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Getting leads count
     public int getLeadsCount(){
-        String countQuery = "SELECT*FROM"+TABLE_LEADS;
+        String countQuery = "SELECT * FROM " + TABLE_LEADS;
         SQLiteDatabase db= this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery,null);
+        int count = cursor.getCount();
         cursor.close();
 
         //return count
-        return cursor.getCount();
+        return count;
     }
 
     //updateLead() will update single lead in database
@@ -181,15 +179,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //updating row
         return db.update(TABLE_LEADS,values,
-                KEY_ID+"=?",
+                KEY_ID + "=?",
                 new String[]{String.valueOf(lead.getId())});
     }
 
     //deleteLead will delete single lead from database
-
     public  void deleteLead(Lead lead){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LEADS,KEY_ID +"=?",new String[]{String.valueOf(lead.getId())});
         db.close();
+    }
+
+    public int colIndex(int whoseColIndex) {
+        String countQuery = "SELECT * FROM " + TABLE_LEADS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.moveToPosition(whoseColIndex);
+        int index = cursor.getInt(cursor.getColumnIndex("id"));
+        return index;
     }
 }

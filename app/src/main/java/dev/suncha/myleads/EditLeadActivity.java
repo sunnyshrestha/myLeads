@@ -29,29 +29,33 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
-public class AddLeadDetail extends AppCompatActivity implements
+//should have layout of add lead detail but should load data like displaydetails
+public class EditLeadActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener {
+
     static final int PICK_CONTACT_REQUEST = 0;
     final Calendar c = Calendar.getInstance();
     int check = -1;
     EditText organisation_name, organisation_address, organisation_phone, website, person_name, designation, person_mobile, person_email, product, meeting_date, follow_up, remarks;
-
     Button pick_meetingdate;
     Button pick_followup;
     Button pickNumFromContacts;
-
-    DatabaseHelper dbHelper = new DatabaseHelper(AddLeadDetail.this);
+    //DatabaseHelper dbHelper = new DatabaseHelper(EditLeadActivity.this);
     AlertDialog alert;
-
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+    private DatabaseHelper mHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_lead_detail);
+        setContentView(R.layout.activity_edit_lead);
 
         setupToolbar();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
 
         organisation_name = (EditText) findViewById(R.id.et_organisation_name);
         organisation_address = (EditText) findViewById(R.id.et_organisation_address);
@@ -68,19 +72,18 @@ public class AddLeadDetail extends AppCompatActivity implements
         follow_up = (EditText) findViewById(R.id.et_follow_up);
         remarks = (EditText) findViewById(R.id.et_remarks);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
+        pickNumFromContacts = (Button) findViewById(R.id.picknumfromcontact);
+        pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
+        pick_followup = (Button) findViewById(R.id.button_followupdate);
 
         meeting_date.getLayoutParams().width = width / 2;
         follow_up.getLayoutParams().width = width / 2;
         person_mobile.getLayoutParams().width = width / 2;
 
+        Intent intent = getIntent();
+        int entryId = intent.getIntExtra("key", -1);
 
-        pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
-        pick_followup = (Button) findViewById(R.id.button_followupdate);
-        pickNumFromContacts = (Button) findViewById(R.id.picknumfromcontact);
+        loadText(entryId);
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.button_animation);
 
@@ -108,6 +111,21 @@ public class AddLeadDetail extends AppCompatActivity implements
                 meetingDatePicker(follow_up);
             }
         });
+    }
+
+    public void loadText(int entryId) {
+        organisation_name.setText(mHelper.getLead(entryId).getCompany_name());
+        organisation_address.setText(mHelper.getLead(entryId).getCompany_address());
+        organisation_phone.setText(mHelper.getLead(entryId).getCompany_phone());
+        website.setText(mHelper.getLead(entryId).getCompany_web());
+        person_name.setText(mHelper.getLead(entryId).getPerson_name());
+        designation.setText(mHelper.getLead(entryId).getPerson_designation());
+        person_mobile.setText(mHelper.getLead(entryId).getPerson_mobile());
+        person_email.setText(mHelper.getLead(entryId).getPerson_email());
+        product.setText(mHelper.getLead(entryId).getProduct_discussed());
+        meeting_date.setText(mHelper.getLead(entryId).getMeeting_date());
+        follow_up.setText(mHelper.getLead(entryId).getFollowup_date());
+        remarks.setText(mHelper.getLead(entryId).getRemarks());
     }
 
     private void setupToolbar() {
@@ -217,7 +235,7 @@ public class AddLeadDetail extends AppCompatActivity implements
                         }
 
                         final CharSequence[] items = allNumbers.toArray(new String[allNumbers.size()]);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddLeadDetail.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EditLeadActivity.this);
                         builder.setTitle("Choose a number");
                         builder.setItems(items, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
@@ -248,8 +266,8 @@ public class AddLeadDetail extends AppCompatActivity implements
         }
     }
 
-    public void saveToDatabase() {
-        dbHelper.addLead(new Lead(
+    public void updateLead() {
+        mHelper.updateLead(new Lead(
                 organisation_name.getText().toString(),
                 organisation_address.getText().toString(),
                 organisation_phone.getText().toString(),
@@ -340,7 +358,7 @@ public class AddLeadDetail extends AppCompatActivity implements
             case R.id.action_settings:
                 break;
             case R.id.save_button:
-                saveToDatabase();
+                updateLead();
                 break;
             default:
                 break;

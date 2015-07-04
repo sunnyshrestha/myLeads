@@ -41,6 +41,22 @@ public class Lead {
         this.remarks = remarks;
     }
 
+    //Second constructor :(
+    public Lead(String company_name, String company_address, String company_phone, String company_web, String person_name, String person_designation, String person_mobile, String person_email, String product_discussed, String meeting_date, String followup_date, String remarks) {
+        this.company_name = company_name;
+        this.company_address = company_address;
+        this.company_phone = company_phone;
+        this.company_web = company_web;
+        this.person_name = person_name;
+        this.person_designation = person_designation;
+        this.person_mobile = person_mobile;
+        this.person_email = person_email;
+        this.product_discussed = product_discussed;
+        this.meeting_date = meeting_date;
+        this.followup_date = followup_date;
+        this.remarks = remarks;
+    }
+
 
     public int getId() {
         return id;

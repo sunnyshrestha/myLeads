@@ -65,5 +65,6 @@
 
     <string name="ratethelead">How do you rate this lead?</string>
     <string name="ratingtext">Your Rating:</string>
+    <string name="title_activity_edit_lead">Edit Lead Details</string>
 
 </resources>
