@@ -61,7 +61,7 @@
     <string name="delete">Delete lead details</string>
     <string name="deleteConfirmation">Are you sure you want to delete the lead information?</string>
     <string name="check">Check Icon</string>
-    <string name="drawable">Circular drawab;le</string>
+    <string name="drawable">Circular drawable</string>
 
     <string name="ratethelead">How do you rate this lead?</string>
     <string name="ratingtext">Your Rating:</string>
@@ -69,4 +69,12 @@
 
     <string name="changessaved">Changes Saved</string>
     <string name="saved">Added to database</string>
+
+    <string name="add_event_title">Add event to calendar</string>
+    <string name="event_name">Event Title</string>
+    <string name="meetingdate">Meeting Date</string>
+    <string name="meeting_time">Meeting Time</string>
+    <string name="reminder">Reminder</string>
+
+
 </resources>

@@ -4,16 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-<!--    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center|left"
-        android:paddingLeft="24dp"
-        android:text="@string/discard"
-        android:textColor="@color/primary"
-        android:textSize="20sp"
-        android:textStyle="bold" />-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
