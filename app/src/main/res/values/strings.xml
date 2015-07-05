@@ -75,6 +75,15 @@
     <string name="meetingdate">Meeting Date</string>
     <string name="meeting_time">Meeting Time</string>
     <string name="reminder">Reminder</string>
+    <string name="choosetime">Choose Time</string>
+
+    <string name="reminderday">Date to remind on</string>
+    <string name="remindertime">Time to remind on</string>
+
+    <string name="choosereminderdate">Reminder Date</string>
+    <string name="chooseremindertime">Reminder Time</string>
+    <string name="addtocalendar">Add follow-up date to calendar</string>
+    <string name="addfollowupfirst">Add follow-up date first</string>
 
 
 </resources>

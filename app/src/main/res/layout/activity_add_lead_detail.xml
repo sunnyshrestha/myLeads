@@ -314,7 +314,18 @@
                             android:background="@drawable/ic_event_grey600_48dp"
                             android:padding="@dimen/iconPadding" />
 
+                        <Button
+                            android:id="@+id/button_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@id/button_followupdate"
+                            android:text="@string/addtocalendar"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
                     </RelativeLayout>
+
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"

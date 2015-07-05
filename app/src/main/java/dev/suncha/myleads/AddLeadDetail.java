@@ -41,6 +41,7 @@ public class AddLeadDetail extends AppCompatActivity implements
     Button pick_meetingdate;
     Button pick_followup;
     Button pickNumFromContacts;
+    Button addToCalendar;
     RelativeLayout parentLayout;
 
     DatabaseHelper dbHelper = new DatabaseHelper(AddLeadDetail.this);
@@ -71,6 +72,8 @@ public class AddLeadDetail extends AppCompatActivity implements
         meeting_date = (EditText) findViewById(R.id.et_meetingdate);
         follow_up = (EditText) findViewById(R.id.et_follow_up);
         remarks = (EditText) findViewById(R.id.et_remarks);
+
+        addToCalendar = (Button) findViewById(R.id.button_event);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -110,6 +113,19 @@ public class AddLeadDetail extends AppCompatActivity implements
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
                 meetingDatePicker(follow_up);
+            }
+        });
+
+        addToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (follow_up.getText().length() != 0) {
+                    AddEventFragment addEventFragment = new AddEventFragment();
+                    addEventFragment.show(fragmentManager, "ADD EVENT");
+                } else
+                    Snackbar
+                            .make(parentLayout, R.string.addfollowupfirst, Snackbar.LENGTH_LONG)
+                            .show();
             }
         });
     }
