@@ -80,10 +80,12 @@
     <string name="reminderday">Date to remind on</string>
     <string name="remindertime">Time to remind on</string>
 
-    <string name="choosereminderdate">Reminder Date (dd-mm-yyyy)</string>
+    <string name="choosereminderdate">Reminder Date</string>
     <string name="chooseremindertime">Reminder Time</string>
     <string name="addtocalendar">Add follow-up date to calendar</string>
     <string name="addfollowupfirst">Add follow-up date first</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
 
 
 </resources>

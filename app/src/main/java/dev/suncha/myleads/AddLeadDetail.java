@@ -120,7 +120,10 @@ public class AddLeadDetail extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 if (follow_up.getText().length() != 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("follow up date", follow_up.getText().toString());
                     AddEventFragment addEventFragment = new AddEventFragment();
+                    addEventFragment.setArguments(bundle);
                     addEventFragment.show(fragmentManager, "ADD EVENT");
                 } else
                     Snackbar

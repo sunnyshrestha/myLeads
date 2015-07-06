@@ -8,33 +8,60 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Switch;
 
 /**
  * Created by user on 7/5/2015.
  */
 public class AddEventFragment extends DialogFragment {
 
-    View dialogView;
-    EditText eventTitle;
-    Button chooseTime;
+    EditText eventTitle, eventDate, reminderDate, reminderTime;
+    Button chooseTime, chooseReminderDate, chooseReminderTime;
+    Switch aSwitch;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View dialogView = layoutInflater.inflate(R.layout.add_event_to_calendar, null);
+
         eventTitle = (EditText) dialogView.findViewById(R.id.event_name_value);
+        eventDate = (EditText) dialogView.findViewById(R.id.meeting_date_value);
+        reminderDate = (EditText) dialogView.findViewById(R.id.reminder_date);
+        reminderTime = (EditText) dialogView.findViewById(R.id.reminder_time);
         chooseTime = (Button) dialogView.findViewById(R.id.button_chooseTime);
-        chooseTime.setOnClickListener(new View.OnClickListener() {
+        chooseReminderDate = (Button) dialogView.findViewById(R.id.chooseReminderDate);
+        chooseReminderTime = (Button) dialogView.findViewById(R.id.chooseReminderTime);
+
+        aSwitch = (Switch) dialogView.findViewById(R.id.reminder_switch);
+
+        String received_followup_date = getArguments().getString("follow up date");
+        eventDate.setText(received_followup_date);
+
+        aSwitch.setChecked(false);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Fix Time", Toast.LENGTH_SHORT).show();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //enable the underlying widgets
+                    reminderDate.setVisibility(View.VISIBLE);
+                    reminderTime.setVisibility(View.VISIBLE);
+                    chooseReminderDate.setVisibility(View.VISIBLE);
+                    chooseReminderTime.setVisibility(View.VISIBLE);
+
+                } else if (!isChecked) {
+                    //disable the underlying widgets
+                    reminderDate.setVisibility(View.GONE);
+                    reminderTime.setVisibility(View.GONE);
+                    chooseReminderDate.setVisibility(View.GONE);
+                    chooseReminderTime.setVisibility(View.GONE);
+                }
             }
         });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        dialogView = layoutInflater.inflate(R.layout.add_event_to_calendar, null);
         builder.setView(dialogView)
                 .setPositiveButton("Add to Calendar", new DialogInterface.OnClickListener() {
                     @Override
