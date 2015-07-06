@@ -23,9 +23,9 @@
     <!--discussion-->
     <string name="discussion_notes">Notes</string>
     <string name="product">Product discussed</string>
-    <string name="follow_up">Follow up date</string>
+    <string name="follow_up">Follow up date (dd-mm-yyyy)</string>
     <string name="remarks">Remarks</string>
-    <string name="meeting_date">Meeting date   </string>
+    <string name="meeting_date">Meeting date (dd-mm-yyyy)   </string>
     <string name="title_activity_add_lead_detail">Add Lead Details</string>
     <string name="met_date">Meeting date</string>
     <string name="follow_up_on">Follow up on</string>
@@ -80,7 +80,7 @@
     <string name="reminderday">Date to remind on</string>
     <string name="remindertime">Time to remind on</string>
 
-    <string name="choosereminderdate">Reminder Date</string>
+    <string name="choosereminderdate">Reminder Date (dd-mm-yyyy)</string>
     <string name="chooseremindertime">Reminder Time</string>
     <string name="addtocalendar">Add follow-up date to calendar</string>
     <string name="addfollowupfirst">Add follow-up date first</string>
