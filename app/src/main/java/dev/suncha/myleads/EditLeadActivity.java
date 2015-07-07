@@ -81,9 +81,9 @@ public class EditLeadActivity extends AppCompatActivity implements
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
         pick_followup = (Button) findViewById(R.id.button_followupdate);
 
-        meeting_date.getLayoutParams().width = width / 2;
-        follow_up.getLayoutParams().width = width / 2;
-        person_mobile.getLayoutParams().width = width / 2;
+        meeting_date.getLayoutParams().width = width * 11 / 20;
+        follow_up.getLayoutParams().width = width * 11 / 20;
+        person_mobile.getLayoutParams().width = width * 11 / 20;
 
         Intent intent = getIntent();
         int entryId = intent.getIntExtra("key", -1);

@@ -39,7 +39,11 @@ public class AddEventFragment extends DialogFragment {
         aSwitch = (Switch) dialogView.findViewById(R.id.reminder_switch);
 
         String received_followup_date = getArguments().getString("follow up date");
+        String received_person_name = getArguments().getString("person name");
+        String received_company_name = getArguments().getString("company name");
+
         eventDate.setText(received_followup_date);
+        eventTitle.setText("Follow up with " + received_person_name + " of " + received_company_name);
 
         aSwitch.setChecked(false);
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -74,7 +78,8 @@ public class AddEventFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //do nothing
                     }
-                });
+                })
+                .setCancelable(false);
 
         return builder.create();
     }

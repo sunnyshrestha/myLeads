@@ -75,17 +75,17 @@
     <string name="meetingdate">Meeting Date</string>
     <string name="meeting_time">Meeting Time</string>
     <string name="reminder">Reminder</string>
-    <string name="choosetime">Choose Time</string>
 
     <string name="reminderday">Date to remind on</string>
     <string name="remindertime">Time to remind on</string>
 
-    <string name="choosereminderdate">Reminder Date</string>
-    <string name="chooseremindertime">Reminder Time</string>
+    <string name="choosedate">Pick Date</string>
+    <string name="choosetime">Pick Time</string>
     <string name="addtocalendar">Add follow-up date to calendar</string>
     <string name="addfollowupfirst">Add follow-up date first</string>
     <string name="off">Off</string>
     <string name="on">On</string>
+    <string name="dateformaterror">Make sure date is in the format dd-mm-yyyy</string>
 
 
 </resources>

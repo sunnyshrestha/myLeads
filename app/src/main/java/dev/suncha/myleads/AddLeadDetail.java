@@ -80,9 +80,9 @@ public class AddLeadDetail extends AppCompatActivity implements
         display.getSize(size);
         int width = size.x;
 
-        meeting_date.getLayoutParams().width = width / 2;
-        follow_up.getLayoutParams().width = width / 2;
-        person_mobile.getLayoutParams().width = width / 2;
+        meeting_date.getLayoutParams().width = width * 11 / 20;
+        follow_up.getLayoutParams().width = width * 11 / 20;
+        person_mobile.getLayoutParams().width = width * 11 / 20;
 
 
         pick_meetingdate = (Button) findViewById(R.id.button_meetingdate);
@@ -116,21 +116,43 @@ public class AddLeadDetail extends AppCompatActivity implements
             }
         });
 
+
         addToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (follow_up.getText().length() != 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("follow up date", follow_up.getText().toString());
-                    AddEventFragment addEventFragment = new AddEventFragment();
-                    addEventFragment.setArguments(bundle);
-                    addEventFragment.show(fragmentManager, "ADD EVENT");
+                    if (isDateValid(follow_up.getText().toString())) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("follow up date", follow_up.getText().toString());
+                        bundle.putString("person name", person_name.getText().toString());
+                        bundle.putString("company name", organisation_name.getText().toString());
+                        AddEventFragment addEventFragment = new AddEventFragment();
+                        addEventFragment.setArguments(bundle);
+                        addEventFragment.show(fragmentManager, "ADD EVENT");
+                    } else {
+                        Snackbar
+                                .make(parentLayout, R.string.dateformaterror, Snackbar.LENGTH_LONG)
+                                .show();
+                    }
                 } else
                     Snackbar
                             .make(parentLayout, R.string.addfollowupfirst, Snackbar.LENGTH_LONG)
                             .show();
             }
         });
+    }
+
+    public boolean isDateValid(String date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            date = follow_up.getText().toString();
+            dateFormat.parse(date);
+
+            return true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void setupToolbar() {
@@ -281,24 +303,31 @@ public class AddLeadDetail extends AppCompatActivity implements
     }
 
     public void saveToDatabase() {
-        dbHelper.addLead(new Lead(
-                organisation_name.getText().toString(),
-                organisation_address.getText().toString(),
-                organisation_phone.getText().toString(),
-                website.getText().toString(),
-                person_name.getText().toString(),
-                designation.getText().toString(),
-                person_mobile.getText().toString(),
-                person_email.getText().toString(),
-                product.getText().toString(),
-                meeting_date.getText().toString(),
-                follow_up.getText().toString(),
-                remarks.getText().toString()
-        ));
-        Intent i = new Intent(this, showSummary.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.putExtra("snackbar", 1); //1 is for SAVED snackbar, 2 for saved changes snackbar
-        startActivity(i);
+        if (isDateValid(meeting_date.getText().toString()) && isDateValid(follow_up.getText().toString())) {
+            dbHelper.addLead(new Lead(
+                    organisation_name.getText().toString(),
+                    organisation_address.getText().toString(),
+                    organisation_phone.getText().toString(),
+                    website.getText().toString(),
+                    person_name.getText().toString(),
+                    designation.getText().toString(),
+                    person_mobile.getText().toString(),
+                    person_email.getText().toString(),
+                    product.getText().toString(),
+                    meeting_date.getText().toString(),
+                    follow_up.getText().toString(),
+                    remarks.getText().toString()
+            ));
+            Intent i = new Intent(this, showSummary.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("snackbar", 1); //1 is for SAVED snackbar, 2 for saved changes snackbar
+            startActivity(i);
+        } else {
+            Snackbar
+                    .make(parentLayout, R.string.dateformaterror, Snackbar.LENGTH_LONG)
+                    .show();
+        }
+
     }
 
     public void meetingDatePicker(View view) {
