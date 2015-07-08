@@ -78,8 +78,8 @@ public class AddEventFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //do nothing
                     }
-                })
-                .setCancelable(false);
+                });
+        setCancelable(false);
 
         return builder.create();
     }

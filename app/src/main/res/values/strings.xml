@@ -82,10 +82,10 @@
     <string name="choosedate">Pick Date</string>
     <string name="choosetime">Pick Time</string>
     <string name="addtocalendar">Add follow-up date to calendar</string>
-    <string name="addfollowupfirst">Add follow-up date first</string>
+    <string name="addfollowupfirst">Date fields cannot be empty</string>
     <string name="off">Off</string>
     <string name="on">On</string>
-    <string name="dateformaterror">Make sure date is in the format dd-mm-yyyy</string>
+    <string name="dateformaterror">Invalid date</string>
 
 
 </resources>

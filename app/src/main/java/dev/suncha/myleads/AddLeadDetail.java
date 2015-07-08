@@ -146,8 +146,8 @@ public class AddLeadDetail extends AppCompatActivity implements
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             date = follow_up.getText().toString();
+            dateFormat.setLenient(false);
             dateFormat.parse(date);
-
             return true;
         } catch (ParseException e) {
             e.printStackTrace();

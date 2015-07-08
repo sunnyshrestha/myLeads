@@ -25,6 +25,7 @@ public class RecheckDateDialog extends DialogFragment {
                         Toast.makeText(getActivity(), R.string.datenoset, Toast.LENGTH_SHORT).show();
                     }
                 });
+        setCancelable(false);
 
         return builder.create();
     }

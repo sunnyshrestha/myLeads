@@ -28,6 +28,7 @@ public class saveDialogFragment extends DialogFragment {
 
                     }
                 });
+        setCancelable(false);
         return builder.create();
     }
 }

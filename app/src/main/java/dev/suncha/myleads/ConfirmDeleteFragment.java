@@ -31,6 +31,7 @@ public class ConfirmDeleteFragment extends DialogFragment {
 
                     }
                 });
+        setCancelable(false);
         return builder.create();
     }
 }
