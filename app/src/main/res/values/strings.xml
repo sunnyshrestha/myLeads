@@ -86,6 +86,9 @@
     <string name="off">Off</string>
     <string name="on">On</string>
     <string name="dateformaterror">Invalid date</string>
+    <string name="add">Add to calendar</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_add_event">Add event to calendar</string>
 
 
 </resources>

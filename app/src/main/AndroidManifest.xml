@@ -16,7 +16,7 @@
             android:name=".AddLeadDetail"
             android:label="@string/title_activity_add_lead_detail"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".DisplayDetails"
             android:label="@string/title_activity_display_details"
@@ -34,7 +34,11 @@
         <activity
             android:name=".EditLeadActivity"
             android:label="@string/title_activity_edit_lead"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddEvent"
+            android:label="@string/title_activity_add_event"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
     </application>
 
 </manifest>

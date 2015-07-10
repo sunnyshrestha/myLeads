@@ -21,6 +21,7 @@ public class AddEventFragment extends DialogFragment {
     Button chooseTime, chooseReminderDate, chooseReminderTime;
     Switch aSwitch;
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -81,7 +82,15 @@ public class AddEventFragment extends DialogFragment {
                 });
         setCancelable(false);
 
+        chooseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return builder.create();
     }
+
 
 }

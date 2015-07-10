@@ -122,13 +122,18 @@ public class AddLeadDetail extends AppCompatActivity implements
             public void onClick(View v) {
                 if (follow_up.getText().length() != 0) {
                     if (isDateValid(follow_up.getText().toString())) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("follow up date", follow_up.getText().toString());
-                        bundle.putString("person name", person_name.getText().toString());
-                        bundle.putString("company name", organisation_name.getText().toString());
-                        AddEventFragment addEventFragment = new AddEventFragment();
-                        addEventFragment.setArguments(bundle);
-                        addEventFragment.show(fragmentManager, "ADD EVENT");
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("follow up date", follow_up.getText().toString());
+//                        bundle.putString("person name", person_name.getText().toString());
+//                        bundle.putString("company name", organisation_name.getText().toString());
+//                        AddEventFragment addEventFragment = new AddEventFragment();
+//                        addEventFragment.setArguments(bundle);
+//                        addEventFragment.show(fragmentManager, "ADD EVENT");
+                        Intent startAddEventIntent = new Intent(getApplicationContext(), AddEvent.class);
+                        startAddEventIntent.putExtra("follow up date", follow_up.getText().toString());
+                        startAddEventIntent.putExtra("person name", person_name.getText().toString());
+                        startAddEventIntent.putExtra("company name", organisation_name.getText().toString());
+                        startActivity(startAddEventIntent);
                     } else {
                         Snackbar
                                 .make(parentLayout, R.string.dateformaterror, Snackbar.LENGTH_LONG)
