@@ -89,6 +89,7 @@
     <string name="add">Add to calendar</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_add_event">Add event to calendar</string>
+    <string name="reminderdatemismatchmessage">Reminder date should be before the follow up date</string>
 
 
 </resources>

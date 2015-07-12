@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/myparentlayout"
+    android:id="@+id/parentlayoutofmine"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,7 +11,7 @@
         android:layout_marginTop="16dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:text="@string/datemismatchmessage"
+        android:text="@string/reminderdatemismatchmessage"
         android:textSize="16sp" />
 
 </LinearLayout>

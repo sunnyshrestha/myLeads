@@ -11,25 +11,25 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 /**
- * Created by Sunny on 5/29/2015.
+ * Created by Sunny on 7/11/2015.
  */
-public class RecheckDateDialog extends DialogFragment {
+public class reminderDateCheckDialog extends DialogFragment {
     LinearLayout parentview;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // parentview=(LinearLayout) parentview.findViewById();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.layout_date_mismatch, null);
-        //builder.setView(layoutInflater.inflate(R.layout.layout_date_mismatch, null))
-        parentview = (LinearLayout) view.findViewById(R.id.myparentlayout);
+        View view = layoutInflater.inflate(R.layout.reminder_date_mismatch, null);
+        parentview = (LinearLayout) view.findViewById(R.id.parentlayoutofmine);
+//        builder.setView(layoutInflater.inflate(R.layout.reminder_date_mismatch, null))
         builder.setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), R.string.datenoset, Toast.LENGTH_SHORT).show();
+                        Toast
+                                .makeText(getActivity(), R.string.datenoset, Toast.LENGTH_SHORT)
+                                .show();
                     }
                 });
         setCancelable(false);
