@@ -2,11 +2,7 @@ package dev.suncha.myleads;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class AddEvent extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     EditText eventTitle, eventDate, reminderDate, reminderTime, eventTime;
@@ -104,31 +99,23 @@ public class AddEvent extends AppCompatActivity implements TimePickerDialog.OnTi
 
     public void addEventToCalendar() {
         String meetingDate = eventDate.getText().toString();
-
-        Cursor cursor = null;
-        //int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars._ID)));
-        //Constructing event details
-        long startMillis = 0;
+        //Date year and time of the follow up date which becomes the meeting date for actual event
         String parts[] = meetingDate.split("-");
         String dateOfMeeting = parts[0];
         String monthOfMeeting = parts[1];
         String yearOfMeeting = parts[2];
+
+        long startmillis = 0;
+
         Calendar beginTime = Calendar.getInstance();
-        beginTime.set(Integer.valueOf(yearOfMeeting), Integer.valueOf(monthOfMeeting), Integer.valueOf(dateOfMeeting), hourOfEvent, minuteOfEvent);
+        beginTime.set(Integer.valueOf(yearOfMeeting), Integer.valueOf(monthOfMeeting), Integer.valueOf(dateOfMeeting));
+        startmillis = beginTime.getTimeInMillis();
 
-        //Inserting event
-        ContentResolver contentResolver = getContentResolver();
-        ContentValues contentValues = new ContentValues();
-        TimeZone timeZone = TimeZone.getDefault();
-        contentValues.put(CalendarContract.Events.DTSTART, startMillis);
-        contentValues.put(CalendarContract.Events.DURATION, 3000); //MANDATORY FIELD RAICHA
-        contentValues.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-        contentValues.put(CalendarContract.Events.TITLE, eventTitle.getText().toString());
-        contentValues.put(CalendarContract.Events.CALENDAR_ID, 3);
-        Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
-
-        //Retrieve eventId
-        String eventID = uri.getLastPathSegment();
+        Intent calIntent = new Intent(Intent.ACTION_EDIT);
+        calIntent.setType("vnd.android.cursor.item/event");
+        calIntent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
+        calIntent.putExtra(CalendarContract.Events.DTSTART, startmillis);
+        startActivity(calIntent);
 
     }
 
