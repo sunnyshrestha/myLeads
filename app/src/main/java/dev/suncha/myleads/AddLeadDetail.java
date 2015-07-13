@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -122,18 +124,26 @@ public class AddLeadDetail extends AppCompatActivity implements
             public void onClick(View v) {
                 if (follow_up.getText().length() != 0) {
                     if (isDateValid(follow_up.getText().toString())) {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("follow up date", follow_up.getText().toString());
-//                        bundle.putString("person name", person_name.getText().toString());
-//                        bundle.putString("company name", organisation_name.getText().toString());
-//                        AddEventFragment addEventFragment = new AddEventFragment();
-//                        addEventFragment.setArguments(bundle);
-//                        addEventFragment.show(fragmentManager, "ADD EVENT");
-                        Intent startAddEventIntent = new Intent(getApplicationContext(), AddEvent.class);
-                        startAddEventIntent.putExtra("follow up date", follow_up.getText().toString());
-                        startAddEventIntent.putExtra("person name", person_name.getText().toString());
-                        startAddEventIntent.putExtra("company name", organisation_name.getText().toString());
-                        startActivity(startAddEventIntent);
+
+                        String parts[] = follow_up.getText().toString().split("-");
+                        String dateOfMeeting = parts[0];
+                        String monthOfMeeting = parts[1];
+                        String yearOfMeeting = parts[2];
+
+                        GregorianCalendar eventDate = new GregorianCalendar(Integer.valueOf(yearOfMeeting),Integer.valueOf(monthOfMeeting)-1,Integer.valueOf(dateOfMeeting));
+
+                        Intent calIntent = new Intent(Intent.ACTION_EDIT);
+                        calIntent.setType("vnd.android.cursor.item/event");
+                        calIntent.putExtra(CalendarContract.Events.TITLE, "Follow-up with " + person_name.getText().toString() + " of " + organisation_name.getText().toString());
+                        calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,eventDate.getTimeInMillis());
+                        calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,eventDate.getTimeInMillis());
+                        startActivity(calIntent);
+
+//                        Intent startAddEventIntent = new Intent(getApplicationContext(), AddEvent.class);
+//                        startAddEventIntent.putExtra("follow up date", follow_up.getText().toString());
+//                        startAddEventIntent.putExtra("person name", person_name.getText().toString());
+//                        startAddEventIntent.putExtra("company name", organisation_name.getText().toString());
+//                        startActivity(startAddEventIntent);
                     } else {
                         Snackbar
                                 .make(parentLayout, R.string.dateformaterror, Snackbar.LENGTH_LONG)
@@ -309,6 +319,9 @@ public class AddLeadDetail extends AppCompatActivity implements
 
     public void saveToDatabase() {
         if (isDateValid(meeting_date.getText().toString()) && isDateValid(follow_up.getText().toString())) {
+            if(organisation_name.getText().length()==0)
+                organisation_name.setText(R.string.notset);
+
             dbHelper.addLead(new Lead(
                     organisation_name.getText().toString(),
                     organisation_address.getText().toString(),
