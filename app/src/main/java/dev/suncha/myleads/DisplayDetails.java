@@ -3,10 +3,14 @@ package dev.suncha.myleads;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +38,15 @@ public class DisplayDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_details);
         mHelper = new DatabaseHelper(this);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Transition exitTrans = new Explode();
+            getWindow().setExitTransition(exitTrans);
+
+            Transition reenterTrans = new Slide();
+            getWindow().setReenterTransition(reenterTrans);
+
+        }
 
         organisation_name = (TextView) findViewById(R.id.out_organisation_name);
         office_address = (TextView) findViewById(R.id.out_organisation_address);
