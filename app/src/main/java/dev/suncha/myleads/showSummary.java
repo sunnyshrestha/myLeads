@@ -25,9 +25,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
-
 import java.util.ArrayList;
+
+//import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 public class showSummary extends AppCompatActivity {
     //ProgressDialog progress;
@@ -221,13 +221,8 @@ public class showSummary extends AppCompatActivity {
                         buttonFloat.setVisibility(View.VISIBLE);
                         selectedItemsPosition.clear();
                     }
-
-
                 }
-
         );
-
-
     }
 
     private void snackbarDecider() {
@@ -299,9 +294,7 @@ public class showSummary extends AppCompatActivity {
 //                    } else {
                     Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
                     showDetails.putExtra("key", mHelper.colIndex(position));
-                    //startActivity(showDetails);
-
-                    ActivityTransitionLauncher.with(showSummary.this).from(view).launch(showDetails);
+                    startActivity(showDetails);
 
 //                    }
 

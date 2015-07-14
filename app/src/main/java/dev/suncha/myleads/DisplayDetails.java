@@ -3,14 +3,10 @@ package dev.suncha.myleads;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +17,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kogitune.activity_transition.ActivityTransition;
-
 import org.apache.http.protocol.HTTP;
 
 import java.util.List;
+
+//import com.kogitune.activity_transition.ActivityTransition;
 
 
 public class DisplayDetails extends AppCompatActivity {
@@ -40,7 +36,7 @@ public class DisplayDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_details);
         mHelper = new DatabaseHelper(this);
-        ActivityTransition.with(getIntent()).to(findViewById(R.id.parentlayout)).start(savedInstanceState);
+        //ActivityTransition.with(getIntent()).to(findViewById(R.id.parentlayout)).start(savedInstanceState);
 
 //        if (Build.VERSION.SDK_INT >= 21) {
 //            Transition exitTrans = new Explode();
