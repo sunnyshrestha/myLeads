@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kogitune.activity_transition.ActivityTransition;
+
 import org.apache.http.protocol.HTTP;
 
 import java.util.List;
@@ -38,15 +40,16 @@ public class DisplayDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_details);
         mHelper = new DatabaseHelper(this);
+        ActivityTransition.with(getIntent()).to(findViewById(R.id.parentlayout)).start(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Transition exitTrans = new Explode();
-            getWindow().setExitTransition(exitTrans);
-
-            Transition reenterTrans = new Slide();
-            getWindow().setReenterTransition(reenterTrans);
-
-        }
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            Transition exitTrans = new Explode();
+//            getWindow().setExitTransition(exitTrans);
+//
+//            Transition reenterTrans = new Slide();
+//            getWindow().setReenterTransition(reenterTrans);
+//
+//        }
 
         organisation_name = (TextView) findViewById(R.id.out_organisation_name);
         office_address = (TextView) findViewById(R.id.out_organisation_address);

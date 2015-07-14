@@ -1,22 +1,20 @@
 package dev.suncha.myleads;
 
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +24,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 import java.util.ArrayList;
 
@@ -284,24 +284,26 @@ public class showSummary extends AppCompatActivity {
             summary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        Transition exitTrans = new Explode();
-                        getWindow().setExitTransition(exitTrans);
+//                    if (Build.VERSION.SDK_INT >= 21) {
+//                        Transition exitTrans = new Explode();
+//                        getWindow().setExitTransition(exitTrans);
+//
+//                        Transition reenterTrans = new Slide();
+//                        getWindow().setReenterTransition(reenterTrans);
+//
+//                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(showSummary.this);
+//                        Intent intent = new Intent(showSummary.this, DisplayDetails.class);
+//                        intent.putExtra("key", mHelper.colIndex(position));
+//                        startActivity(intent, options.toBundle());
+//
+//                    } else {
+                    Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
+                    showDetails.putExtra("key", mHelper.colIndex(position));
+                    //startActivity(showDetails);
 
-                        Transition reenterTrans = new Slide();
-                        getWindow().setReenterTransition(reenterTrans);
+                    ActivityTransitionLauncher.with(showSummary.this).from(view).launch(showDetails);
 
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(showSummary.this);
-                        Intent intent = new Intent(showSummary.this, DisplayDetails.class);
-                        intent.putExtra("key", mHelper.colIndex(position));
-                        startActivity(intent, options.toBundle());
-
-                    } else {
-                        Intent showDetails = new Intent(getApplicationContext(), DisplayDetails.class);
-                        showDetails.putExtra("key", mHelper.colIndex(position));
-                        startActivity(showDetails);
-
-                    }
+//                    }
 
                 }
             });
@@ -329,8 +331,13 @@ public class showSummary extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_show_summary, menu);
 
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
         return true;
-
     }
 
     @Override
