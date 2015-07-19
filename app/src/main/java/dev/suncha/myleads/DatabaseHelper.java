@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LEADS_TABLE = "CREATE TABLE " + TABLE_LEADS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_COMPANY_NAME + " TEXT,"
                 + KEY_COMPANY_ADDRESS + " TEXT,"
                 + KEY_COMPANY_PHONE + " TEXT,"
@@ -177,7 +177,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_FOLLOWUP_DATE, lead.getFollowup_date());
         values.put(KEY_REMARKS, lead.getRemarks());
 
-
         //updating row
         return db.update(TABLE_LEADS,values,
                 KEY_ID + "=?",
@@ -185,9 +184,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //deleteLead will delete single lead from database
-    public  void deleteLead(Lead lead){
+    public void deleteLead(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_LEADS,KEY_ID +"=?",new String[]{String.valueOf(lead.getId())});
+        //db.delete(TABLE_LEADS,KEY_ID +"=?",new String[]{String.valueOf(lead.getId())});
+        String string = String.valueOf(id);
+        db.execSQL("DELETE FROM leads WHERE id= '" + string + "'");
         db.close();
     }
 

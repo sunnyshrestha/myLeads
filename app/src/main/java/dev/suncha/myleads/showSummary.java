@@ -1,5 +1,6 @@
 package dev.suncha.myleads;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,10 +49,10 @@ public class showSummary extends AppCompatActivity {
     private ArrayList<String> rating = new ArrayList<>();
 
     DisplayAdapter displayAdapter = new DisplayAdapter(showSummary.this, id, com_name, per_name, mobile, email, rating);
-    //private DatabaseHandler mHelper;
+
     private DatabaseHelper mHelper;
     private SQLiteDatabase dataBase;
-    private ArrayList<Integer> selectedItemsPosition = new ArrayList<Integer>();
+    private ArrayList<Long> selectedItemsPosition = new ArrayList<>();
 
 
 //    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -105,6 +107,7 @@ public class showSummary extends AppCompatActivity {
         setContentView(R.layout.view_previous_listview);
 
         setupToolbar();
+        selectedItemsPosition.clear();
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
 
@@ -122,7 +125,6 @@ public class showSummary extends AppCompatActivity {
             }
         });
 
-        //mHelper = new DatabaseHandler(this);
         mHelper = new DatabaseHelper(this);
 
         noLead.setVisibility(View.GONE);
@@ -152,6 +154,7 @@ public class showSummary extends AppCompatActivity {
         summary.setMultiChoiceModeListener(
                 new AbsListView.MultiChoiceModeListener() {
 
+                    @SuppressLint("LongLogTag")
                     @Override
                     public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                         //Here you can do something when items are selected/de-selected,
@@ -160,19 +163,18 @@ public class showSummary extends AppCompatActivity {
                         if (checkedCount > 1) {
                             mode.setTitle(checkedCount + " items selected");
                         } else if (checkedCount == 0) {
-
                         } else
                             mode.setTitle(checkedCount + " item selected");
 
                         if (checked) {
-                            selectedItemsPosition.add(position);
+                            selectedItemsPosition.add(id);
+                            Log.v("Added to selectedItemsPosition: ", String.valueOf(id));
                         } else {
                             for (int i = 0; i < selectedItemsPosition.size(); i++) {
-                                if (position == selectedItemsPosition.get(i))
+                                if (id == selectedItemsPosition.get(i))
                                     selectedItemsPosition.remove(i);
                             }
                         }
-
                     }
 
                     @Override
@@ -192,21 +194,27 @@ public class showSummary extends AppCompatActivity {
                     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                         //ConfirmDeleteFragment confirmDeleteFragment = new ConfirmDeleteFragment();
                         //Respond to clicks on the actions in the CAB
+
                         switch (item.getItemId()) {
                             case R.id.delete:
                                 //confirmDeleteFragment.show(fragmentManager, "Delete lead");
                                 //new deleteAsync().execute();
-
                                 //displayAdapter.remove(selectedItemsPosition.get(i));
                                 //mHelper.removeLead(selectedItemsPosition.get(i));
-
+                                for (int x = 0; x < selectedItemsPosition.size(); x++) {
+                                    long index = selectedItemsPosition.get(x);
+                                    Log.v("ID at position " + String.valueOf(x) + " of Arraylist ", " is " + String.valueOf(index));
+                                    //mHelper.deleteLead(index);
+                                    //Log.v("delete executed","DELETE");
+                                }
+                                //displayAdapter.notifyDataSetChanged();
                                 populateListView();
                                 mode.finish();
                                 return true;
 
                             case R.id.edit:
                                 Intent editLead = new Intent(getApplicationContext(), EditLeadActivity.class);
-                                editLead.putExtra("key", mHelper.colIndex(selectedItemsPosition.get(0)));
+                                //editLead.putExtra("key", mHelper.colIndex(selectedItemsPosition.get(0)));
                                 startActivity(editLead);
                                 mode.finish();
                                 return true;
@@ -306,18 +314,6 @@ public class showSummary extends AppCompatActivity {
         }
     }
 
-//    public void displayDialog() {
-//        progress = ProgressDialog.show(this, null, "Deleting item", true);
-//        new Thread() {
-//            public void run() {
-//                try {
-//                    Thread.sleep(800);
-//                    progress.dismiss();
-//                } catch (Exception e) {
-//                }
-//            }
-//        }.start();
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -359,7 +355,7 @@ public class showSummary extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             for (int a = selectedItemsPosition.size() - 1; a >= 0; a--) {
-                positionFromListview = selectedItemsPosition.get(a);
+                //positionFromListview = selectedItemsPosition.get(a);
                 displayAdapter.remove(positionFromListview);
                 //mHelper.removeLead(positionFromListview);
             }

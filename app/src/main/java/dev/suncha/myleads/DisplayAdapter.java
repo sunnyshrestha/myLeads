@@ -1,6 +1,7 @@
 package dev.suncha.myleads;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class DisplayAdapter extends BaseAdapter {
     private ArrayList<String> per_name;
     private ArrayList<String> mobile;
     private ArrayList<String> email;
+    private SparseBooleanArray mSelectedItemsIds;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
 
 
@@ -82,10 +84,14 @@ public class DisplayAdapter extends BaseAdapter {
     }
 
     public void remove(int index) {
-        com_name.remove(com_name.get(index));
-        per_name.remove(per_name.get(index));
-        mobile.remove(mobile.get(index));
-        email.remove(email.get(index));
+        com_name.remove(index);
+        per_name.remove(index);
+        mobile.remove(index);
+        email.remove(index);
+    }
+
+    public SparseBooleanArray getSelectedIds() {
+        return mSelectedItemsIds;
     }
 
     public class ListViewHolder {
