@@ -27,6 +27,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -50,7 +51,16 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".SearchActivity"
-            android:label="@string/title_activity_search"></activity>
+            android:label="@string/title_activity_search" />
+        <activity
+            android:name=".display_summary_contacts"
+            android:label="@string/title_activity_display_summary_contacts">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 7/3/2015.
@@ -33,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     //Database Name
     private static final String DATABASE_NAME = "myleads";
+    private final ArrayList<Lead> leads_list = new ArrayList<Lead>();
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -115,8 +115,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Need to write a for loop to go through each lead
 
     //Getting all leads
-    public List<Lead>getAllLeads(){
-        List<Lead> leadList=new ArrayList<Lead>();
+    public ArrayList<Lead> getAllLeads() {
+        ArrayList<Lead> leadList = new ArrayList<Lead>();
         //Select all query
         String selectQuery = "SELECT * FROM " + TABLE_LEADS;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -184,11 +184,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //deleteLead will delete single lead from database
-    public void deleteLead(long id) {
+    public void deleteLead(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         //db.delete(TABLE_LEADS,KEY_ID +"=?",new String[]{String.valueOf(lead.getId())});
-        String string = String.valueOf(id);
-        db.execSQL("DELETE FROM leads WHERE id= '" + string + "'");
+        db.delete(TABLE_LEADS, KEY_ID + " = ?",
+                new String[]{String.valueOf(id)});
         db.close();
     }
 

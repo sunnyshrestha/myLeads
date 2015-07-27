@@ -94,6 +94,7 @@
     <string name="reminderdatemismatchmessage">Reminder date should be before the follow up date</string>
     <string name="notset">Name not set</string>
     <string name="title_activity_search">Search Result</string>
+    <string name="title_activity_display_summary_contacts">Leads Summary</string>
 
 
 </resources>
