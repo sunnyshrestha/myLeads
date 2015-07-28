@@ -336,7 +336,8 @@ public class AddLeadDetail extends AppCompatActivity implements
                     follow_up.getText().toString(),
                     remarks.getText().toString()
             ));
-            Intent i = new Intent(this, showSummary.class);
+            //Intent i = new Intent(this, showSummary.class);
+            Intent i = new Intent(this,display_summary_contacts.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("snackbar", 1); //1 is for SAVED snackbar, 2 for saved changes snackbar
             startActivity(i);

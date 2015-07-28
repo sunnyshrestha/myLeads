@@ -288,7 +288,8 @@ public class EditLeadActivity extends AppCompatActivity implements
         editedLead.setRemarks(remarks.getText().toString());
         mHelper.updateLead(editedLead);
 
-        Intent i = new Intent(this, showSummary.class);
+        //Intent i = new Intent(this, showSummary.class);
+        Intent i = new Intent(this,display_summary_contacts.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("snackbar", 2);//1 or saved, 2 for saved changes
         startActivity(i);

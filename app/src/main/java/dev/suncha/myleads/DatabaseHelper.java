@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
     //Lead table name
     static final String TABLE_LEADS = "leads";
+
     //Lead Table Columns Names
     static final String KEY_ID = "id";
     static final String KEY_COMPANY_NAME = "companyname";
@@ -30,8 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String KEY_FOLLOWUP_DATE = "followupdate";
     static final String KEY_REMARKS = "remarks";
     private static final int DATABASE_VERSION = 1;
+
     //Database Name
     private static final String DATABASE_NAME = "myleads";
+
     private final ArrayList<Lead> leads_list = new ArrayList<Lead>();
 
     public DatabaseHelper(Context context) {
@@ -42,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LEADS_TABLE = "CREATE TABLE " + TABLE_LEADS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_COMPANY_NAME + " TEXT,"
                 + KEY_COMPANY_ADDRESS + " TEXT,"
                 + KEY_COMPANY_PHONE + " TEXT,"
@@ -99,61 +103,70 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_PERSON_PHONE, KEY_PERSON_EMAIL, KEY_PRODUCTS_DISCUSSED,
                         KEY_MEETING_DATE, KEY_FOLLOWUP_DATE, KEY_REMARKS}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
-        if(cursor!=null)
+        if (cursor != null)
             cursor.moveToFirst();
-        Lead lead = new Lead(Integer.parseInt(cursor.getString(0)),cursor.getString(1),
-                cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5 ),cursor.getString(6),
-                cursor.getString(7),cursor.getString(8),cursor.getString(9),cursor.getString(10),
-                cursor.getString(11),cursor.getString(12));
+        Lead lead = new Lead(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+                cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10),
+                cursor.getString(11), cursor.getString(12));
 
         //Return lead
         return lead;
     }
 
-    //getAllContacts() will return all contacts from databse in arraylist
+    //getAllContacts() will return all contacts from database in arraylist
     //format of Lead class type
     //Need to write a for loop to go through each lead
 
     //Getting all leads
     public ArrayList<Lead> getAllLeads() {
-        ArrayList<Lead> leadList = new ArrayList<Lead>();
-        //Select all query
-        String selectQuery = "SELECT * FROM " + TABLE_LEADS;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        try {
+            leads_list.clear();
+            //ArrayList<Lead> leadList = new ArrayList<Lead>();
+            //Select all query
+            String selectQuery = "SELECT * FROM " + TABLE_LEADS;
 
-        //Looping through all rows and adding to list
-        if(cursor.moveToFirst()){
-            do{
-                Lead lead=new Lead();
-                lead.setId(Integer.parseInt(cursor.getString(0)));
-                lead.setCompany_name(cursor.getString(1));
-                lead.setCompany_address(cursor.getString(2));
-                lead.setCompany_phone(cursor.getString(3));
-                lead.setCompany_web(cursor.getString(4));
-                lead.setPerson_name(cursor.getString(5));
-                lead.setPerson_designation(cursor.getString(6));
-                lead.setPerson_mobile(cursor.getString(7));
-                lead.setPerson_email(cursor.getString(8));
-                lead.setProduct_discussed(cursor.getString(9));
-                lead.setMeeting_date(cursor.getString(10));
-                lead.setFollowup_date(cursor.getString(11));
-                lead.setRemarks(cursor.getString(12));
-            }while (cursor.moveToNext());
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            //Looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    Lead lead = new Lead();
+                    lead.setId(Integer.parseInt(cursor.getString(0)));
+                    lead.setCompany_name(cursor.getString(1));
+                    lead.setCompany_address(cursor.getString(2));
+                    lead.setCompany_phone(cursor.getString(3));
+                    lead.setCompany_web(cursor.getString(4));
+                    lead.setPerson_name(cursor.getString(5));
+                    lead.setPerson_designation(cursor.getString(6));
+                    lead.setPerson_mobile(cursor.getString(7));
+                    lead.setPerson_email(cursor.getString(8));
+                    lead.setProduct_discussed(cursor.getString(9));
+                    lead.setMeeting_date(cursor.getString(10));
+                    lead.setFollowup_date(cursor.getString(11));
+                    lead.setRemarks(cursor.getString(12));
+                    //Adding lead to list
+                    leads_list.add(lead);
+                } while (cursor.moveToNext());
+            }
+            //Return lead list
+            cursor.close();
+            db.close();
+
+        } catch (Exception e) {
+            Log.e("getallLeads", "" + e);
         }
-
-        //Return lead list
-        return leadList;
+        return leads_list;
     }
 
     //Getting leads count
-    public int getLeadsCount(){
+    public int getLeadsCount() {
         String countQuery = "SELECT * FROM " + TABLE_LEADS;
-        SQLiteDatabase db= this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery,null);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
-
         //return count
         return count;
     }
@@ -161,8 +174,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //updateLead() will update single lead in database
     //This method accepts Lead class object as parameter
 
-    public  int updateLead(Lead lead){
-        SQLiteDatabase db=this.getWritableDatabase();
+    public int updateLead(Lead lead) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_COMPANY_NAME, lead.getCompany_name());
         values.put(KEY_COMPANY_ADDRESS, lead.getCompany_address());
@@ -178,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_REMARKS, lead.getRemarks());
 
         //updating row
-        return db.update(TABLE_LEADS,values,
+        return db.update(TABLE_LEADS, values,
                 KEY_ID + "=?",
                 new String[]{String.valueOf(lead.getId())});
     }
