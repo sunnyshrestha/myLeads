@@ -36,6 +36,7 @@ public class display_summary_contacts extends AppCompatActivity {
     FloatingActionButton fab;
     TextView noLead;
     CoordinatorLayout coordinatorLayout;
+    private ActionMode mode;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private ArrayList<Integer> IDcontainer = new ArrayList<>();
 
@@ -89,7 +90,6 @@ public class display_summary_contacts extends AppCompatActivity {
                                     IDcontainer.remove(i);
                             }
                         }
-
                     }
 
                     @Override
@@ -109,14 +109,15 @@ public class display_summary_contacts extends AppCompatActivity {
                     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete:
+                                DatabaseHelper databaseHelper = new DatabaseHelper(display_summary_contacts.this);
                                 for(int i=0;i<IDcontainer.size();i++){
-                                    db.deleteLead(IDcontainer.get(i));
+                                    databaseHelper.deleteLead(IDcontainer.get(i));
                                 }
                                 refreshData();
                                 mode.finish();
                                 return true;
                             case R.id.edit:
-                                Intent editLead = new Intent(getApplicationContext(), EditLeadActivity.class);
+                                Intent editLead = new Intent(display_summary_contacts.this, EditLeadActivity.class);
                                 startActivity(editLead);
                                 mode.finish();
                                 return true;
@@ -263,6 +264,7 @@ public class display_summary_contacts extends AppCompatActivity {
             holder.personname.setText(mlead.getPerson_name());
             holder.personphone.setText(mlead.getPerson_mobile());
             holder.personemail.setText(mlead.getPerson_email());
+
 
             return row;
         }
