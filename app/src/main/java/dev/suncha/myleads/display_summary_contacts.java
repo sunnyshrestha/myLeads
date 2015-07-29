@@ -83,6 +83,7 @@ public class display_summary_contacts extends AppCompatActivity {
 
                         if(checked){
                             IDcontainer.add((int) id);
+
                         }else {
                             for (int i = 0; i < IDcontainer.size(); i++) {
                                 if (position == IDcontainer.get(i))
